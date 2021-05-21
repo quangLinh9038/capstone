@@ -5,6 +5,6 @@ const router = Router();
 
 router.get('/', PlaceController.getAllPlaces)
     .post('/', PlaceController.createPlace)
-    .delete('/', PlaceController.deletePlace);
+    .delete('/:name', PlaceController.deletePlace);
 
 module.exports = router; 
