@@ -51,10 +51,12 @@ const PlaceController = {
   },
 
   deletePlace: async (req, res) => {
+
     try {
       const name = req.params.name;
       await Place.destroy({
         where: { name: name },
+        
       }).then((num) => {
         if (num == 1) {
           res.send({
