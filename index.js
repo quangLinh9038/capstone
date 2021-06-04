@@ -9,7 +9,7 @@ const placeRoutes = require('./routes/place.routes');
 const app = express();
 
 var corsOptions = {
-    origin: "http://localhost:8081"
+    origin: "http://localhost:3000"
   };
 
 app.use(cors(corsOptions));
@@ -20,6 +20,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use('/api/v1/places', placeRoutes);
 
+//test server
 app.get('/', (req, res) => {
     res.send("Hello");
 })
