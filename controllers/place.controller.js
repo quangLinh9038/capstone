@@ -26,14 +26,20 @@ const PlaceController = {
 
   // get main place
   getMainPlace: async (req, res) => {
-    // const params = req.params;
-    // console.log(params)
 
-    const sql = `SELECT *, ("isUrban" + "isShopping") AS point
+    const param1 = req.query.param1;
+    const param2 = req.query.param2;
+
+    let list = [param1, param2];
+    const subQuery = list.map(item => `"${item}"`).join("+")
+    console.log(subQuery); 
+
+    // let subQuery = list 
+    const sql = `SELECT *, ${subQuery} AS point
             FROM "Places"
             ORDER BY point DESC;`;
 
-    const mainPlaces = await sequelize.query(sql, {
+    const mainPlaces = await db.sequelize.query(sql, {
       type: QueryTypes.SELECT,
     });
 
@@ -62,7 +68,9 @@ const PlaceController = {
         }
       }
 
-      // whether jsonList is null
+      // if there is none of existed places
+      // create new places
+      // if not, return existed error messages
       if (Array.isArray(existedPlaceList) && !existedPlaceList.length) {
         // create list of places
         await Place.bulkCreate(newPlaces).then((data) => {
