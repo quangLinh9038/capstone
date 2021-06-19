@@ -1,7 +1,5 @@
 'use strict';
 
-const { update } = require("../models/place");
-
 module.exports = {
   up: async (queryInterface, Sequelize) => {
 

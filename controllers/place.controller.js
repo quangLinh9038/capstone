@@ -1,97 +1,95 @@
-const app = require("..");
-const Place = require("../models/place");
-const doQuery = require("../utils/doQuery")
-const { Sequelize, DataTypes, Model, QueryTypes } = require('sequelize');
-const { sequelize } = require("../models/place");
+const db = require("../models");
+const Op = db.Sequelize.Op;
 
-  
+const Place = require("../models/place.model");
+
+const { QueryTypes, json } = require("sequelize");
 const PlaceController = {
-
+  // get all Places
   getAllPlaces: async (req, res) => {
     try {
-
       const allPlaces = await Place.findAll();
 
-      if(allPlaces == null){
+      //check empty list
+      if (allPlaces == null) {
         return res.status(204).send({
           message: "Empty list",
-        })
+        });
       }
-      res.json(allPlaces)
-    
+
+      // response list of places
+      res.status(200).json(allPlaces);
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
   },
 
   // get main place
-  getMainPlace: async(req, res) => {
-
-    const params = req.params; 
-    console.log(params)
+  getMainPlace: async (req, res) => {
+    // const params = req.params;
+    // console.log(params)
 
     const sql = `SELECT *, ("isUrban" + "isShopping") AS point
             FROM "Places"
-            ORDER BY point DESC;`
-  
-    const mainPlaces = await sequelize.query(sql, 
-      {
-        type: QueryTypes.SELECT 
-      });
+            ORDER BY point DESC;`;
 
-      return res.send(mainPlaces);
+    const mainPlaces = await sequelize.query(sql, {
+      type: QueryTypes.SELECT,
+    });
+
+    return res.send(mainPlaces);
   },
 
-
+  //create new places
   createPlace: async (req, res) => {
     try {
 
-      const {name} = req.body;
-      console.log(name);
+      // check existed places
+      const newPlaces = req.body;
+      const existedPlaceList = [];
 
-      const existPlace = await Place.findOne({ where: { name: name } })
-      console.log(existPlace);
+      // check for each element of array places
+      // whether existed place
+      for (let i = 0; i < newPlaces.length; i++) {
+        const checkedName = newPlaces[i].name;
 
-      if (existPlace) {
-        return res.status(400).send({
-          
-          message: "Existed place",
-       
+        const existPlace = await Place.findOne({
+          where: { name: checkedName },
+        });
+        console.log(existPlace);
+
+        // push to existed list
+        if (existPlace) {
+          existedPlaceList.push(existPlace);
+        }
+      }
+
+      // convert place objects to json format
+      const jsonList = JSON.stringify(existedPlaceList);
+      console.log(jsonList);
+
+      if (jsonList != null) {
+        res.status(400).send({
+          message: "Places " + jsonList + " is existed",
         });
       };
-      
-      const newPlace =
-        {
-          name: req.body.name,
-          url: req.body.url,
-          img1: req.body.img1,
-          img2: req.body.img2,
-          isHistorical: req.body.isHistorical,
-          isUrban: req.body.isUrban,
-          isReligious: req.body.isReligious,
-          isMuseum: req.body.isMuseum,
-          isShopping: req.body.isShopping,
-          isAdventure: req.body.sAdventure,
-          isNature: req.body.isNature,
-          isPark: req.body.isPark,
-        }
-        
-      await Place.create(newPlace).then((data) => {
-        res.status(201).send(data);
-      });
 
+      // create list of places
+      await Place.bulkCreate(newPlaces).then((data) => {
+        return res.status(201).send(data);
+      });
+      // create Places
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
   },
 
   deletePlace: async (req, res) => {
-
     try {
       const name = req.params.name;
+
       await Place.destroy({
         where: { name: name },
-        
       }).then((num) => {
         if (num == 1) {
           res.send({
