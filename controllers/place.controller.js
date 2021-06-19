@@ -43,7 +43,6 @@ const PlaceController = {
   //create new places
   createPlace: async (req, res) => {
     try {
-
       // check existed places
       const newPlaces = req.body;
       const existedPlaceList = [];
@@ -56,29 +55,23 @@ const PlaceController = {
         const existPlace = await Place.findOne({
           where: { name: checkedName },
         });
-        console.log(existPlace);
 
         // push to existed list
         if (existPlace) {
-          existedPlaceList.push(existPlace);
+          existedPlaceList.push(existPlace.name);
         }
       }
 
-      // convert place objects to json format
-      const jsonList = JSON.stringify(existedPlaceList);
-      console.log(jsonList);
-
-      if (jsonList != null) {
-        res.status(400).send({
-          message: "Places " + jsonList + " is existed",
+      // whether jsonList is null
+      if (Array.isArray(existedPlaceList) && !existedPlaceList.length) {
+        // create list of places
+        await Place.bulkCreate(newPlaces).then((data) => {
+          return res.status(201).send(data);
         });
-      };
-
-      // create list of places
-      await Place.bulkCreate(newPlaces).then((data) => {
-        return res.status(201).send(data);
+      }
+      return res.status(400).send({
+        message: "Places " + "[ " + existedPlaceList + " ]" + " are existed",
       });
-      // create Places
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
@@ -105,6 +98,7 @@ const PlaceController = {
       return res.status(500).json({ msg: err.message });
     }
   },
+
 };
 
 module.exports = PlaceController;
