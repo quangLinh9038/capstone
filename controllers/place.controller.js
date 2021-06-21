@@ -1,9 +1,8 @@
 const db = require("../models");
 const Op = db.Sequelize.Op;
-
 const Place = require("../models/place.model");
+const { QueryTypes } = require("sequelize");
 
-const { QueryTypes, json } = require("sequelize");
 const PlaceController = {
   // get all Places
   getAllPlaces: async (req, res) => {
@@ -24,20 +23,20 @@ const PlaceController = {
     }
   },
 
-  // get main place
+  // get main places
   getMainPlace: async (req, res) => {
-
+    // get user params
     const param1 = req.query.param1;
     const param2 = req.query.param2;
 
+    // mapping params as a sub-query string
     let list = [param1, param2];
-    const subQuery = list.map(item => `"${item}"`).join("+")
-    console.log(subQuery); 
+    const subQuery = list.map((item) => `"${item}"`).join("+");
+    console.log(subQuery);
 
-    // let subQuery = list 
     const sql = `SELECT *, ${subQuery} AS point
             FROM "Places"
-            ORDER BY point DESC;`;
+            ORDER BY point DESC LIMIT 5;`;
 
     const mainPlaces = await db.sequelize.query(sql, {
       type: QueryTypes.SELECT,
@@ -77,6 +76,7 @@ const PlaceController = {
           return res.status(201).send(data);
         });
       }
+      // else
       return res.status(400).send({
         message: "Places " + "[ " + existedPlaceList + " ]" + " are existed",
       });
@@ -85,6 +85,7 @@ const PlaceController = {
     }
   },
 
+  // delete places
   deletePlace: async (req, res) => {
     try {
       const name = req.params.name;
@@ -107,6 +108,11 @@ const PlaceController = {
     }
   },
 
+  //update places
+  updatePlace: async (req, res) => {
+    try {
+    } catch (error) {}
+  },
 };
 
 module.exports = PlaceController;

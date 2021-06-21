@@ -4,7 +4,7 @@ const cors = require('cors')
 
 const port = process.env.PORT; 
 const placeRoutes = require('./routes/place.routes');
-const db = require("./models");
+const accommodationRoutes = require('./routes/accommodation.route');
 
 const app = express();
 
@@ -13,11 +13,13 @@ var corsOptions = {
   };
 
 app.use(cors(corsOptions));
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+// Routes
 app.use('/api/v1/places', placeRoutes);
+app.use('/api/v1/accommodations', accommodationRoutes)
+
 
 // //sequelize sync
 // db.sequelize.sync({force: true})
@@ -25,9 +27,17 @@ app.use('/api/v1/places', placeRoutes);
 //       console.log("Drop and re-sync database.")
 //   })
 
-//test server
+// testing database connection 
+const db = require('./models');
+db.sequelize.authenticate().then(() => {
+    console.log('Database connected...');
+}).catch(err => {
+    console.log('Error: ' + err);
+})
+
+// testing server
 app.get('/', (req, res) => {
-    res.send("Hello");
+    res.send("Server on air!!!");
 })
 
 

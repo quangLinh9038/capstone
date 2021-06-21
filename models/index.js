@@ -1,14 +1,15 @@
-const dbConfig = require("../config/db.config");
-
+const config = require("../config/config");
 const { Sequelize } = require('sequelize');
+
 const sequelize = new Sequelize(
-  dbConfig.development.database,
-  dbConfig.development.username,
-  dbConfig.development.password,
+  config.development.database,
+  config.development.username,
+  config.development.password,
   {
-    host: dbConfig.development.host,
-    dialect: "postgres",
+    host: config.development.host,
+    dialect: config.development.dialect,
     operatorAliases: false,
+    // logging: false
   }
 );
 
