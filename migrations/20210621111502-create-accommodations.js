@@ -1,4 +1,3 @@
-'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('Accommodations', {
@@ -6,55 +5,55 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       url: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       img: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       district: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       location: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       score: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       price: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       features: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       is3Stars: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       is4Stars: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       is5Stars: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       isHomestay: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
-  down: async (queryInterface, Sequelize) => {
+  down: async (queryInterface) => {
     await queryInterface.dropTable('Accommodations');
-  }
+  },
 };

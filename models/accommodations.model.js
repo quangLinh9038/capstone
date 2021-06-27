@@ -1,46 +1,48 @@
-const db = require("../models");
-const { DataTypes, Model } = require("sequelize");
+// const { DataTypes } = require('sequelize');
+// const db = require('.');
+module.exports = (sequelize, DataTypes) => {
+  const Accommodation = sequelize.define('Accommodations', {
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    url: {
+      type: DataTypes.TEXT,
+    },
+    img: {
+      type: DataTypes.TEXT,
+    },
+    district: {
+      type: DataTypes.STRING,
+    },
+    location: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    score: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    price: {
+      type: DataTypes.STRING,
+    },
+    features: {
+      type: DataTypes.STRING,
+    },
+    is3Stars: {
+      type: DataTypes.INTEGER,
+    },
+    is4Stars: {
+      type: DataTypes.INTEGER,
+    },
+    is5Stars: {
+      type: DataTypes.INTEGER,
+    },
+    isHomestay: {
+      type: DataTypes.INTEGER,
+    },
+  });
+  return Accommodation;
+};
 
-const Accommodation = db.sequelize.define("Accommodations", {
-  name: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  url: {
-    type: DataTypes.STRING,
-  },
-  img: {
-    type: DataTypes.STRING,
-  },
-  district: {
-    type: DataTypes.STRING,
-  },
-  location: {
-    type: DataTypes.INTEGER,
-  },
-  score: {
-    type: DataTypes.INTEGER,
-  },
-  price: {
-    type: DataTypes.INTEGER,
-  },
-  features: {
-    type: DataTypes.INTEGER,
-  },
-  is3Stars: {
-    type: DataTypes.INTEGER,
-  },
-  is4Stars: {
-    type: DataTypes.INTEGER,
-  },
-  is5Stars: {
-    type: DataTypes.INTEGER,
-  },
-  isHomestay: {
-    type: DataTypes.INTEGER,
-  },
-});
-
-module.exports = Accommodation; 
-
-
+// module.exports = Accommodation;
