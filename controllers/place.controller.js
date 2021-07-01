@@ -1,23 +1,24 @@
-const db = require("../models");
-const Op = db.Sequelize.Op;
-const Place = require("../models/place.model");
-const { QueryTypes } = require("sequelize");
+const { QueryTypes } = require('sequelize');
+const db = require('../models');
+// import Place model
+const { Place } = db;
+
+// const { Op } = db.Sequelize.Op;
 
 const PlaceController = {
   // get all Places
   getAllPlaces: async (req, res) => {
     try {
       const allPlaces = await Place.findAll();
-
-      //check empty list
-      if (allPlaces == null) {
+      // check empty list
+      if (allPlaces === null) {
         return res.status(204).send({
-          message: "Empty list",
+          message: 'Places are empty!',
         });
       }
 
       // response list of places
-      res.status(200).json(allPlaces);
+      return res.status(200).json(allPlaces);
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
@@ -25,27 +26,31 @@ const PlaceController = {
 
   // get main places
   getMainPlace: async (req, res) => {
-    // get user params
-    const param1 = req.query.param1;
-    const param2 = req.query.param2;
+    try {
+      // get user params
+      // from API by user's request
+      const { param1, param2, param3 } = req.query;
 
-    // mapping params as a sub-query string
-    let list = [param1, param2];
-    const subQuery = list.map((item) => `"${item}"`).join("+");
-    console.log(subQuery);
+      // mapping params as a sub-query string
+      const list = [param1, param2, param3];
+      const subQuery = list.map((item) => `"${item}"`).join('+');
+      console.log(subQuery);
 
-    const sql = `SELECT *, ${subQuery} AS point
-            FROM "Places"
+      const sql = `SELECT *, ${subQuery} AS point
+            FROM "Place"
             ORDER BY point DESC LIMIT 5;`;
 
-    const mainPlaces = await db.sequelize.query(sql, {
-      type: QueryTypes.SELECT,
-    });
+      const mainPlaces = await db.sequelize.query(sql, {
+        type: QueryTypes.SELECT,
+      });
 
-    return res.send(mainPlaces);
+      return res.send(mainPlaces);
+    } catch (error) {
+      return res.status(500).json({ msg: error.message });
+    }
   },
 
-  //create new places
+  // create new places
   createPlace: async (req, res) => {
     try {
       // check existed places
@@ -54,9 +59,10 @@ const PlaceController = {
 
       // check for each element of array places
       // whether existed place
-      for (let i = 0; i < newPlaces.length; i++) {
+      for (let i = 0; i < newPlaces.length; i += 1) {
         const checkedName = newPlaces[i].name;
 
+        // eslint-disable-next-line no-await-in-loop
         const existPlace = await Place.findOne({
           where: { name: checkedName },
         });
@@ -72,13 +78,14 @@ const PlaceController = {
       // if not, return existed error messages
       if (Array.isArray(existedPlaceList) && !existedPlaceList.length) {
         // create list of places
-        await Place.bulkCreate(newPlaces).then((data) => {
-          return res.status(201).send(data);
-        });
+        await Place.bulkCreate(newPlaces).then((data) => res.status(201).send(data));
       }
-      // else
+
+      console.log(newPlaces);
+      // INSERT query to Neo4j
+      // IMPORT json
       return res.status(400).send({
-        message: "Places " + "[ " + existedPlaceList + " ]" + " are existed",
+        message: `Places [ ${existedPlaceList} ] are existed`,
       });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
@@ -86,32 +93,48 @@ const PlaceController = {
   },
 
   // delete places
-  deletePlace: async (req, res) => {
+  // eslint-disable-next-line consistent-return
+  async deletePlace(req, res) {
     try {
-      const name = req.params.name;
+      const { name } = req.params;
 
       await Place.destroy({
-        where: { name: name },
+        where: { name },
       }).then((num) => {
-        if (num == 1) {
-          res.send({
-            message: "Deleted",
-          });
-        } else {
-          res.send({
-            message: "Error with name=${name}",
+        if (num === 1) {
+          return res.send({
+            message: 'Deleted',
           });
         }
+        return res.send({
+          message: `Error with ${name}`,
+        });
       });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
   },
 
-  //update places
-  updatePlace: async (req, res) => {
+  // update places
+  // eslint-disable-next-line consistent-return
+  async updatePlace(req, res) {
     try {
-    } catch (error) {}
+      const { id } = req.params;
+      await Place.update(req.body, {
+        where: { id },
+      }).then((num) => {
+        if (num === 1) {
+          return res.send({
+            message: 'Place was updated successfully.',
+          });
+        }
+        return res.send({
+          message: `Cannot update Place with id=${id}. Maybe Place was not found or empty!`,
+        });
+      });
+    } catch (err) {
+      return res.status(500).json({ msg: err.message });
+    }
   },
 };
 

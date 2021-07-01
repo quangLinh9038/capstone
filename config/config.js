@@ -7,24 +7,24 @@ module.exports = {
   development: {
     username: DB_USERNAME,
     password: DB_PASSWORD,
-    database: "trips",
+    database: 'trips',
     host: DB_HOST,
-    dialect: "postgres",
+    dialect: 'postgres',
   },
 
   test: {
     username: DB_USERNAME,
     password: DB_PASSWORD,
-    database: "database_test",
+    database: 'database_test',
     host: DB_HOST,
-    dialect: "postgres"
+    dialect: 'postgres',
   },
 
   production: {
     username: DB_USERNAME,
     password: DB_PASSWORD,
-    database: "database_production",
+    database: 'database_production',
     host: DB_HOST,
-    dialect: "postgres"
-  }
-}
+    dialect: 'postgres',
+  },
+};
