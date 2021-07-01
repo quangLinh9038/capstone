@@ -1,16 +1,17 @@
 const { QueryTypes } = require('sequelize');
 const db = require('../models');
-console.log('DATABASE');
-console.log(db);
-// const Op = db.Sequelize.Op;
+// import Place model
+const { Place } = db;
+
+// const { Op } = db.Sequelize.Op;
 
 const PlaceController = {
   // get all Places
   getAllPlaces: async (req, res) => {
     try {
-      const allPlaces = await db.places.
+      const allPlaces = await Place.findAll();
       // check empty list
-      if (allPlaces == null) {
+      if (allPlaces === null) {
         return res.status(204).send({
           message: 'Places are empty!',
         });
@@ -27,15 +28,16 @@ const PlaceController = {
   getMainPlace: async (req, res) => {
     try {
       // get user params
-      const { param1, param2 } = req.query;
+      // from API by user's request
+      const { param1, param2, param3 } = req.query;
 
       // mapping params as a sub-query string
-      const list = [param1, param2];
+      const list = [param1, param2, param3];
       const subQuery = list.map((item) => `"${item}"`).join('+');
       console.log(subQuery);
 
       const sql = `SELECT *, ${subQuery} AS point
-            FROM "Places"
+            FROM "Place"
             ORDER BY point DESC LIMIT 5;`;
 
       const mainPlaces = await db.sequelize.query(sql, {

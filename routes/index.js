@@ -6,7 +6,7 @@ routes.use('/places', placesRoute);
 routes.use('/accommodations', accommodationsRoute);
 
 routes.get('/', (req, res) => {
-  res.status(200).json({ message: 'Server responded!' });
+  res.status(200).json({ message: 'Server connected!' });
 });
 
 module.exports = routes;

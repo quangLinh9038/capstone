@@ -1,4 +1,6 @@
-const Accommodation = require('../models/accommodations.model');
+const db = require('../models');
+
+const { Accommodation } = db;
 
 const AccommodationController = {
   // get all accommodations
@@ -15,11 +17,10 @@ const AccommodationController = {
   },
 
   // get matched accommodations with user's interests
-  getInterestedAccommodations: async (req, res) => {
+  getNearestAccommodations: async (req, res) => {
     try {
-
       // return here
-    } catch (error) {
+} catch (error) {
       return res.status(500).json({
         message: error.message,
       });
