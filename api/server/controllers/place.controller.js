@@ -1,22 +1,18 @@
-const { QueryTypes } = require('sequelize');
-const db = require('../models');
-// import Place model
-const { Place } = db;
+const PlaceService = require('../service/place.service');
 
 // const { Op } = db.Sequelize.Op;
-
 const PlaceController = {
   // get all Places
   getAllPlaces: async (req, res) => {
     try {
-      const allPlaces = await Place.findAll();
+      const allPlaces = await PlaceService.getAllPlaces();
+
       // check empty list
       if (allPlaces === null) {
         return res.status(204).send({
           message: 'Places are empty!',
         });
       }
-
       // response list of places
       return res.status(200).json(allPlaces);
     } catch (err) {
@@ -24,27 +20,18 @@ const PlaceController = {
     }
   },
 
-  // get main places
-  getMainPlace: async (req, res) => {
+  // get landmark places matched with user's interests
+  getLandmarkPlaces: async (req, res) => {
     try {
       // get user params
       // from API by user's request
       const { param1, param2, param3 } = req.query;
 
       // mapping params as a sub-query string
-      const list = [param1, param2, param3];
-      const subQuery = list.map((item) => `"${item}"`).join('+');
-      console.log(subQuery);
+      const paramList = [param1, param2, param3];
 
-      const sql = `SELECT *, ${subQuery} AS point
-            FROM "Place"
-            ORDER BY point DESC LIMIT 5;`;
-
-      const mainPlaces = await db.sequelize.query(sql, {
-        type: QueryTypes.SELECT,
-      });
-
-      return res.send(mainPlaces);
+      const landmarkPlaces = await PlaceService.getLandmarkPlaces(paramList);
+      return res.send(landmarkPlaces);
     } catch (error) {
       return res.status(500).json({ msg: error.message });
     }
@@ -61,11 +48,9 @@ const PlaceController = {
       // whether existed place
       for (let i = 0; i < newPlaces.length; i += 1) {
         const checkedName = newPlaces[i].name;
-
         // eslint-disable-next-line no-await-in-loop
-        const existPlace = await Place.findOne({
-          where: { name: checkedName },
-        });
+        const existPlace = await PlaceService.getOnePlace(checkedName);
+        console.log(`places existed: ${existPlace}`);
 
         // push to existed list
         if (existPlace) {
@@ -78,10 +63,9 @@ const PlaceController = {
       // if not, return existed error messages
       if (Array.isArray(existedPlaceList) && !existedPlaceList.length) {
         // create list of places
-        await Place.bulkCreate(newPlaces).then((data) => res.status(201).send(data));
+        await PlaceService.createPlaces(newPlaces).then((data) => res.status(201).send(data));
       }
 
-      console.log(newPlaces);
       // INSERT query to Neo4j
       // IMPORT json
       return res.status(400).send({
@@ -95,20 +79,18 @@ const PlaceController = {
   // delete places
   // eslint-disable-next-line consistent-return
   async deletePlace(req, res) {
-    try {
-      const { name } = req.params;
+    const { name } = req.params;
 
-      await Place.destroy({
-        where: { name },
-      }).then((num) => {
-        if (num === 1) {
-          return res.send({
-            message: 'Deleted',
-          });
-        }
-        return res.send({
-          message: `Error with ${name}`,
+    try {
+      const placeToDelete = await PlaceService.deletePlace(name);
+
+      if (placeToDelete) {
+        return res.status(200).send({
+          message: `Place: ${name} has been deleted successfully`,
         });
+      }
+      return res.status(404).send({
+        message: `Place: ${name} not found`,
       });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
@@ -118,20 +100,21 @@ const PlaceController = {
   // update places
   // eslint-disable-next-line consistent-return
   async updatePlace(req, res) {
+    const updatePlace = req.body;
+    console.log(updatePlace);
+    const { id } = req.params;
+
     try {
-      const { id } = req.params;
-      await Place.update(req.body, {
-        where: { id },
-      }).then((num) => {
-        if (num === 1) {
-          return res.send({
-            message: 'Place was updated successfully.',
-          });
-        }
-        return res.send({
-          message: `Cannot update Place with id=${id}. Maybe Place was not found or empty!`,
-        });
-      });
+      const placeToUpdate = await PlaceService.updatePlace(id, updatePlace);
+
+      if (!placeToUpdate) {
+        return res
+          .status(404)
+          .send({ message: `Place with ${id} not found!` });
+      }
+      return res
+        .status(200)
+        .send({ message: `Place with ${id} is updated successfully` });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }

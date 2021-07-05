@@ -2,9 +2,12 @@ const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
   class Place extends Model {
-    // static associate(models) {
-    //   // define association here
-    // }
+    static associate(models) {
+      Place.belongsTo(models.City, {
+        foreignKey: 'city_id',
+        as: 'city',
+      });
+    }
   }
 
   Place.init(
@@ -46,10 +49,12 @@ module.exports = (sequelize, DataTypes) => {
       isPark: {
         type: DataTypes.INTEGER,
       },
+      city_id: DataTypes.INTEGER,
     },
     {
       sequelize,
       modelName: 'Place',
+      freezeTableName: true,
     },
   );
   return Place;

@@ -1,12 +1,10 @@
-const db = require('../models');
-
-const { Accommodation } = db;
+const AccommodationService = require('../service/accommodation.service');
 
 const AccommodationController = {
   // get all accommodations
   getAllAccommodations: async (req, res) => {
     try {
-      const allAccommodations = await Accommodation.findAll();
+      const allAccommodations = await AccommodationService.getAllAccommodations();
 
       return res.status(200).json(allAccommodations);
     } catch (error) {
@@ -20,7 +18,7 @@ const AccommodationController = {
   getNearestAccommodations: async (req, res) => {
     try {
       // return here
-} catch (error) {
+    } catch (error) {
       return res.status(500).json({
         message: error.message,
       });
@@ -35,11 +33,13 @@ const AccommodationController = {
 
       if (!newAccommodations.length) {
         return res.status(400).send({
-          message: 'Empty list',
+          message: 'Not found any accommodation!',
         });
       }
 
-      await Accommodation.bulkCreate(newAccommodations).then((data) => res.status(201).send(data));
+      return await AccommodationService.createAccommodations(newAccommodations).then(
+        (data) => res.status(201).send(data),
+      );
     } catch (error) {
       return res.status(500).json({
         message: error.message,
@@ -49,7 +49,7 @@ const AccommodationController = {
 
   deleteAllAccommodations: async (req, res) => {
     try {
-      const accommodations = await Accommodation.findAll();
+      const accommodations = await AccommodationService.getAllAccommodations();
 
       if (!accommodations.length) {
         return res.status(400).send({
@@ -57,7 +57,7 @@ const AccommodationController = {
         });
       }
 
-      await Accommodation.destroy({ where: {} }).then(() => res.status(200).send({
+      return await AccommodationService.deleteAllAccommodations().then(() => res.status(200).send({
         message: 'Deleted all accommodations!',
       }));
     } catch (error) {
