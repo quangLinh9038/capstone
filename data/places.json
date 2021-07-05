@@ -12,7 +12,8 @@
     "isShopping": 1,
     "isAdventure": 0,
     "isNature": 0,
-    "isPark": 0
+    "isPark": 0,
+    "city_id": 1
   },
   {
     "name": "Temple of Literature & National University",

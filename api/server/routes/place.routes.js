@@ -5,7 +5,7 @@ const placeRoutes = Router();
 
 placeRoutes
   .get('/', PlaceController.getAllPlaces)
-  .get('/mainPlaces', PlaceController.getMainPlace)
+  .get('/mainPlaces', PlaceController.getLandmarkPlaces)
   .post('/', PlaceController.createPlace)
   .delete('/:name', PlaceController.deletePlace)
   .put('/:id', PlaceController.updatePlace);
