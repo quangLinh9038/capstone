@@ -55,18 +55,6 @@ const PlaceController = {
   //   }
   // },
 
-  createPlaceInNeo4j: async (req, res) => {
-    try {
-      const properties = req.body;
-
-      const result = await PlaceNeo4j.createPlace(properties);
-
-      return res.status(200).json(result);
-    } catch (error) {
-      return res.status(500).json({ msg: error.message });
-    }
-  },
-
   // create new places
   createPlace: async (req, res) => {
     try {
