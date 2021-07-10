@@ -1,5 +1,5 @@
-const { QueryTypes } = require('sequelize');
-const db = require('../src/models');
+const { QueryTypes } = require("sequelize");
+const db = require("../src/models");
 
 const { Place } = db;
 const { City } = db;
@@ -9,10 +9,12 @@ const PlaceService = {
   getAllPlaces: async () => {
     try {
       return await Place.findAll({
-        includes: [{
-          model: City,
-          as: 'city',
-        }],
+        includes: [
+          {
+            model: City,
+            as: "city",
+          },
+        ],
       });
     } catch (error) {
       return error;
@@ -41,7 +43,7 @@ const PlaceService = {
 
   getLandmarkPlaces: async (paramList) => {
     try {
-      const subQuery = paramList.map((item) => `"${item}"`).join('+');
+      const subQuery = paramList.map((item) => `"${item}"`).join("+");
 
       const sql = `SELECT *, ${subQuery} AS point
               FROM "Place"
@@ -84,6 +86,14 @@ const PlaceService = {
         return updatedPlace;
       }
       return null;
+    } catch (error) {
+      return error;
+    }
+  },
+
+  deleteAllPlaces: async () => {
+    try {
+      return await Place.destroy({ where: {} });
     } catch (error) {
       return error;
     }

@@ -1,4 +1,4 @@
-const { Model } = require('sequelize');
+const { Model } = require("sequelize");
 
 module.exports = (sequelize, DataTypes) => {
   class City extends Model {
@@ -9,8 +9,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       City.hasMany(models.Place, {
-        foreignKey: 'city_id',
-        as: 'places',
+        foreignKey: "city_id",
+        as: "places",
       });
     }
   }
@@ -22,9 +22,9 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: 'City',
+      modelName: "City",
       freezeTableName: true,
-    },
+    }
   );
   return City;
 };

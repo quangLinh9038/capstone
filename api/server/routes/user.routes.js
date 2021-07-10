@@ -5,6 +5,6 @@ const userRoutes = Router();
 
 userRoutes
   .get('/', UserController.getAllUsers)
-  .post('/', UserController.createUser)
+  .post('/', UserController.createUser);
 
 module.exports = userRoutes;

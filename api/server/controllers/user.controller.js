@@ -1,8 +1,8 @@
-const { QueryTypes } = require('sequelize');
-const db = require('../models');
-// import Place model
+const db = require('../src/models');
+
 const { user } = db;
-const {Interest} = db
+const { Interest } = db;
+
 
 // const { Op } = db.Sequelize.Op;
 
@@ -10,10 +10,11 @@ const UserController = {
   getAllUsers: async (req, res) => {
     try {
       const allUsers = await user.findAll({
-          include: [{
-              model: Interest,
-              as: 'interests'
-          }]
+        include: [{
+          model: Interest,
+          as: 'interests',
+        }],
+
       });
       // check empty list
       if (allUsers === null) {
@@ -48,7 +49,9 @@ const UserController = {
 
         // push to existed list
         if (existUser) {
-            existedUserList.push(existUser.name);
+
+          existedUserList.push(existUser.name);
+
         }
       }
 
