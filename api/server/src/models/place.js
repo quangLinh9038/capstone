@@ -1,11 +1,11 @@
-const { Model } = require('sequelize');
+const { Model } = require("sequelize");
 
 module.exports = (sequelize, DataTypes) => {
   class Place extends Model {
     static associate(models) {
       Place.belongsTo(models.City, {
-        foreignKey: 'city_id',
-        as: 'city',
+        foreignKey: "city_id",
+        as: "city",
       });
     }
   }
@@ -19,10 +19,10 @@ module.exports = (sequelize, DataTypes) => {
       url: {
         type: DataTypes.STRING,
       },
-      img1: {
+      category: {
         type: DataTypes.STRING,
       },
-      img2: {
+      img: {
         type: DataTypes.STRING,
       },
       isHistorical: {
@@ -49,13 +49,19 @@ module.exports = (sequelize, DataTypes) => {
       isPark: {
         type: DataTypes.INTEGER,
       },
+      lat: {
+        type: DataTypes.FLOAT,
+      },
+      lng: {
+        type: DataTypes.FLOAT,
+      },
       city_id: DataTypes.INTEGER,
     },
     {
       sequelize,
-      modelName: 'Place',
+      modelName: "Place",
       freezeTableName: true,
-    },
+    }
   );
   return Place;
 };
