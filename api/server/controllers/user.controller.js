@@ -3,6 +3,7 @@ const db = require('../src/models');
 const { user } = db;
 const { Interest } = db;
 
+
 // const { Op } = db.Sequelize.Op;
 
 const UserController = {
@@ -13,6 +14,7 @@ const UserController = {
           model: Interest,
           as: 'interests',
         }],
+
       });
       // check empty list
       if (allUsers === null) {
@@ -47,7 +49,9 @@ const UserController = {
 
         // push to existed list
         if (existUser) {
+
           existedUserList.push(existUser.name);
+
         }
       }
 

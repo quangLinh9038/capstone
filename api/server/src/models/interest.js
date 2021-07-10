@@ -6,6 +6,7 @@ module.exports = (sequelize, DataTypes) => {
       Interest.belongsTo(models.User, {
         foreignKey: 'user_id',
         as: 'user',
+
       });
     }
   }

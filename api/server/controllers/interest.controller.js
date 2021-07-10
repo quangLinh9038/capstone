@@ -13,6 +13,7 @@ const InterestController = {
           model: user,
           as: 'user',
         }],
+
       });
       // check empty list
       if (allInterests === null) {
@@ -72,3 +73,4 @@ const InterestController = {
 };
 
 module.exports = InterestController;
+
