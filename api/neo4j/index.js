@@ -9,6 +9,7 @@ const neode = require("neode")
   .with({
     // eslint-disable-next-line global-require
     Place: require("./neo4j-models/Place"),
+    Accommodation: require("./neo4j-models/Accommodation"),
   });
 
 module.exports = neode;
