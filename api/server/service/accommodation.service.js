@@ -12,6 +12,17 @@ const AccommodationService = {
     }
   },
 
+  // get a accommodation by name
+  getOneAccommodation: async (checkedName) => {
+    try {
+      return await Accommodation.findOne({
+        where: { name: checkedName },
+      });
+    } catch (error) {
+      return error;
+    }
+  },
+
   createAccommodations: async (newAccommodations) => {
     try {
       return await Accommodation.bulkCreate(newAccommodations);

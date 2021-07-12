@@ -1,5 +1,5 @@
 const AccommodationService = require("../service/accommodation.service");
-
+const AccommodationNeo4j = require("../../neo4j/neo4j-api/accommodation.neo4j");
 const AccommodationController = {
   // get all accommodations
   getAllAccommodations: async (req, res) => {
@@ -28,23 +28,52 @@ const AccommodationController = {
 
   createAccommodations: async (req, res) => {
     try {
-      const newAccommodations = req.body;
+      // check existed accoms
+      const newAccomms = req.body;
+      const existedAccommList = [];
 
-      // todo: check existed accommodations
+      // check for each element of array accomms
+      // whether existed accomm
+      for (let i = 0; i < newAccomms.length; i += 1) {
+        const checkedName = newAccomms[i].name;
+        // eslint-disable-next-line no-await-in-loop
+        const existAccomm = await AccommodationService.getOneAccommodation(checkedName);
 
-      if (!newAccommodations.length) {
-        return res.status(400).send({
-          message: "Not found any accommodation!",
-        });
+        // push to existed list containing accommodation.name
+        if (existAccomm) {
+          existedAccommList.push(existAccomm.name);
+        }
       }
 
-      return await AccommodationService.createAccommodations(
-        newAccommodations
-      ).then((data) => res.status(201).send(data));
-    } catch (error) {
-      return res.status(500).json({
-        message: error.message,
+      /**
+       * if there is none of existed accomms
+       * create new accomms
+       * if not, return existed error messages
+       */
+
+      if (Array.isArray(existedAccommList) && !existedAccommList.length) {
+        /**
+         * Use sequelize create() method
+         * to POST data of accomms to Postgres
+        */
+        await AccommodationService.createAccommodations(newAccomms);
+
+        /**
+         * Use neode to create nodes from JSON request
+         * @param {props} properties of Accommodation nodes containing {name, lat, lng}
+         *
+         * forEach() objects in newAccomms list
+         */
+        await newAccomms.forEach((props) => AccommodationNeo4j.createAccomodation(props));
+
+        // return results
+        return res.status(200).json(newAccomms);
+      }
+      return res.status(400).send({
+        message: `Accommodations [ ${existedAccommList} ] are existed`,
       });
+    } catch (err) {
+      return res.status(500).json({ msg: err.message });
     }
   },
 
