@@ -39,34 +39,6 @@ const PlaceController = {
     }
   },
 
-  // createOnePlace: async (req, res) => {
-  //   try {
-  //     // const newPlace = req.body;
-
-  //     // await PlaceService.createPlaces(newPlace).then((data) =>
-  //     //   res.status(200).send(data)
-  //     // );
-
-  //     // add place via neo4j
-  //     const result = await neo4j.addPlace(req.body);
-  //     res.json(result);
-  //   } catch (error) {
-  //     return res.status(500).json({ msg: error.message });
-  //   }
-  // },
-
-  createPlaceInNeo4j: async (req, res) => {
-    try {
-      const properties = req.body;
-
-      const result = await PlaceNeo4j.createPlace(properties);
-
-      return res.status(200).json(result);
-    } catch (error) {
-      return res.status(500).json({ msg: error.message });
-    }
-  },
-
   // create new places
   createPlace: async (req, res) => {
     try {
@@ -97,7 +69,7 @@ const PlaceController = {
         /**
          * Use sequelize create() method
          * to POST data of places to Postgres
-        */
+         */
         await PlaceService.createPlaces(newPlaces);
 
         /**
