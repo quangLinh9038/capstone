@@ -7,7 +7,6 @@ placeRoutes
   .get("/", PlaceController.getAllPlaces)
   .get("/mainPlaces", PlaceController.getLandmarkPlaces)
   .post("/", PlaceController.createPlace)
-  .post("/addNeode", PlaceController.createPlaceInNeo4j)
   .delete("/:name", PlaceController.deletePlace)
   .delete("/", PlaceController.deleteAllPlace)
   .put("/:id", PlaceController.updatePlace);
