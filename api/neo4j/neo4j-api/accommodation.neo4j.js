@@ -10,8 +10,9 @@ const AccommodationNeo4jService = {
     await neode.all("Accommodation");
   },
 
-  createAccomodation: async (properties) => {
-    // CREAT (p:Place)
+  createAccommodation: async (properties) => {
+    // Cypher:
+    // CREATE (a:Accommodation {properties}) RETURN a
     await neode.create("Accommodation", properties);
   },
 };

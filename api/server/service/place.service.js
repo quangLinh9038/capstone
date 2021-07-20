@@ -43,8 +43,19 @@ const PlaceService = {
 
   getLandmarkPlaces: async (paramList) => {
     try {
+      /**
+       * @param {paramList}: query params from users
+       *
+       * Create new sub-quey array from param list
+       * adding "+" between elements of paramList
+       */
       const subQuery = paramList.map((item) => `"${item}"`).join("+");
 
+      /**
+       * Create SQL query to Postgres db
+       *
+       * SQL: GET all Place that has most point matched with query params
+       */
       const sql = `SELECT *, ${subQuery} AS point
               FROM "Place"
               ORDER BY point DESC LIMIT 5;`;
