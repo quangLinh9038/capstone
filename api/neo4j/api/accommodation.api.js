@@ -15,6 +15,13 @@ const AccommodationNeo4jService = {
     // CREATE (a:Accommodation {properties}) RETURN a
     await neode.create("Accommodation", properties);
   },
+
+  deleteAllAccomms: async () => {
+    // DELETE (a:Accommodation) DETACH DELETE a;
+    await neode
+      .deleteAll("Accommodation")
+      .then(() => console.log("Delete all Accommodation nodes!!!"));
+  },
 };
 
 module.exports = AccommodationNeo4jService;

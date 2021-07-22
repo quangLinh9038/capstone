@@ -12,7 +12,7 @@ const corsOptions = {
   origin: "http://localhost:3001",
 };
 
-// database connection
+// database connection authentication
 db.sequelize
   .authenticate()
   .then(() => {

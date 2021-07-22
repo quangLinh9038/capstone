@@ -1,10 +1,10 @@
 require("dotenv").config();
 
-const { PG_NAME, PG_HOST, PG_USERNAME, PG_PASSWORD } = process.env;
+const { PG_NAME, PG_HOST, PG_USERNAME, PG_PASSWORD, PG_PORT } = process.env;
 
 module.exports = {
   development: {
-    port: '5433',
+    port: PG_PORT,
     username: PG_USERNAME,
     password: PG_PASSWORD,
     database: PG_NAME,

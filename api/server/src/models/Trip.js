@@ -2,13 +2,15 @@ const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Trip extends Model {
     static associate(models) {
-      Trip.hasMany(models.Place, {
+      Trip.belongsToMany(models.Place, {
+        through: "PlaceTrip",
         foreignKey: "trip_id",
         as: "places",
       });
-      Trip.hasMany(models.Accommodation, {
+      Trip.belongsToMany(models.Accommodation, {
+        through: "AccommodationTrip",
         foreignKey: "trip_id",
-        as: "accommodation",
+        as: "accommodations",
       });
     }
   }
@@ -16,7 +18,8 @@ module.exports = (sequelize, DataTypes) => {
   Trip.init(
     {
       id: {
-        type: DataTypes.UUID,
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
         primaryKey: true,
       },
       title: {
@@ -32,10 +35,6 @@ module.exports = (sequelize, DataTypes) => {
       notes: {
         type: DataTypes.TEXT,
       },
-
-      // hasMany Places
-      // hasMany Accomms
-      // hasMany Restaurants
     },
     {
       sequelize,

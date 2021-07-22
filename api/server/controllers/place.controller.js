@@ -1,4 +1,5 @@
-const PlaceNeo4j = require("../../neo4j/neo4j-api/place.neo4j");
+const PlaceNeo4jService = require("../../neo4j/api/place.api");
+const PlaceNeo4j = require("../../neo4j/api/place.api");
 const PlaceService = require("../service/place.service");
 // const { Op } = db.Sequelize.Op;
 
@@ -30,7 +31,24 @@ const PlaceController = {
       // mapping params as a sub-query string
       const paramList = [param1, param2, param3];
 
+      // sequelize service
       const landmarkPlaces = await PlaceService.getLandmarkPlaces(paramList);
+
+      // check unique_point
+      // neode service
+      const point = landmarkPlaces[0].unique_point;
+      const _point = `"${point}"`;
+
+      await PlaceNeo4jService.getMainPlaces(_point);
+      console.log(_point);
+
+      // for (let i = 0; i < landmarkPlaces.length; i++) {
+      //   const checkedPoint = landmarkPlaces[i].unique_point;
+
+      //   const unique_point = `"${checkedPoint}"`;
+      //   console.log(unique_point);
+      //   await PlaceNeo4jService.getMainPlaces(unique_point);
+      // }
 
       return res.send(landmarkPlaces);
     } catch (error) {
@@ -141,10 +159,12 @@ const PlaceController = {
           message: "Empty list!",
         });
       }
-
+      // delete in Postgres
       await PlaceService.deleteAllPlaces();
 
+      // delete all in Neo4j
       await PlaceNeo4j.deletePlaces();
+
       return res.status(200).json({
         message: "Deleted all places!",
       });

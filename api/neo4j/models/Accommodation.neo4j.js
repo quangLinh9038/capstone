@@ -1,19 +1,15 @@
 /**
- * Define Place model with properties of each node
+ * Define Accommodation model with properties of each node
  */
 module.exports = {
-  labels: ["Place"],
+  labels: ["Accommodation"],
 
   name: {
     type: "string",
     required: true,
     index: true,
   },
-  id: {
-    type: "integer",
-  },
   lat: "float",
   lng: "float",
-
-  // relationship with Trips
+  unique_point: "string",
 };

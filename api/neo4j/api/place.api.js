@@ -16,12 +16,23 @@ const PlaceNeo4jService = {
     await neode.create("Place", properties);
   },
 
-  deletePlaces: async (label) => {
+  deletePlaces: async () => {
     // DELETE (p:Place) DETACH DELETE p;
     await neode
       .deleteAll("Place")
       .then(() => console.log("Delete all Place nodes!!!"));
   },
+
+  // test case
+  getMainPlaces: async (unique_point) => {
+    // get landmark Place nodes
+    // matched unique_point with postgres
+    await neode
+      .cypher(`MATCH (p:Place {unique_point: ${unique_point}}) RETURN p;`)
+      .then(console.log("Place queried on Neo4j"));
+  },
+
+  // return list of distance
 };
 
 module.exports = PlaceNeo4jService;
