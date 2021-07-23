@@ -1,13 +1,17 @@
 const PlaceNeo4jService = require("../../neo4j/api/place.api");
 const PlaceNeo4j = require("../../neo4j/api/place.api");
 const PlaceService = require("../service/place.service");
-// const { Op } = db.Sequelize.Op;
+const db = require("../src/models");
+const { Place } = db;
+const { Op } = require("sequelize");
 
 const PlaceController = {
   // get all Places
   getAllPlaces: async (req, res) => {
     try {
-      const allPlaces = await PlaceService.getAllPlaces();
+      const name = req.query.name;
+      var condition = name ? {name: { [Op.like]: `%${name}%` } } : null;
+      const allPlaces = await Place.findAll({where:condition});
 
       // check empty list
       if (allPlaces === null) {
