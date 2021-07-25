@@ -52,18 +52,18 @@ const PlaceController = {
           where: condition
         });
 
+        // check empty list
+        if (allPlaces.length == 0) {
+          return res.status(204).send({
+            message: "Places are empty!",
+          });
+        }
+
         res.json({
           status: 'success',
           result: allPlaces.length,
           allPlaces: allPlaces
         })
-      }
-
-      // check empty list
-      if (allPlaces === null) {
-        return res.status(204).send({
-          message: "Places are empty!",
-        });
       }
 
       // response list of places
