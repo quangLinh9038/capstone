@@ -32,6 +32,7 @@ const PlaceController = {
       const paramList = [param1, param2, param3];
 
       // sequelize service
+      // query postgres
       const landmarkPlaces = await PlaceService.getLandmarkPlaces(paramList);
 
       // check unique_point

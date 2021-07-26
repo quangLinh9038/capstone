@@ -57,7 +57,7 @@ const PlaceService = {
        * SQL: GET all Place that has most point matched with query params
        */
       const sql = `SELECT *, ${subQuery} AS point
-              FROM "Place"
+              FROM "Place" 
               ORDER BY point DESC LIMIT 5;`;
 
       const landmarkPlaces = await db.sequelize.query(sql, {
