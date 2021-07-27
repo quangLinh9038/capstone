@@ -50,7 +50,12 @@ const AccommodationService = {
   // bulkCreate accommodations
   createAccommodations: async (newAccommodations) => {
     try {
-      return await Accommodation.bulkCreate(newAccommodations);
+      /**
+       * Define individualHooks to call beforeCreate for single bulk create
+       */
+      return await Accommodation.bulkCreate(newAccommodations, {
+        individualHooks: true,
+      });
     } catch (error) {
       return error;
     }

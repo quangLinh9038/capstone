@@ -4,6 +4,8 @@ const db = require("../src/models");
 const { Place } = db;
 const { City } = db;
 
+const generateSqlGetLandmarkResult = require("../utils/SqlUtils");
+
 const PlaceService = {
   // get all places
   getAllPlaces: async () => {
@@ -35,12 +37,26 @@ const PlaceService = {
   // create a list of places
   createPlaces: async (newPlaces) => {
     try {
-      return await Place.bulkCreate(newPlaces);
+      /**
+       *  individualHooks set to true to call beforeCreate hook for single bulk insert
+       */
+      return await Place.bulkCreate(newPlaces, { individualHooks: true });
     } catch (error) {
       return error;
     }
   },
 
+  createOnePlace: async (newPlace) => {
+    try {
+      return await Place.create(newPlace);
+    } catch (error) {
+      return error;
+    }
+  },
+
+  /**
+   * Query
+   */
   getLandmarkPlaces: async (paramList) => {
     try {
       /**
@@ -49,16 +65,11 @@ const PlaceService = {
        * Create new sub-quey array from param list
        * adding "+" between elements of paramList
        */
-      const subQuery = paramList.map((item) => `"${item}"`).join("+");
 
-      /**
-       * Create SQL query to Postgres db
-       *
-       * SQL: GET all Place that has most point matched with query params
-       */
-      const sql = `SELECT *, ${subQuery} AS point
-              FROM "Place" 
-              ORDER BY point DESC LIMIT 5;`;
+      // table to query in Postgres database
+      const _Place = "Place";
+
+      const sql = generateSqlGetLandmarkResult(_Place, paramList);
 
       const landmarkPlaces = await db.sequelize.query(sql, {
         type: QueryTypes.SELECT,

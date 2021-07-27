@@ -61,15 +61,19 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.FLOAT,
       },
       unique_point: {
-        type: DataTypes.STRING,
+        type: DataTypes.FLOAT,
       },
       city_id: {
         type: DataTypes.INTEGER,
       },
     },
     {
-      sequelize,
+      hooks: {
+        beforeCreate: (accommodation, options) => {
+          accommodation.unique_point = accommodation.lat + accommodation.lng;
+        },
       modelName: "Accommodation",
+      sequelize,
       freezeTableName: true,
     }
   );

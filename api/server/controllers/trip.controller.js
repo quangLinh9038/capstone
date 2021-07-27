@@ -17,4 +17,4 @@
 // // return (Place, Accomm)
 // // unique_point
 
-// // List place suround
+// // List place surround

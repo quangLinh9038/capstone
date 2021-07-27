@@ -1,7 +1,5 @@
 const PlaceNeo4jService = require("../../neo4j/api/place.api");
-const PlaceNeo4j = require("../../neo4j/api/place.api");
 const PlaceService = require("../service/place.service");
-// const { Op } = db.Sequelize.Op;
 
 const PlaceController = {
   // get all Places
@@ -38,6 +36,7 @@ const PlaceController = {
       // check unique_point
       // neode service
       const point = landmarkPlaces[0].unique_point;
+
       const _point = `"${point}"`;
 
       await PlaceNeo4jService.getMainPlaces(_point);
@@ -97,7 +96,9 @@ const PlaceController = {
          * forEach() objects in newPlaces list
          */
 
-        await newPlaces.forEach((props) => PlaceNeo4j.createPlace(props));
+        await newPlaces.forEach((props) =>
+          PlaceNeo4jService.createPlace(props)
+        );
 
         // return results
         return res.status(201).send(newPlaces);
@@ -164,7 +165,7 @@ const PlaceController = {
       await PlaceService.deleteAllPlaces();
 
       // delete all in Neo4j
-      await PlaceNeo4j.deletePlaces();
+      await PlaceNeo4jService.deletePlaces();
 
       return res.status(200).json({
         message: "Deleted all places!",
