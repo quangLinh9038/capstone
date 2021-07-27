@@ -41,6 +41,14 @@ const PlaceService = {
     }
   },
 
+  createOnePlace: async (newPlace) => {
+    try {
+      return await Place.create(newPlace);
+    } catch (error) {
+      return error;
+    }
+  },
+
   getLandmarkPlaces: async (paramList) => {
     try {
       /**

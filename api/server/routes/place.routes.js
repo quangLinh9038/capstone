@@ -7,6 +7,7 @@ placeRoutes
   .get("/", PlaceController.getAllPlaces)
   .get("/mainPlaces", PlaceController.getLandmarkPlaces)
   .post("/", PlaceController.createPlace)
+  .post("/create/one", PlaceController.createOnePlace)
   .delete("/:name", PlaceController.deletePlace)
   .delete("/", PlaceController.deleteAllPlace)
   .put("/:id", PlaceController.updatePlace);

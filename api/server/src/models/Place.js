@@ -35,6 +35,9 @@ module.exports = (sequelize, DataTypes) => {
       img: {
         type: DataTypes.STRING,
       },
+      description: {
+        type: DataTypes.TEXT,
+      },
       isHistorical: {
         type: DataTypes.INTEGER,
       },

@@ -1,5 +1,5 @@
-const PlaceNeo4jService = require("../../neo4j/api/place.api");
-const PlaceNeo4j = require("../../neo4j/api/place.api");
+const PlaceNeo4jService = require("../neo4j/api/place.api");
+const PlaceNeo4j = require("../neo4j/api/place.api");
 const PlaceService = require("../service/place.service");
 // const { Op } = db.Sequelize.Op;
 
@@ -106,6 +106,18 @@ const PlaceController = {
       });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
+    }
+  },
+
+  createOnePlace: async (req, res) => {
+    try {
+      const newPlace = req.body;
+
+      const _newPLace = await PlaceService.createOnePlace(newPlace);
+
+      return res.status(201).send(_newPLace);
+    } catch (error) {
+      return res.status(500).json({ msg: error.message });
     }
   },
 
