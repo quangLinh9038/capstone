@@ -14,7 +14,8 @@
     "nature": 0,
     "park": 0,
     "latitude": 21.03431935,
-    "longitude": 105.8505617
+    "longitude": 105.8505617,
+    "description__1": "Hanoi’s lively Old Quarter comprises nearly 40 streets packed with shops selling all kinds of goods, each street named for its primary good or service."
   },
   {
     "title": "Temple of Literature & National University",
@@ -31,7 +32,8 @@
     "nature": 0,
     "park": 0,
     "latitude": 21.02765763,
-    "longitude": 105.8355575
+    "longitude": 105.8355575,
+    "description__1": "The Temple of Literature is often cited as one of Hanoi’s most picturesque tourist attractions. Originally built as a university in 1070 dedicated to Confucius, scholars and sages, the building is extremely well preserved and is a superb example of traditional-style Vietnamese architecture."
   },
   {
     "title": "Vietnam Museum of Ethnology",
@@ -48,7 +50,8 @@
     "nature": 0,
     "park": 0,
     "latitude": 21.04060254,
-    "longitude": 105.7987569
+    "longitude": 105.7987569,
+    "description__1": "Vietnam Museum of Ethnology is a unit under Vietnam Academy of Scocial Sciences. Vietnam Museum of Ethnology is both a research centre and a public museum exhibiting the ethnic groups of Vietnam"
   },
   {
     "title": "Vietnamese Women's Museum",
@@ -65,7 +68,8 @@
     "nature": 0,
     "park": 0,
     "latitude": 21.02352467,
-    "longitude": 105.8513357
+    "longitude": 105.8513357,
+    "description__1": "Focused on the contribution of women to Vietnam's history and culture, this museum highlights their roles in Vietnam's many military conflicts as well as in commerce, including features on female street vendors, women's role in the family, and more recently, single mothers in Vietnam."
   },
   {
     "title": "Hoa Lo Prison",
@@ -82,7 +86,8 @@
     "nature": 0,
     "park": 0,
     "latitude": 21.02544529,
-    "longitude": 105.8464539
+    "longitude": 105.8464539,
+    "description__1": "Colloquially known as \"Hanoi Hilton,\" this famous prison has been mostly torn down. A museum occupies the remaining structure."
   },
   {
     "title": "Lake of the Restored Sword",
@@ -99,7 +104,8 @@
     "nature": 1,
     "park": 1,
     "latitude": 21.02954953,
-    "longitude": 105.8541066
+    "longitude": 105.8541066,
+    "description__1": "A rare breed of turtle enjoys this popular lake almost as much as countless locals and tourists. Hoan Kiem Lake is a dynamic daily tableau, from morning walks amid locals doing exercises on the shore, to young couples water-gazing on park benches, to the multiple shopping and sight-seeing opportunities in the vicinity"
   },
   {
     "title": "Long Bien Bridge",
@@ -116,7 +122,8 @@
     "nature": 0,
     "park": 0,
     "latitude": 21.04371557,
-    "longitude": 105.859502
+    "longitude": 105.859502,
+    "description__1": "The Long Bien bridge across the Red River connects Hanoi with the main port of Haiphong. Designed by Gustave Eiffel, the bridge sustained significant damage during the Vietnam War."
   },
   {
     "title": "Hanoi Opera House",
@@ -133,7 +140,8 @@
     "nature": 0,
     "park": 0,
     "latitude": 21.02430581,
-    "longitude": 105.8582359
+    "longitude": 105.8582359,
+    "description__1": "Resembling the Opéra Palais Garnier, Hanoi Opera House, built in 10 years since 1911 by two French architects. The magnificent building became one of the top landmarks in Hanoi."
   },
   {
     "title": "Lotte Observation Deck",
@@ -150,7 +158,8 @@
     "nature": 0,
     "park": 0,
     "latitude": 21.03238917,
-    "longitude": 105.8126772
+    "longitude": 105.8126772,
+    "description__1": "The Lotte Observation Deck is on the 65F, 267m high from the ground with large space.We have the Photo Zone in B1F, the Photo Counter and the Photo at Skywalk in the 65F so you can taking and buying photo, including photo frame."
   },
   {
     "title": "St. Joseph's Cathedral",
@@ -167,7 +176,8 @@
     "nature": 0,
     "park": 0,
     "latitude": 21.02891604,
-    "longitude": 105.8492844
+    "longitude": 105.8492844,
+    "description__1": "Entering this majestic church is like walking into 1886, as little has changed since it first opened its doors."
   },
   {
     "title": "Fine Arts Museum",
@@ -184,7 +194,8 @@
     "nature": 0,
     "park": 0,
     "latitude": 21.03087859,
-    "longitude": 105.8399717
+    "longitude": 105.8399717,
+    "description__1": "This museum was opened in 1966. Though in need of updating, some interesting artifacts are on display in its three floors organized chronologically."
   },
   {
     "title": "Ho Chi Minh Mausoleum",
@@ -201,7 +212,8 @@
     "nature": 0,
     "park": 1,
     "latitude": 21.03717767,
-    "longitude": 105.8351173
+    "longitude": 105.8351173,
+    "description__1": "Every year many thousands of respectful citizens and tourists visit the final resting place of the country’s most notable historic figure."
   },
   {
     "title": "Tran Quoc Pagoda",
@@ -218,7 +230,8 @@
     "nature": 0,
     "park": 0,
     "latitude": 21.04794766,
-    "longitude": 105.83725
+    "longitude": 105.83725,
+    "description__1": "Chùa Trấn Quốc (or Tran Quoc Pagoda) is located beside the dazzling West Lake, on Thanh Nien Road, Hanoi. Particularly, it is seated on an island linked by a bridge to the causeway between the two most romantic lakes of Hanoi: West Lake and Truc Bach Lake."
   },
   {
     "title": "Ho Chi Minh Museum",
@@ -235,7 +248,8 @@
     "nature": 0,
     "park": 0,
     "latitude": 21.03610178,
-    "longitude": 105.8327469
+    "longitude": 105.8327469,
+    "description__1": "Ho Chi Minh Museum has more than 170,000 decuments, objects and films about President Ho Chi Minh’s life and revolutionary work."
   },
   {
     "title": "Vietnam Military History Museum",
@@ -252,7 +266,8 @@
     "nature": 0,
     "park": 0,
     "latitude": 21.03229407,
-    "longitude": 105.8405479
+    "longitude": 105.8405479,
+    "description__1": "This repository of Vietnam's military history includes rooms full of war propganda, photographs and documents from wars against China, France, and the United States. The grounds feature several captured aircraft as well as a central structure build from the wreckage of French and American planes."
   },
   {
     "title": "Imperial Citadel of Thang Long",
@@ -269,7 +284,8 @@
     "nature": 0,
     "park": 1,
     "latitude": 21.03447111,
-    "longitude": 105.8406185
+    "longitude": 105.8406185,
+    "description__1": "The site is one of the ten special national heritage sites proclaimed by the Prime Minister in 2009 and was inscribed on the World Heritage List by UNESCO’s World Heritage Committee in 2010."
   },
   {
     "title": "Ceramic Road",
@@ -286,7 +302,8 @@
     "nature": 0,
     "park": 0,
     "latitude": 21.03021698,
-    "longitude": 105.8576485
+    "longitude": 105.8576485,
+    "description__1": "Hanoi Ceramic Mosaic Mural, or Hanoi Ceramic Road, is a ceramic mosaic mural along the walls of the Red River dike system in the city of Hanoi, northern Vietnam."
   },
   {
     "title": "Ancient House",
@@ -303,7 +320,8 @@
     "nature": 0,
     "park": 0,
     "latitude": 21.03445795,
-    "longitude": 105.8535484
+    "longitude": 105.8535484,
+    "description__1": "This house in the Old Quarter was restored in 1999, as an example of an ancient Hanoian home. It represents the architecture of the Old Quarter, and is decorated to reflect ancient houses of Hanoi."
   },
   {
     "title": "West Lake",
@@ -320,7 +338,8 @@
     "nature": 1,
     "park": 1,
     "latitude": 21.06903372,
-    "longitude": 105.8135181
+    "longitude": 105.8135181,
+    "description__1": "The largest lake n Hanoi is a popular spot for gathering, surrounded by many shops, restaurants, gardens, and hotels. It features the Trấn Quốc Pagoda, Vietnamese for \"Stabilizing the Nation."
   },
   {
     "title": "Presidential Palace Historical Site",
@@ -337,7 +356,8 @@
     "nature": 0,
     "park": 0,
     "latitude": 21.03839064,
-    "longitude": 105.8335979
+    "longitude": 105.8335979,
+    "description__1": "Presidential Palace Historical Site, which is located in Hanoi, Vietnam, is the place where Ho Chi Minh lived and worked in most of his revolutionary life. This site was listed by the Ministry of Culture and Information of Vietnam in 1975."
   },
   {
     "title": "Ta Hien Street",
@@ -354,7 +374,8 @@
     "nature": 0,
     "park": 0,
     "latitude": 21.0349845,
-    "longitude": 105.852226
+    "longitude": 105.852226,
+    "description__1": "Ta Hien currently is an ancient city of Hanoi. With a length of about 266m, this street with harmonious architecture has become a “jewel” in the heart of Hanoi, bearing special values of ancient architecture and tradition."
   },
   {
     "title": "One Pillar Pagoda",
@@ -371,7 +392,8 @@
     "nature": 0,
     "park": 1,
     "latitude": 21.03595332,
-    "longitude": 105.8337945
+    "longitude": 105.8337945,
+    "description__1": "The One Pillar Pagoda is a historic Buddhist temple in Hanoi, the capital of Vietnam. It is regarded alongside the Perfume Temple, as one of Vietnam's two most iconic temples."
   },
   {
     "title": "Dong Xuan Market",
@@ -388,7 +410,8 @@
     "nature": 0,
     "park": 0,
     "latitude": 21.03810125,
-    "longitude": 105.8496307
+    "longitude": 105.8496307,
+    "description__1": "Though not quite the same since a devastating fire in 1994, this famous market is nevertheless a landmark trading post."
   },
   {
     "title": "Night Market",
@@ -405,7 +428,8 @@
     "nature": 0,
     "park": 0,
     "latitude": 21.03394887,
-    "longitude": 105.8507905
+    "longitude": 105.8507905,
+    "description__1": "Held every Friday, Saturday and Sunday, Hanoi Weekend Night Market is a busy, bustling gathering of roadside stalls and local food vendors that brings huge crowds of locals and tourists. It runs through the Old Quarter district from 19:00 onwards, starting from Hang Dao Street and running north to the edge of Dong Xuan Market."
   },
   {
     "title": "Huu Tiep Lake and the Downed B-52",
@@ -422,7 +446,8 @@
     "nature": 0,
     "park": 0,
     "latitude": 21.03851303,
-    "longitude": 105.8270202
+    "longitude": 105.8270202,
+    "description__1": "In the 1972 campaign 'Hanoi-Dien Bien Phu in the air', the Vietnamese Air Defense Force shot down 81 American aircrafts, one of them being 34 B52. One part of the aircraft fell down in the Huu Tiep Lake of Hanoi. Today, many tourists visit this lake to catch a glimpse of the wreckage including the gear wheels, which now has plants growing around it."
   },
   {
     "title": "Vietnam National Museum of History",
@@ -439,7 +464,8 @@
     "nature": 0,
     "park": 0,
     "latitude": 21.02561245,
-    "longitude": 105.8587356
+    "longitude": 105.8587356,
+    "description__1": "History buffs will appreciate the expansive collections on hand in this educational museum."
   },
   {
     "title": "Lotus Water Puppet Theater",
@@ -456,7 +482,8 @@
     "nature": 0,
     "park": 0,
     "latitude": 21.02876259,
-    "longitude": 105.8511343
+    "longitude": 105.8511343,
+    "description__1": "Water Puppetry is a traditional art form with distinctive culture identity of Vietnam. It came into existence, developed and diversified over a thousand years ago in the Red River Delta."
   },
   {
     "title": "VinKE & Aquarium Times City",
@@ -473,7 +500,8 @@
     "nature": 0,
     "park": 1,
     "latitude": 20.99518824,
-    "longitude": 105.8683174
+    "longitude": 105.8683174,
+    "description__1": "Visit the first aquarium in Hanoi designed with a tunnel featuring 180-degree views"
   },
   {
     "title": "Ngoc Son Temple",
@@ -490,7 +518,8 @@
     "nature": 0,
     "park": 0,
     "latitude": 21.03096853,
-    "longitude": 105.8527041
+    "longitude": 105.8527041,
+    "description__1": "This temple alongside Lake Hoan Kiem was built in the 19th century, and named after Saint Van Xuong."
   },
   {
     "title": "Quan Thanh Temple",
@@ -507,7 +536,8 @@
     "nature": 0,
     "park": 0,
     "latitude": 21.04326553,
-    "longitude": 105.8371678
+    "longitude": 105.8371678,
+    "description__1": "Legend has it that Quan Thanh Temple was established during the reign of Emperor Ly Thai To (reigned 1010–1028) and was dedicated to Tran Vu, Deity of the North in Taoism, whose symbols of power are the serpent and turtle."
   },
   {
     "title": "Street of Hemp",
@@ -524,7 +554,8 @@
     "nature": 0,
     "park": 0,
     "latitude": 21.03218035,
-    "longitude": 105.8505875
+    "longitude": 105.8505875,
+    "description__1": "Silks, silver and souvenirs draw tourists to this popular street market."
   },
   {
     "title": "Aeon Mall Long Bien",
@@ -541,7 +572,8 @@
     "nature": 0,
     "park": 0,
     "latitude": 21.02699887,
-    "longitude": 105.9005784
+    "longitude": 105.9005784,
+    "description__1": "Aeon Mall Long Bien, which was put into operation in 2015, is popular among tourists and local alike. With an area of up to 120,000 m2, it is airy and commodious with full functional facilities such as shopping, food, entertainment and sports training."
   },
   {
     "title": "Hoan Kiem Lake Walking Street",
@@ -558,7 +590,8 @@
     "nature": 1,
     "park": 1,
     "latitude": 21.0311183,
-    "longitude": 105.8535337
+    "longitude": 105.8535337,
+    "description__1": "At present, the Hanoi pedestrian street around Hoan Kiem Lake has been gradually becoming one of the capital's tourist attractions, a place for people to go out, play, and slow down between the roads."
   },
   {
     "title": "Vietnam National Tuong Theatre",
@@ -575,7 +608,8 @@
     "nature": 0,
     "park": 0,
     "latitude": 21.031642,
-    "longitude": 105.847435
+    "longitude": 105.847435,
+    "description__1": "Vietnam Tuong Theatre was founded in 1959, in which Tuong - a traditional Vietnamese theatre is being preserved and developed."
   },
   {
     "title": "Quang Ba Flower Market",
@@ -592,7 +626,8 @@
     "nature": 0,
     "park": 1,
     "latitude": 21.0670596,
-    "longitude": 105.8283001
+    "longitude": 105.8283001,
+    "description__1": "This night market on the edge of West Lake starts up around 2 a.m., when wholesalers arrive to claim their spots with piles of roses and chrysanthemums, and lasts until sunrise."
   },
   {
     "title": "Ba Dinh Square",
@@ -609,7 +644,8 @@
     "nature": 1,
     "park": 1,
     "latitude": 21.03763457,
-    "longitude": 105.8365342
+    "longitude": 105.8365342,
+    "description__1": "The square was originally developed by French colony and known as Round Point Pugininer. On September 2nd, 1945 – now Vietnam National Day- Ho Chi Minh has read the Vietnam Independence Declaration."
   },
   {
     "title": "Hom Market",
@@ -626,7 +662,8 @@
     "nature": 0,
     "park": 0,
     "latitude": 21.01719485,
-    "longitude": 105.8517145
+    "longitude": 105.8517145,
+    "description__1": "Cho Hom Market, among the most famous markets in Hanoi, is not only an attractive shopping spot but also a place maintaining essential cultural features of ancient Vietnam."
   },
   {
     "title": "Bach Ma Temple",
@@ -643,7 +680,8 @@
     "nature": 0,
     "park": 0,
     "latitude": 21.03598286,
-    "longitude": 105.8518882
+    "longitude": 105.8518882,
+    "description__1": "Elaborate Ly dynasty temple founded in 1010 and reconstructed in the 18th-19th centuries."
   },
   {
     "title": "Vietnamese Air Force Museum",
@@ -660,7 +698,8 @@
     "nature": 0,
     "park": 0,
     "latitude": 20.99929441,
-    "longitude": 105.8297224
+    "longitude": 105.8297224,
+    "description__1": "It's run by the Vietnamese military. Inside is a front section of a jet fighter where one can climb in and have a friend take his photo. Outside are numerous pieces of military equipment."
   },
   {
     "title": "Hanoi Flag Tower",
@@ -677,7 +716,8 @@
     "nature": 0,
     "park": 1,
     "latitude": 21.03285601,
-    "longitude": 105.8403082
+    "longitude": 105.8403082,
+    "description__1": "This place was built between 1805 and 1812 under King Gia Long and is over 2 centuries old. It resembles an old stone fortress and has steps leading to the top where one can get a good view of the city."
   },
   {
     "title": "DIY Box - Leather & Coffee Workshop",
@@ -694,7 +734,8 @@
     "nature": 0,
     "park": 0,
     "latitude": 21.03608234,
-    "longitude": 105.8508763
+    "longitude": 105.8508763,
+    "description__1": "In there, You could make heaps of leather stuffs by yourself with a reasonable price. If you have time and prefer experiencing activities, DIY Box is an ideal place for you in Hanoi."
   },
   {
     "title": "Hanoi Botanical Gardens",
@@ -711,7 +752,8 @@
     "nature": 1,
     "park": 1,
     "latitude": 21.04092871,
-    "longitude": 105.8329592
+    "longitude": 105.8329592,
+    "description__1": "Anchored by the Peace Memorial, these gardens offer 50 acres of trails, fields and gardens, including many flowers, trees and concrete sculptures. Two small lakes offer swan boats and fishing spots, and an island in the middle is popular for couples."
   },
   {
     "title": "B52 Victory Museum",
@@ -728,7 +770,8 @@
     "nature": 0,
     "park": 0,
     "latitude": 21.03579468,
-    "longitude": 105.8265942
+    "longitude": 105.8265942,
+    "description__1": "The B-52 Victory Museum Hanoi is the great pride of Hanoi people in particularly and of Vietnamese people in generally. If you visit Hanoi, you should not miss this interesting historical destination to learn more about our military history and victory."
   },
   {
     "title": "Masjid Al Noor Mosque",
@@ -745,7 +788,8 @@
     "nature": 0,
     "park": 0,
     "latitude": 21.03818349,
-    "longitude": 105.8486665
+    "longitude": 105.8486665,
+    "description__1": "Over the past century, the only mosque in the North is located peacefully on Hang Luoc street, Hang Ma ward, Hoan Kiem district, Hanoi. The faith of the Muslim community is reigning in the holy place AL-NOUR built in 1890."
   },
   {
     "title": "Ho Tay Water Park",
@@ -762,7 +806,8 @@
     "nature": 0,
     "park": 1,
     "latitude": 21.07323267,
-    "longitude": 105.8176272
+    "longitude": 105.8176272,
+    "description__1": "Water park with a lazy river, pools & slides, plus rides such as a Ferris wheel & roller coaster."
   },
   {
     "title": "Hang Da Market",
@@ -779,7 +824,8 @@
     "nature": 0,
     "park": 0,
     "latitude": 21.03162258,
-    "longitude": 105.8469002
+    "longitude": 105.8469002,
+    "description__1": "Popular 3-story market stocking everything from apparel to traditional crafts to produce."
   },
   {
     "title": "Phung Hung Mural Street",
@@ -796,7 +842,8 @@
     "nature": 0,
     "park": 0,
     "latitude": 21.03853757,
-    "longitude": 105.8471353
+    "longitude": 105.8471353,
+    "description__1": "Phung Hung street in Old Quarter Hanoi has been revived with beautiful mural paintings recalling Hanoi in the past. Opened to the public in early February 2018, it is now a favorite photo place and cultural space for city dwellers and travelers to Hanoi."
   },
   {
     "title": "Welcoming Morning Sunlight Bridge",
@@ -813,7 +860,8 @@
     "nature": 0,
     "park": 1,
     "latitude": 21.03092518,
-    "longitude": 105.853823
+    "longitude": 105.853823,
+    "description__1": "Bright red bridge, illuminated at night, leading to an iconic temple set on an islet in the lake."
   },
   {
     "title": "Ambassador's Pagoda",
@@ -830,7 +878,8 @@
     "nature": 0,
     "park": 0,
     "latitude": 21.02465362,
-    "longitude": 105.8456927
+    "longitude": 105.8456927,
+    "description__1": "This pagoda, often used in official ceremonies and meetings, is all that’s left of a 15th century hall that burned down."
   },
   {
     "title": "Museum of the Revolution",
@@ -847,7 +896,8 @@
     "nature": 0,
     "park": 0,
     "latitude": 21.02591046,
-    "longitude": 105.8592751
+    "longitude": 105.8592751,
+    "description__1": "Located in the Tong Dan area of the city, it was established in August 1959 in a two-story building, formerly used by the Trade Department of Vietnam. It was redesigned into 30 galleries, and as of 2008 contains in excess of 40,000 historical exhibits."
   },
   {
     "title": "Truc Bach Lake",
@@ -864,7 +914,8 @@
     "nature": 1,
     "park": 1,
     "latitude": 21.04543345,
-    "longitude": 105.8385376
+    "longitude": 105.8385376,
+    "description__1": "Trúc Bạch Lake is located northwest of Hanoi's Old Quarter, immediately adjacent to the eastern shore of the city's largest lake, the West Lake (Hồ Tây), a former branch of the Red River whose west bank is nearby."
   },
   {
     "title": "Thong Nhat Park",
@@ -881,7 +932,8 @@
     "nature": 1,
     "park": 1,
     "latitude": 21.01074539,
-    "longitude": 105.8423754
+    "longitude": 105.8423754,
+    "description__1": "Thong Nhat Park has been a green lung of Hanoi for more than 50 years which was erected in 1958. Besides its main function to satisfy Hanoi people’s demand for entertainment, the park covers a will to unify Vietnam at that time, as its name means “reunification”."
   },
   {
     "title": "Hanoi Zoological Gardens",
@@ -898,7 +950,8 @@
     "nature": 1,
     "park": 1,
     "latitude": 21.03079603,
-    "longitude": 105.805587
+    "longitude": 105.805587,
+    "description__1": "Small urban zoo with a variety of animals, plus amusement rides, boating & walking paths."
   },
   {
     "title": "Keangnam Hanoi Landmark Tower",
@@ -915,7 +968,8 @@
     "nature": 0,
     "park": 0,
     "latitude": 21.01657805,
-    "longitude": 105.784454
+    "longitude": 105.784454,
+    "description__1": "The complex features a 5-star InterContinental hotel, offices, entertainment areas, retail spaces, clinics and convention centres."
   },
   {
     "title": "Lenin Statue",
@@ -932,7 +986,8 @@
     "nature": 1,
     "park": 1,
     "latitude": 21.03274599,
-    "longitude": 105.8396915
+    "longitude": 105.8396915,
+    "description__1": "This Lenin statue in a park at Nguyen Thai Hoc avenue is one of the few remains I saw of a recent communist past here in Vietnam. Now it seems Sony neon advertising are prefered to those old sovietic symbols... the signs of the times!"
   },
   {
     "title": "Long Bien Market",
@@ -949,7 +1004,8 @@
     "nature": 0,
     "park": 0,
     "latitude": 21.04129034,
-    "longitude": 105.850814
+    "longitude": 105.850814,
+    "description__1": "The market has been in operation for more than 20 years and is an important trading destination for many traders coming from all parts of the country."
   },
   {
     "title": "Vincom Center for Contemporary Art (VCCA)",
@@ -966,7 +1022,8 @@
     "nature": 0,
     "park": 0,
     "latitude": 21.00322611,
-    "longitude": 105.8156051
+    "longitude": 105.8156051,
+    "description__1": "Taking up a 4,000 m2 space at the Vincom Megamall shopping center, the VCCA is not only the largest art center in Vietnam, but also the most unique, providing ample natural light throughout an underground zone."
   },
   {
     "title": "BigC Thang Long",
@@ -983,7 +1040,8 @@
     "nature": 0,
     "park": 0,
     "latitude": 21.00721377,
-    "longitude": 105.7936126
+    "longitude": 105.7936126,
+    "description__1": "Big C Thang Long supermarket operates under the model of  \"Trade Center\" or \"Hypermarket\",  as a modern retail business."
   },
   {
     "title": "Phu Tay Ho",
@@ -1000,7 +1058,8 @@
     "nature": 0,
     "park": 0,
     "latitude": 21.05525137,
-    "longitude": 105.8202331
+    "longitude": 105.8202331,
+    "description__1": "It is said to be a popular destination among unmarried people, who come here on Sundays and on the first and 15th day of each lunar month to pray for good fortune."
   },
   {
     "title": "Dong Kinh Nghia Thuc Square",
@@ -1017,7 +1076,8 @@
     "nature": 0,
     "park": 0,
     "latitude": 21.03217185,
-    "longitude": 105.8522728
+    "longitude": 105.8522728,
+    "description__1": "Dong Kinh Nghia Thuc Square is located on the north side of Hoan Kiem district, Ha Noi city, the convergence of Hang Gai, Hang Dao, Cau Go, Dinh Tien Hoang and Le Thai To streets. This was previously the land of Thang Binh Hamlet (which there remains trac"
   },
   {
     "title": "Cua Bac Church",
@@ -1034,7 +1094,8 @@
     "nature": 0,
     "park": 0,
     "latitude": 21.04167392,
-    "longitude": 105.8410575
+    "longitude": 105.8410575,
+    "description__1": "Today, Cua Bac Church is one of the three major churches of Hanoi, together with Ham Long Church and Saint Joseph Cathedral."
   },
   {
     "title": "Nguyen Art Gallery in Hanoi",
@@ -1051,7 +1112,8 @@
     "nature": 0,
     "park": 0,
     "latitude": 21.02866884,
-    "longitude": 105.836499
+    "longitude": 105.836499,
+    "description__1": "Nguyen Art gallery is an Art Gallery for original artworks. Its objective is to promote quality arts, particularly from Vietnam. The gallery carries paintings using many materials including lacquer, charcoal, water color, oil on canvas, acrylic on canvas..."
   },
   {
     "title": "Lotte Department Store",
@@ -1068,24 +1130,8 @@
     "nature": 0,
     "park": 0,
     "latitude": 21.03199788,
-    "longitude": 105.8126166
-  },
-  {
-    "title": "Hang Bac Temple",
-    "url": "https://www.tripadvisor.com/Attraction_Review-g293924-d5453119-Reviews-Hang_Bac_Temple-Hanoi.html",
-    "image": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/04/c9/f5/42/estatuas-en-el-templo.jpg?w=300&h=300&s=1",
-    "category": "Points of Interest & Landmarks • Religious Sites",
-    "description": "Hang Bac is an oasis of calm amongst backpacker shops, cheap",
-    "historical": 1,
-    "urban": 1,
-    "religious": 1,
-    "museum": 0,
-    "shopping": 0,
-    "adventure": 0,
-    "nature": 0,
-    "park": 0,
-    "latitude": 21.03423257,
-    "longitude": 105.8517148
+    "longitude": 105.8126166,
+    "description__1": "Lotte Department Store will become a must-visit destination. It will be where the latest trends and lifestyle needs can be found in one place, and it will be the one-stop shopping spot. With each floor specifically tailored from the first floor to the 6th floor. Lotte Department Store will present a new form of shopping."
   },
   {
     "title": "Post Office Ha Noi",
@@ -1102,24 +1148,8 @@
     "nature": 0,
     "park": 0,
     "latitude": 21.02684159,
-    "longitude": 105.8535159
-  },
-  {
-    "title": "Red River",
-    "url": "https://www.tripadvisor.com/Attraction_Review-g293924-d11963799-Reviews-Red_River-Hanoi.html",
-    "image": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0e/29/13/5c/red-river.jpg?w=300&h=300&s=1",
-    "category": "Bodies of Water",
-    "description": "",
-    "historical": 0,
-    "urban": 0,
-    "religious": 0,
-    "museum": 0,
-    "shopping": 0,
-    "adventure": 1,
-    "nature": 1,
-    "park": 1,
-    "latitude": 21.08113969,
-    "longitude": 105.8373683
+    "longitude": 105.8535159,
+    "description__1": "Hanoi Post Office - more-than-100-year-old symbol of the capital"
   },
   {
     "title": "D&C Art Gallery",
@@ -1136,7 +1166,8 @@
     "nature": 0,
     "park": 0,
     "latitude": 21.03150933,
-    "longitude": 105.8495762
+    "longitude": 105.8495762,
+    "description__1": "We D&C Art Gallery provide oil paintings at a meagre price, claiming about their originality."
   },
   {
     "title": "Savico Megamall",
@@ -1153,7 +1184,8 @@
     "nature": 0,
     "park": 0,
     "latitude": 21.05048059,
-    "longitude": 105.8942499
+    "longitude": 105.8942499,
+    "description__1": "Indoor mall comprising 3 floors of diverse shops, plus a grocery store, food court & ample parking."
   },
   {
     "title": "Bao Son Paradise Park",
@@ -1170,7 +1202,8 @@
     "nature": 1,
     "park": 1,
     "latitude": 20.99890415,
-    "longitude": 105.7343893
+    "longitude": 105.7343893,
+    "description__1": "Theme park with carnival rides, a small zoo & an aquarium with dolphin shows, plus a restaurant."
   },
   {
     "title": "National Library of Vietnam",
@@ -1187,7 +1220,8 @@
     "nature": 0,
     "park": 0,
     "latitude": 21.02618902,
-    "longitude": 105.8501163
+    "longitude": 105.8501163,
+    "description__1": "The National Library of Vietnam is the national library in Vietnam and it is located in Hanoi. It was established by a decree of 29 November 1917 as the central library of Indochina."
   },
   {
     "title": "Linh Dam Lake",
@@ -1204,7 +1238,8 @@
     "nature": 1,
     "park": 1,
     "latitude": 20.9684687,
-    "longitude": 105.8336132
+    "longitude": 105.8336132,
+    "description__1": "Linh Dam lake covers 70ha surrounding the Linh Dam urban area. In a green area of ​​more than 200 hectares of open space with 74 hectares of water surface, between Lake Linh Dam has a small island with green trees surrounding the place is home to dozens of white storks."
   },
   {
     "title": "Hanoi Museum",
@@ -1221,24 +1256,8 @@
     "nature": 0,
     "park": 0,
     "latitude": 21.01100859,
-    "longitude": 105.7875507
-  },
-  {
-    "title": "A Dong Art Gallery",
-    "url": "https://www.tripadvisor.com/Attraction_Review-g293924-d10092398-Reviews-A_Dong_Art_Gallery-Hanoi.html",
-    "image": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0b/b7/ff/f1/art-gallery-of-hanoi.jpg?w=300&h=300&s=1",
-    "category": "Art Galleries",
-    "description": "",
-    "historical": 0,
-    "urban": 1,
-    "religious": 0,
-    "museum": 0,
-    "shopping": 1,
-    "adventure": 0,
-    "nature": 0,
-    "park": 0,
-    "latitude": 21.02724194,
-    "longitude": 105.8546575
+    "longitude": 105.7875507,
+    "description__1": "The museum displays artifacts from Hanoi's 1000-year history and the history, culture, heritage, and architecture of Vietnam. It showcases over 50,000 artifacts in a total area of nearly 54,000 square meters."
   },
   {
     "title": "Cau Giay Park",
@@ -1255,7 +1274,8 @@
     "nature": 1,
     "park": 1,
     "latitude": 21.0281969,
-    "longitude": 105.7908365
+    "longitude": 105.7908365,
+    "description__1": "Cau Giay Park is ranked as one of the most beautiful green public parks in Hanoi for the locals as it contains beautiful artificial landscapes and an attached amusement zone, which are extremely relaxing and fascinating to enjoy the outdoor activities as well as to escape from the hustle and bustle of the inner city."
   },
   {
     "title": "Kim Ngan Temple",
@@ -1272,7 +1292,8 @@
     "nature": 0,
     "park": 0,
     "latitude": 21.03415325,
-    "longitude": 105.8531438
+    "longitude": 105.8531438,
+    "description__1": "Kim Ngan Temple is one of the oldest still standing temples in Hanoi's old quarter. Restored in 2009, this temple holds secrets of the past, a window into Vietnamese culture and sheer historical beauty."
   },
   {
     "title": "The Garden Shopping Center",
@@ -1289,7 +1310,8 @@
     "nature": 0,
     "park": 0,
     "latitude": 21.0155101,
-    "longitude": 105.7783836
+    "longitude": 105.7783836,
+    "description__1": "Multilevel mall with brand-name shops & a supermarket, plus a multi-screen movie theater."
   },
   {
     "title": "Vietnam National Puppetry Theatre",
@@ -1306,7 +1328,8 @@
     "nature": 0,
     "park": 0,
     "latitude": 21.00211947,
-    "longitude": 105.8226464
+    "longitude": 105.8226464,
+    "description__1": "Vietnam National Puppetry Theatre – the largest hub of puppetry arts of Vietnam with the function of preserving and developing traditional theatrical arts."
   },
   {
     "title": "Geological Museum",
@@ -1323,24 +1346,8 @@
     "nature": 0,
     "park": 0,
     "latitude": 21.02503726,
-    "longitude": 105.8601962
-  },
-  {
-    "title": "Chua Cau Dong",
-    "url": "https://www.tripadvisor.com/Attraction_Review-g293924-d12110601-Reviews-Chua_Cau_Dong-Hanoi.html",
-    "image": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0e/5a/d0/74/caption.jpg?w=300&h=300&s=1",
-    "category": "Religious Sites",
-    "description": "",
-    "historical": 1,
-    "urban": 0,
-    "religious": 1,
-    "museum": 0,
-    "shopping": 0,
-    "adventure": 0,
-    "nature": 0,
-    "park": 0,
-    "latitude": 21.03620816,
-    "longitude": 105.8501358
+    "longitude": 105.8601962,
+    "description__1": "Expansive 2-story free geology museum with a large variety of fossils, rocks & minerals."
   },
   {
     "title": "Hai Ba Trung Temple",
@@ -1357,7 +1364,8 @@
     "nature": 0,
     "park": 1,
     "latitude": 21.01238948,
-    "longitude": 105.8562959
+    "longitude": 105.8562959,
+    "description__1": "The Hai Bà Trưng Temple is a place of worship in Hanoi near Hoàn Kiếm Lake. It is one of several temples to the two Trưng Sisters in Vietnam. According to tradition it was founded by Lý Anh Tông around 1160 after he visited a shrine to the Trưng Sisters, who then appeared to him as rain spirits."
   },
   {
     "title": "Vincom Center Pham Ngoc Thach",
@@ -1374,7 +1382,8 @@
     "nature": 0,
     "park": 0,
     "latitude": 21.00772646,
-    "longitude": 105.8315303
+    "longitude": 105.8315303,
+    "description__1": "Multi-level shopping mall with a diverse range of retail stores, a food court & a movie theater."
   },
   {
     "title": "Cultural Friendship Palace",
@@ -1391,24 +1400,8 @@
     "nature": 0,
     "park": 1,
     "latitude": 21.02274017,
-    "longitude": 105.8449184
-  },
-  {
-    "title": "Hanoi Evangelical Church",
-    "url": "https://www.tripadvisor.com/Attraction_Review-g293924-d12110292-Reviews-Hanoi_Evangelical_Church-Hanoi.html",
-    "image": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0e/5a/d4/1e/caption.jpg?w=300&h=300&s=1",
-    "category": "Churches & Cathedrals",
-    "description": "",
-    "historical": 1,
-    "urban": 0,
-    "religious": 1,
-    "museum": 0,
-    "shopping": 0,
-    "adventure": 0,
-    "nature": 0,
-    "park": 0,
-    "latitude": 21.03138971,
-    "longitude": 105.8466768
+    "longitude": 105.8449184,
+    "description__1": "The Friendship Cultural Palace, also called Huu Nghi Cultural Palace, was a present from the USSR Central Trade Union Council to the Vietnam Trade Union."
   },
   {
     "title": "Green Palm Gallery",
@@ -1425,7 +1418,8 @@
     "nature": 0,
     "park": 0,
     "latitude": 21.03235145,
-    "longitude": 105.850809
+    "longitude": 105.850809,
+    "description__1": "Centrally located at the heart of Hanoi with two address: 39 Hang Gai str., and 15 Trang Tien str, Hanoi, Viet Nam. Green Palm gallery was established and run by an Art critic since 1996, centrally located at the heart of Hanoi, Viet Nam, Green Palm Gallery is one of the most famous and prestigious institutes for Vietnamese Fine Art."
   },
   {
     "title": "Vietnam National Museum of Nature",
@@ -1442,7 +1436,8 @@
     "nature": 0,
     "park": 0,
     "latitude": 21.04841919,
-    "longitude": 105.8015981
+    "longitude": 105.8015981,
+    "description__1": "Small venue with educational activities & exhibits featuring plant, animal & insect specimens."
   },
   {
     "title": "Hoa Binh Park",
@@ -1459,7 +1454,8 @@
     "nature": 1,
     "park": 1,
     "latitude": 21.06795282,
-    "longitude": 105.7862849
+    "longitude": 105.7862849,
+    "description__1": "The Peace Park (Hoa Binh Park) in Hanoi appeared as a green oasis and a symbol of peace in the bustling capital city of Vietnam."
   },
   {
     "title": "Hathor Art Gallery",
@@ -1476,7 +1472,8 @@
     "nature": 0,
     "park": 0,
     "latitude": 21.03188745,
-    "longitude": 105.8445837
+    "longitude": 105.8445837,
+    "description__1": "Hathor Art Gallery opened in October, 2018 as the first international gallery in Hanoi. Our mission is to be the ideal destination for international contemporary artists in order to connect them with arts enthusiasts in Vietnam. Works, including paintings, sculptures, pottery, porcelain and arts books are exhibited in a professional arts space."
   },
   {
     "title": "Lang Pagoda",
@@ -1493,7 +1490,8 @@
     "nature": 0,
     "park": 0,
     "latitude": 21.02421855,
-    "longitude": 105.8026473
+    "longitude": 105.8026473,
+    "description__1": "Lang Pagoda is a large harmonious symmetrical architectural complex with an airy space and has 100 compartments. It was once considered the first pagoda in the west of Thang Long Imperial City."
   },
   {
     "title": "Hang Ma Street",
@@ -1510,7 +1508,8 @@
     "nature": 0,
     "park": 0,
     "latitude": 21.03660932,
-    "longitude": 105.8472808
+    "longitude": 105.8472808,
+    "description__1": "Hàng Mã Street is a street in Hanoi famous for selling toys, paper goods and in particular paper votive offerings. The street has been selling paper goods for more than 500 years."
   },
   {
     "title": "Hanoi Creative City",
@@ -1527,7 +1526,8 @@
     "nature": 0,
     "park": 0,
     "latitude": 21.01224798,
-    "longitude": 105.8632308
+    "longitude": 105.8632308,
+    "description__1": "Hip, lively skyscraper hub housing an assortment of co-working spaces, shops & cafes."
   },
   {
     "title": "Work Room Four",
@@ -1544,40 +1544,7 @@
     "nature": 0,
     "park": 0,
     "latitude": 21.06586758,
-    "longitude": 105.8245393
-  },
-  {
-    "title": "Pho Linh Temple",
-    "url": "https://www.tripadvisor.com/Attraction_Review-g293924-d9704567-Reviews-Pho_Linh_Temple-Hanoi.html",
-    "image": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/09/f4/7c/e8/pho-linh-temple.jpg?w=300&h=300&s=1",
-    "category": "Religious Sites",
-    "description": "",
-    "historical": 1,
-    "urban": 0,
-    "religious": 1,
-    "museum": 1,
-    "shopping": 0,
-    "adventure": 0,
-    "nature": 0,
-    "park": 0,
-    "latitude": 21.06093558,
-    "longitude": 105.8238577
-  },
-  {
-    "title": "Heritage Space",
-    "url": "https://www.tripadvisor.com/Attraction_Review-g293924-d8517712-Reviews-Heritage_Sapce-Hanoi.html",
-    "image": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/08/60/88/54/getlstd-property-photo.jpg?w=300&h=-1&s=1",
-    "category": "Art Galleries • Art Museums",
-    "description": "",
-    "historical": 0,
-    "urban": 1,
-    "religious": 0,
-    "museum": 1,
-    "shopping": 0,
-    "adventure": 0,
-    "nature": 0,
-    "park": 0,
-    "latitude": 21.02324497,
-    "longitude": 105.8484923
+    "longitude": 105.8245393,
+    "description__1": "Art Gallery, Event space, Design Consultancy, Creative Workshops & Classes, Artists Studios and Beautiful Views of Hanoi."
   }
 ]
