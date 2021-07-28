@@ -1,22 +1,77 @@
 const PlaceNeo4jService = require("../../neo4j/api/place.api");
 const PlaceNeo4j = require("../../neo4j/api/place.api");
 const PlaceService = require("../service/place.service");
-// const { Op } = db.Sequelize.Op;
+const db = require("../src/models");
+const { Place } = db;
+const { Op } = require("sequelize");
 
 const PlaceController = {
   // get all Places
   getAllPlaces: async (req, res) => {
     try {
-      const allPlaces = await PlaceService.getAllPlaces();
+      const name = req.query.name;
+      const isHistorical = req.query.isHistorical;
+      const isUrban = req.query.isUrban;
+      const isReligious = req.query.isReligious;
+      const isMuseum = req.query.isMuseum;
+      const isShopping = req.query.isShopping;
+      const isAdventure = req.query.isAdventure;
+      const isNature = req.query.isNature;
+      const isPark = req.query.isPark;
 
-      // check empty list
-      if (allPlaces === null) {
-        return res.status(204).send({
-          message: "Places are empty!",
+      var condition = name ? { name: { [Op.like]: `%${name}%` } } : null;
+      var condition1 = isHistorical ? { isHistorical: { [Op.eq]: 1 } } : null;
+      var condition2 = isUrban ? { isUrban: { [Op.eq]: 1 } } : null;
+      var condition3 = isReligious ? { isReligious: { [Op.eq]: 1 } } : null;
+      var condition4 = isMuseum ? { isMuseum: { [Op.eq]: 1 } } : null;
+      var condition5 = isShopping ? { isShopping: { [Op.eq]: 1 } } : null;
+      var condition6 = isAdventure ? { isAdventure: { [Op.eq]: 1 } } : null;
+      var condition7 = isNature ? { isNature: { [Op.eq]: 1 } } : null;
+      var condition8 = isPark ? { isPark: { [Op.eq]: 1 } } : null;
+
+      // get data based on search name and filter interest  
+      const allPlaces = await Place.findAll({
+        where: {
+          [Op.or]: [
+            condition,
+            condition1,
+            condition2,
+            condition3,
+            condition4,
+            condition5,
+            condition6,
+            condition7,
+            condition8
+          ],
+        }
+      });
+
+      // if empty, get all data
+      if (allPlaces.length == 0) {
+        const allPlaces = await Place.findAll({
+          where: condition
         });
+
+        // check empty list
+        if (allPlaces.length == 0) {
+          return res.status(204).send({
+            message: "Places are empty!",
+          });
+        }
+
+        res.json({
+          status: 'success',
+          result: allPlaces.length,
+          allPlaces: allPlaces
+        })
       }
+
       // response list of places
-      return res.status(200).json(allPlaces);
+      res.json({
+        status: 'success',
+        result: allPlaces.length,
+        allPlaces: allPlaces
+      })
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
