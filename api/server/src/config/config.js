@@ -1,35 +1,31 @@
-// require("dotenv").config();
+require("dotenv").config();
 
-// const { DB_NAME, DB_HOST, DB_USERNAME, DB_PASSWORD } = process.env;
-
-// PORT=3001
-// DB_NAME=trips
-// DB_HOST='127.0.0.1'
-// DB_USERNAME=postgres
-// DB_PASSWORD=3007
+const { PG_NAME, PG_HOST, PG_USERNAME, PG_PASSWORD, PG_PORT } = process.env;
 
 module.exports = {
   development: {
-    username: "postgres",
-    password: "Dinhthienly1",
-    database: "trips",
-    host: "127.0.0.1",
+    port: PG_PORT,
+    username: PG_USERNAME,
+    password: PG_PASSWORD,
+    database: PG_NAME,
+    host: PG_HOST,
+    dialect: "postgres",
+    logging: true,
+  },
+
+  test: {
+    username: PG_USERNAME,
+    password: PG_PASSWORD,
+    database: "database_test",
+    host: PG_HOST,
     dialect: "postgres",
   },
 
-  // test: {
-  //   username: DB_USERNAME,
-  //   password: DB_PASSWORD,
-  //   database: "database_test",
-  //   host: DB_HOST,
-  //   dialect: "postgres",
-  // },
-
-  // production: {
-  //   username: DB_USERNAME,
-  //   password: DB_PASSWORD,
-  //   database: "database_production",
-  //   host: DB_HOST,
-  //   dialect: "postgres",
-  // },
+  production: {
+    username: PG_USERNAME,
+    password: PG_PASSWORD,
+    database: "database_production",
+    host: PG_HOST,
+    dialect: "postgres",
+  },
 };

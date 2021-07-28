@@ -1,5 +1,5 @@
-// const Place = require("../../neo4j/models/Place");
-const PlaceNeo4j = require("../../neo4j/neo4j-api/place.neo4j");
+const PlaceNeo4jService = require("../../neo4j/api/place.api");
+const PlaceNeo4j = require("../../neo4j/api/place.api");
 const PlaceService = require("../service/place.service");
 // const { Op } = db.Sequelize.Op;
 
@@ -25,40 +25,40 @@ const PlaceController = {
   // get landmark places matched with user's interests
   getLandmarkPlaces: async (req, res) => {
     try {
-      // get user params
-      // from API by user's request
+      // get query params
       const { param1, param2, param3 } = req.query;
 
       // mapping params as a sub-query string
       const paramList = [param1, param2, param3];
 
+      // sequelize service
       const landmarkPlaces = await PlaceService.getLandmarkPlaces(paramList);
+
+      // check unique_point
+      // neode service
+      const point = landmarkPlaces[0].unique_point;
+      const _point = `"${point}"`;
+
+      await PlaceNeo4jService.getMainPlaces(_point);
+      console.log(_point);
+
+      // for (let i = 0; i < landmarkPlaces.length; i++) {
+      //   const checkedPoint = landmarkPlaces[i].unique_point;
+
+      //   const unique_point = `"${checkedPoint}"`;
+      //   console.log(unique_point);
+      //   await PlaceNeo4jService.getMainPlaces(unique_point);
+      // }
+
       return res.send(landmarkPlaces);
     } catch (error) {
       return res.status(500).json({ msg: error.message });
     }
   },
 
-  // createOnePlace: async (req, res) => {
-  //   try {
-  //     // const newPlace = req.body;
-
-  //     // await PlaceService.createPlaces(newPlace).then((data) =>
-  //     //   res.status(200).send(data)
-  //     // );
-
-  //     // add place via neo4j
-  //     const result = await neo4j.addPlace(req.body);
-  //     res.json(result);
-  //   } catch (error) {
-  //     return res.status(500).json({ msg: error.message });
-  //   }
-  // },
-
   // create new places
   createPlace: async (req, res) => {
     try {
-      // check existed places
       const newPlaces = req.body;
       const existedPlaceList = [];
 
@@ -66,6 +66,7 @@ const PlaceController = {
       // whether existed place
       for (let i = 0; i < newPlaces.length; i += 1) {
         const checkedName = newPlaces[i].name;
+
         // eslint-disable-next-line no-await-in-loop
         const existPlace = await PlaceService.getOnePlace(checkedName);
 
@@ -85,7 +86,7 @@ const PlaceController = {
         /**
          * Use sequelize create() method
          * to POST data of places to Postgres
-        */
+         */
         await PlaceService.createPlaces(newPlaces);
 
         /**
@@ -94,10 +95,11 @@ const PlaceController = {
          *
          * forEach() objects in newPlaces list
          */
+
         await newPlaces.forEach((props) => PlaceNeo4j.createPlace(props));
 
         // return results
-        return res.status(200).json(newPlaces);
+        return res.status(201).send(newPlaces);
       }
       return res.status(400).send({
         message: `Places [ ${existedPlaceList} ] are existed`,
@@ -157,12 +159,15 @@ const PlaceController = {
           message: "Empty list!",
         });
       }
+      // delete in Postgres
+      await PlaceService.deleteAllPlaces();
 
-      return await PlaceService.deleteAllPlaces().then(() =>
-        res.status(200).json({
-          message: "Deleted all places!",
-        })
-      );
+      // delete all in Neo4j
+      await PlaceNeo4j.deletePlaces();
+
+      return res.status(200).json({
+        message: "Deleted all places!",
+      });
     } catch (error) {
       return res.status(500).json({ msg: error.message });
     }

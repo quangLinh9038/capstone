@@ -1,10 +1,21 @@
-const { Model } = require('sequelize');
-
+const { Model, UUIDV4 } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class Accommodation extends Model {}
+  class Accommodation extends Model {
+    static associate(models) {
+      Accommodation.belongsTo(models.City, {
+        foreignKey: "city_id",
+        as: "city",
+      });
+    }
+  }
 
   Accommodation.init(
     {
+      id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+      },
       name: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -20,10 +31,9 @@ module.exports = (sequelize, DataTypes) => {
       },
       location: {
         type: DataTypes.STRING,
-        allowNull: false,
       },
       score: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
         allowNull: true,
       },
       price: {
@@ -44,12 +54,24 @@ module.exports = (sequelize, DataTypes) => {
       isHomestay: {
         type: DataTypes.INTEGER,
       },
+      lat: {
+        type: DataTypes.FLOAT,
+      },
+      lng: {
+        type: DataTypes.FLOAT,
+      },
+      unique_point: {
+        type: DataTypes.STRING,
+      },
+      city_id: {
+        type: DataTypes.INTEGER,
+      },
     },
     {
       sequelize,
-      modelName: 'Accommodation',
+      modelName: "Accommodation",
       freezeTableName: true,
-    },
+    }
   );
   return Accommodation;
 };

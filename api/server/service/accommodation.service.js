@@ -1,3 +1,4 @@
+const { QueryTypes } = require("sequelize");
 const db = require("../src/models");
 
 const { Accommodation } = db;
@@ -23,6 +24,30 @@ const AccommodationService = {
     }
   },
 
+  // get main accommodation from user's interests
+  getMainAccommodation: async (paramList) => {
+    try {
+      const subQuery = paramList.map((item) => `"${item}"`);
+      console.log(subQuery);
+
+      const sql = `SELECT * FROM "Accommodation" WHERE ${subQuery} = 1
+      LIMIT 5;`;
+
+      const sql1 = `SELECT *, ${subQuery} AS point
+              FROM "Accommodation"
+              ORDER BY point DESC LIMIT 5;`;
+
+      const mainAccommodation = await db.sequelize.query(sql, {
+        type: QueryTypes.SELECT,
+      });
+
+      return mainAccommodation;
+    } catch (error) {
+      return error;
+    }
+  },
+
+  // bulkCreate accommodations
   createAccommodations: async (newAccommodations) => {
     try {
       return await Accommodation.bulkCreate(newAccommodations);

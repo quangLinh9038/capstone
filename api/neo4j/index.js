@@ -8,8 +8,8 @@ const neode = require("neode")
   // Include models in neo4j-models directory
   .with({
     // eslint-disable-next-line global-require
-    Place: require("./neo4j-models/Place"),
-    Accommodation: require("./neo4j-models/Accommodation"),
+    Place: require("./models/Place.neo4j"),
+    Accommodation: require("./models/Accommodation.neo4j"),
   });
 
 module.exports = neode;
