@@ -25,7 +25,7 @@ db.sequelize
 // sequelize sync
 // force: drop table first if exist and create new table
 // alter: check current states of changes of tables in database
-db.sequelize.sync({ force: true, alter: true }).then(() => {
+db.sequelize.sync({ force: false, alter: false }).then(() => {
   console.log("Models synced...");
 });
 

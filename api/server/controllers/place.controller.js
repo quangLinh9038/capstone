@@ -8,7 +8,7 @@ const PlaceController = {
       const allPlaces = await PlaceService.getAllPlaces();
 
       // check empty list
-      if (allPlaces === null) {
+      if (allPlaces.length === 0) {
         return res.status(204).send({
           message: "Places are empty!",
         });
@@ -23,34 +23,32 @@ const PlaceController = {
   // get landmark places matched with user's interests
   getLandmarkPlaces: async (req, res) => {
     try {
-      // get query params
-      const { param1, param2, param3 } = req.query;
+      const places = await PlaceService.getAllPlaces();
 
-      // mapping params as a sub-query string
-      const paramList = [param1, param2, param3];
+      if (places.length === 0) {
+        return res.status(204).json({ message: "Empty Places" });
+      } else {
+        // get query params
+        const { param1, param2, param3 } = req.query;
 
-      // sequelize service
-      // query postgres
-      const landmarkPlaces = await PlaceService.getLandmarkPlaces(paramList);
+        // mapping params as a sub-query string
+        const paramList = [param1, param2, param3];
+        console.table(paramList);
 
-      // check unique_point
-      // neode service
-      const point = landmarkPlaces[0].unique_point;
+        // sequelize service
+        // query postgres
+        const landmarkPlaces = await PlaceService.getLandmarkPlaces(paramList);
 
-      const _point = `"${point}"`;
+        // for (let i = 0; i < landmarkPlaces.length; i++) {
+        //   const checkedPoint = landmarkPlaces[i].unique_point;
 
-      await PlaceNeo4jService.getMainPlaces(_point);
-      console.log(_point);
+        //   const unique_point = `"${checkedPoint}"`;
+        //   console.log(unique_point);
+        //   await PlaceNeo4jService.getMainPlaces(unique_point);
+        // }
 
-      // for (let i = 0; i < landmarkPlaces.length; i++) {
-      //   const checkedPoint = landmarkPlaces[i].unique_point;
-
-      //   const unique_point = `"${checkedPoint}"`;
-      //   console.log(unique_point);
-      //   await PlaceNeo4jService.getMainPlaces(unique_point);
-      // }
-
-      return res.send(landmarkPlaces);
+        return res.status(200).json(landmarkPlaces);
+      }
     } catch (error) {
       return res.status(500).json({ msg: error.message });
     }
@@ -95,7 +93,6 @@ const PlaceController = {
          *
          * forEach() objects in newPlaces list
          */
-
         await newPlaces.forEach((props) =>
           PlaceNeo4jService.createPlace(props)
         );

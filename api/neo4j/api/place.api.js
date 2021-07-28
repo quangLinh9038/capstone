@@ -28,11 +28,9 @@ const PlaceNeo4jService = {
     // get landmark Place nodes
     // matched unique_point with postgres
     await neode
-      .cypher(`MATCH (p:Place {unique_point: ${unique_point}}) RETURN p;`)
+      .cypher(`MATCH (p:Place {unique_point: "${unique_point}"}) RETURN p;`)
       .then(console.log("Place queried on Neo4j"));
   },
-
-  // return list of distance
 };
 
 module.exports = PlaceNeo4jService;

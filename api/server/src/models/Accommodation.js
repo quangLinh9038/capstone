@@ -72,6 +72,7 @@ module.exports = (sequelize, DataTypes) => {
         beforeCreate: (accommodation, options) => {
           accommodation.unique_point = accommodation.lat + accommodation.lng;
         },
+      },
       modelName: "Accommodation",
       sequelize,
       freezeTableName: true,

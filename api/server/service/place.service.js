@@ -66,7 +66,7 @@ const PlaceService = {
        * adding "+" between elements of paramList
        */
 
-      // table to query in Postgres database
+      // model to query in Postgres database
       const _Place = "Place";
 
       const sql = generateSqlGetLandmarkResult(_Place, paramList);
