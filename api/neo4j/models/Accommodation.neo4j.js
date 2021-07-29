@@ -11,5 +11,5 @@ module.exports = {
   },
   lat: "float",
   lng: "float",
-  unique_point: "string",
+  unique_point: "float",
 };

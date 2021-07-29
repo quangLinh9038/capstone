@@ -27,15 +27,13 @@ const AccommodationService = {
   // get main accommodation from user's interests
   getMainAccommodation: async (paramList) => {
     try {
-      const subQuery = paramList.map((item) => `"${item}"`);
-      console.log(subQuery);
+      console.log(`a_point in accomm service: ${paramList}`);
 
-      const sql = `SELECT * FROM "Accommodation" WHERE ${subQuery} = 1
+      // const subQuery = paramList.map((item) => `"${item}"`);
+      // console.log(`Accomms params: ${subQuery}`);
+
+      const sql = `SELECT * FROM "Accommodation" WHERE "${paramList}" = 1
       LIMIT 5;`;
-
-      const sql1 = `SELECT *, ${subQuery} AS point
-              FROM "Accommodation"
-              ORDER BY point DESC LIMIT 5;`;
 
       const mainAccommodation = await db.sequelize.query(sql, {
         type: QueryTypes.SELECT,

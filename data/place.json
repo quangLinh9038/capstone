@@ -14,8 +14,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.03431935,
-    "lng": 105.8505617,
-    "unique_point": "21.0343193483115105.850561696438"
+    "lng": 105.8505617
   },
   {
     "name": "Temple of Literature & National University",
@@ -32,8 +31,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.02765763,
-    "lng": 105.8355575,
-    "unique_point": "21.0276576311725105.835557515485"
+    "lng": 105.8355575
   },
   {
     "name": "Vietnam Museum of Ethnology",
@@ -50,8 +48,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.04060254,
-    "lng": 105.7987569,
-    "unique_point": "21.0406025373268105.798756855961"
+    "lng": 105.7987569
   },
   {
     "name": "Vietnamese Women's Museum",
@@ -68,15 +65,14 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.02352467,
-    "lng": 105.8513357,
-    "unique_point": "21.023524667176105.851335725274"
+    "lng": 105.8513357
   },
   {
     "name": "Hoa Lo Prison",
     "url": "https://www.tripadvisor.com/Attraction_Review-g293924-d311069-Reviews-Hoa_Lo_Prison-Hanoi.html",
     "img": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1b/2c/0d/94/photo7jpg.jpg?w=300&h=300&s=1",
     "category": "Historic Sites",
-    "description": "... visiting this somber location and learning its history from the French to the American POWs in the ",
+    "description": "... visiting this somber location and learning its history from the French to the American POWs in the",
     "isHistorical": 1,
     "isUrban": 1,
     "isReligious": 0,
@@ -86,8 +82,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.02544529,
-    "lng": 105.8464539,
-    "unique_point": "21.0254452911279105.846453871305"
+    "lng": 105.8464539
   },
   {
     "name": "Lake of the Restored Sword",
@@ -104,8 +99,7 @@
     "isNature": 1,
     "isPark": 1,
     "lat": 21.02954953,
-    "lng": 105.8541066,
-    "unique_point": "21.0295495316562105.854106631329"
+    "lng": 105.8541066
   },
   {
     "name": "Long Bien Bridge",
@@ -122,8 +116,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.04371557,
-    "lng": 105.859502,
-    "unique_point": "21.0437155718228105.859501955431"
+    "lng": 105.859502
   },
   {
     "name": "Hanoi Opera House",
@@ -140,8 +133,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.02430581,
-    "lng": 105.8582359,
-    "unique_point": "21.0243058096642105.858235884797"
+    "lng": 105.8582359
   },
   {
     "name": "Lotte Observation Deck",
@@ -158,8 +150,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.03238917,
-    "lng": 105.8126772,
-    "unique_point": "21.0323891672562105.812677228977"
+    "lng": 105.8126772
   },
   {
     "name": "St. Joseph's Cathedral",
@@ -176,8 +167,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.02891604,
-    "lng": 105.8492844,
-    "unique_point": "21.0289160434486105.849284367072"
+    "lng": 105.8492844
   },
   {
     "name": "Fine Arts Museum",
@@ -194,8 +184,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.03087859,
-    "lng": 105.8399717,
-    "unique_point": "21.0308785932948105.839971712039"
+    "lng": 105.8399717
   },
   {
     "name": "Ho Chi Minh Mausoleum",
@@ -212,8 +201,7 @@
     "isNature": 0,
     "isPark": 1,
     "lat": 21.03717767,
-    "lng": 105.8351173,
-    "unique_point": "21.0371776708195105.8351173094"
+    "lng": 105.8351173
   },
   {
     "name": "Tran Quoc Pagoda",
@@ -230,8 +218,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.04794766,
-    "lng": 105.83725,
-    "unique_point": "21.0479476640644105.83724996522"
+    "lng": 105.83725
   },
   {
     "name": "Ho Chi Minh Museum",
@@ -248,8 +235,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.03610178,
-    "lng": 105.8327469,
-    "unique_point": "21.0361017771663105.832746915485"
+    "lng": 105.8327469
   },
   {
     "name": "Vietnam Military History Museum",
@@ -266,8 +252,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.03229407,
-    "lng": 105.8405479,
-    "unique_point": "21.0322940673839105.840547934532"
+    "lng": 105.8405479
   },
   {
     "name": "Imperial Citadel of Thang Long",
@@ -284,8 +269,7 @@
     "isNature": 0,
     "isPark": 1,
     "lat": 21.03447111,
-    "lng": 105.8406185,
-    "unique_point": "21.0344711112716105.84061845358"
+    "lng": 105.8406185
   },
   {
     "name": "Ceramic Road",
@@ -302,8 +286,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.03021698,
-    "lng": 105.8576485,
-    "unique_point": "21.0302169848958105.857648488501"
+    "lng": 105.8576485
   },
   {
     "name": "Ancient House",
@@ -320,8 +303,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.03445795,
-    "lng": 105.8535484,
-    "unique_point": "21.0344579509191105.85354844704"
+    "lng": 105.8535484
   },
   {
     "name": "West Lake",
@@ -338,8 +320,7 @@
     "isNature": 1,
     "isPark": 1,
     "lat": 21.06903372,
-    "lng": 105.8135181,
-    "unique_point": "21.0690337169216105.813518067466"
+    "lng": 105.8135181
   },
   {
     "name": "Presidential Palace Historical Site",
@@ -356,8 +337,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.03839064,
-    "lng": 105.8335979,
-    "unique_point": "21.0383906354182105.833597924405"
+    "lng": 105.8335979
   },
   {
     "name": "Ta Hien Street",
@@ -374,8 +354,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.0349845,
-    "lng": 105.852226,
-    "unique_point": "21.0349845027505105.852225971305"
+    "lng": 105.852226
   },
   {
     "name": "One Pillar Pagoda",
@@ -392,8 +371,7 @@
     "isNature": 0,
     "isPark": 1,
     "lat": 21.03595332,
-    "lng": 105.8337945,
-    "unique_point": "21.0359533241972105.833794459665"
+    "lng": 105.8337945
   },
   {
     "name": "Dong Xuan Market",
@@ -410,8 +388,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.03810125,
-    "lng": 105.8496307,
-    "unique_point": "21.0381012495477105.849630688969"
+    "lng": 105.8496307
   },
   {
     "name": "Night Market",
@@ -428,8 +405,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.03394887,
-    "lng": 105.8507905,
-    "unique_point": "21.0339488717114105.850790532391"
+    "lng": 105.8507905
   },
   {
     "name": "Huu Tiep Lake and the Downed B-52",
@@ -446,8 +422,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.03851303,
-    "lng": 105.8270202,
-    "unique_point": "21.0385130317061105.827020213633"
+    "lng": 105.8270202
   },
   {
     "name": "Vietnam National Museum of History",
@@ -464,8 +439,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.02561245,
-    "lng": 105.8587356,
-    "unique_point": "21.0256124471298105.858735640882"
+    "lng": 105.8587356
   },
   {
     "name": "Lotus Water Puppet Theater",
@@ -482,8 +456,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.02876259,
-    "lng": 105.8511343,
-    "unique_point": "21.0287625864456105.851134259665"
+    "lng": 105.8511343
   },
   {
     "name": "VinKE & Aquarium Times City",
@@ -500,8 +473,7 @@
     "isNature": 0,
     "isPark": 1,
     "lat": 20.99518824,
-    "lng": 105.8683174,
-    "unique_point": "20.9951882361856105.868317427655"
+    "lng": 105.8683174
   },
   {
     "name": "Ngoc Son Temple",
@@ -518,8 +490,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.03096853,
-    "lng": 105.8527041,
-    "unique_point": "21.0309685258314105.852704078712"
+    "lng": 105.8527041
   },
   {
     "name": "Quan Thanh Temple",
@@ -536,8 +507,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.04326553,
-    "lng": 105.8371678,
-    "unique_point": "21.0432655326701105.837167801463"
+    "lng": 105.8371678
   },
   {
     "name": "Street of Hemp",
@@ -554,8 +524,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.03218035,
-    "lng": 105.8505875,
-    "unique_point": "21.0321803520503105.850587541939"
+    "lng": 105.8505875
   },
   {
     "name": "Aeon Mall Long Bien",
@@ -572,8 +541,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.02699887,
-    "lng": 105.9005784,
-    "unique_point": "21.026998874503105.900578425274"
+    "lng": 105.9005784
   },
   {
     "name": "Hoan Kiem Lake Walking Street",
@@ -590,8 +558,7 @@
     "isNature": 1,
     "isPark": 1,
     "lat": 21.0311183,
-    "lng": 105.8535337,
-    "unique_point": "21.0311182963863105.853533657813"
+    "lng": 105.8535337
   },
   {
     "name": "Vietnam National Tuong Theatre",
@@ -608,8 +575,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.031642,
-    "lng": 105.847435,
-    "unique_point": "21.0316419976705105.847434978712"
+    "lng": 105.847435
   },
   {
     "name": "Quang Ba Flower Market",
@@ -626,8 +592,7 @@
     "isNature": 0,
     "isPark": 1,
     "lat": 21.0670596,
-    "lng": 105.8283001,
-    "unique_point": "21.0670595971266105.828300136384"
+    "lng": 105.8283001
   },
   {
     "name": "Ba Dinh Square",
@@ -644,8 +609,7 @@
     "isNature": 1,
     "isPark": 1,
     "lat": 21.03763457,
-    "lng": 105.8365342,
-    "unique_point": "21.0376345699594105.836534178712"
+    "lng": 105.8365342
   },
   {
     "name": "Hom Market",
@@ -662,8 +626,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.01719485,
-    "lng": 105.8517145,
-    "unique_point": "21.0171948480462105.851714473157"
+    "lng": 105.8517145
   },
   {
     "name": "Bach Ma Temple",
@@ -680,8 +643,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.03598286,
-    "lng": 105.8518882,
-    "unique_point": "21.0359828624234105.851888162838"
+    "lng": 105.8518882
   },
   {
     "name": "Vietnamese Air Force Museum",
@@ -698,8 +660,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 20.99929441,
-    "lng": 105.8297224,
-    "unique_point": "20.9992944050867105.829722370775"
+    "lng": 105.8297224
   },
   {
     "name": "Hanoi Flag Tower",
@@ -716,8 +677,7 @@
     "isNature": 0,
     "isPark": 1,
     "lat": 21.03285601,
-    "lng": 105.8403082,
-    "unique_point": "21.0328560070433105.84030815358"
+    "lng": 105.8403082
   },
   {
     "name": "DIY Box - Leather & Coffee Workshop",
@@ -734,8 +694,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.03608234,
-    "lng": 105.8508763,
-    "unique_point": "21.0360823420234105.850876339557"
+    "lng": 105.8508763
   },
   {
     "name": "Hanoi Botanical Gardens",
@@ -752,8 +711,7 @@
     "isNature": 1,
     "isPark": 1,
     "lat": 21.04092871,
-    "lng": 105.8329592,
-    "unique_point": "21.0409287081531105.832959158085"
+    "lng": 105.8329592
   },
   {
     "name": "B52 Victory Museum",
@@ -770,8 +728,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.03579468,
-    "lng": 105.8265942,
-    "unique_point": "21.0357946842129105.826594155431"
+    "lng": 105.8265942
   },
   {
     "name": "Masjid Al Noor Mosque",
@@ -788,8 +745,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.03818349,
-    "lng": 105.8486665,
-    "unique_point": "21.0381834910719105.848666539557"
+    "lng": 105.8486665
   },
   {
     "name": "Ho Tay Water Park",
@@ -806,8 +762,7 @@
     "isNature": 0,
     "isPark": 1,
     "lat": 21.07323267,
-    "lng": 105.8176272,
-    "unique_point": "21.0732326689051105.817627249876"
+    "lng": 105.8176272
   },
   {
     "name": "Hang Da Market",
@@ -824,8 +779,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.03162258,
-    "lng": 105.8469002,
-    "unique_point": "21.0316225835727105.846900226595"
+    "lng": 105.8469002
   },
   {
     "name": "Phung Hung Mural Street",
@@ -842,8 +796,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.03853757,
-    "lng": 105.8471353,
-    "unique_point": "21.0385375682592105.847135280564"
+    "lng": 105.8471353
   },
   {
     "name": "Welcoming Morning Sunlight Bridge",
@@ -860,8 +813,7 @@
     "isNature": 0,
     "isPark": 1,
     "lat": 21.03092518,
-    "lng": 105.853823,
-    "unique_point": "21.0309251833927105.853822980034"
+    "lng": 105.853823
   },
   {
     "name": "Ambassador's Pagoda",
@@ -878,8 +830,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.02465362,
-    "lng": 105.8456927,
-    "unique_point": "21.0246536193038105.845692749876"
+    "lng": 105.8456927
   },
   {
     "name": "Museum of the Revolution",
@@ -896,8 +847,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.02591046,
-    "lng": 105.8592751,
-    "unique_point": "21.0259104630075105.859275067072"
+    "lng": 105.8592751
   },
   {
     "name": "Truc Bach Lake",
@@ -914,11 +864,10 @@
     "isNature": 1,
     "isPark": 1,
     "lat": 21.04543345,
-    "lng": 105.8385376,
-    "unique_point": "21.0454334477405105.838537615402"
+    "lng": 105.8385376
   },
   {
-    "name": "Thong Nhat Park ",
+    "name": "Thong Nhat Park",
     "url": "https://www.tripadvisor.com/Attraction_Review-g293924-d7057006-Reviews-Thong_Nhat_Park_Lenin_Park-Hanoi.html",
     "img": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/06/c3/e9/7b/thong-nhat-park-lenin.jpg?w=300&h=-1&s=1",
     "category": "Parks",
@@ -932,8 +881,7 @@
     "isNature": 1,
     "isPark": 1,
     "lat": 21.01074539,
-    "lng": 105.8423754,
-    "unique_point": "21.0107453914452105.842375369453"
+    "lng": 105.8423754
   },
   {
     "name": "Hanoi Zoological Gardens",
@@ -950,8 +898,7 @@
     "isNature": 1,
     "isPark": 1,
     "lat": 21.03079603,
-    "lng": 105.805587,
-    "unique_point": "21.0307960284796105.805586965343"
+    "lng": 105.805587
   },
   {
     "name": "Keangnam Hanoi Landmark Tower",
@@ -968,8 +915,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.01657805,
-    "lng": 105.784454,
-    "unique_point": "21.0165780490406105.784453994056"
+    "lng": 105.784454
   },
   {
     "name": "Lenin Statue",
@@ -986,8 +932,7 @@
     "isNature": 1,
     "isPark": 1,
     "lat": 21.03274599,
-    "lng": 105.8396915,
-    "unique_point": "21.0327459889835105.839691464926"
+    "lng": 105.8396915
   },
   {
     "name": "Long Bien Market",
@@ -1004,8 +949,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.04129034,
-    "lng": 105.850814,
-    "unique_point": "21.0412903361242105.850813984797"
+    "lng": 105.850814
   },
   {
     "name": "Vincom Center for Contemporary Art (VCCA)",
@@ -1022,8 +966,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.00322611,
-    "lng": 105.8156051,
-    "unique_point": "21.0032261141547105.81560513215"
+    "lng": 105.8156051
   },
   {
     "name": "BigC Thang Long",
@@ -1040,8 +983,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.00721377,
-    "lng": 105.7936126,
-    "unique_point": "21.0072137732051105.793612582234"
+    "lng": 105.7936126
   },
   {
     "name": "Phu Tay Ho",
@@ -1058,8 +1000,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.05525137,
-    "lng": 105.8202331,
-    "unique_point": "21.0552513738459105.82023305358"
+    "lng": 105.8202331
   },
   {
     "name": "Dong Kinh Nghia Thuc Square",
@@ -1076,8 +1017,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.03217185,
-    "lng": 105.8522728,
-    "unique_point": "21.0321718534645105.85227283215"
+    "lng": 105.8522728
   },
   {
     "name": "Cua Bac Church",
@@ -1094,8 +1034,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.04167392,
-    "lng": 105.8410575,
-    "unique_point": "21.0416739220044105.841057526595"
+    "lng": 105.8410575
   },
   {
     "name": "Nguyen Art Gallery in Hanoi",
@@ -1112,8 +1051,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.02866884,
-    "lng": 105.836499,
-    "unique_point": "21.0286688434097105.836498984797"
+    "lng": 105.836499
   },
   {
     "name": "Lotte Department Store",
@@ -1130,8 +1068,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.03199788,
-    "lng": 105.8126166,
-    "unique_point": "21.0319978839054105.812616578452"
+    "lng": 105.8126166
   },
   {
     "name": "Hang Bac Temple",
@@ -1148,8 +1085,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.03423257,
-    "lng": 105.8517148,
-    "unique_point": "21.0342325671744105.851714792204"
+    "lng": 105.8517148
   },
   {
     "name": "Post Office Ha Noi",
@@ -1166,8 +1102,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.02684159,
-    "lng": 105.8535159,
-    "unique_point": "21.0268415854833105.853515914387"
+    "lng": 105.8535159
   },
   {
     "name": "Red River",
@@ -1184,8 +1119,7 @@
     "isNature": 1,
     "isPark": 1,
     "lat": 21.08113969,
-    "lng": 105.8373683,
-    "unique_point": "21.0811396902793105.837368298765"
+    "lng": 105.8373683
   },
   {
     "name": "D&C Art Gallery",
@@ -1202,8 +1136,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.03150933,
-    "lng": 105.8495762,
-    "unique_point": "21.031509332722105.849576155786"
+    "lng": 105.8495762
   },
   {
     "name": "Savico Megamall",
@@ -1220,8 +1153,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.05048059,
-    "lng": 105.8942499,
-    "unique_point": "21.0504805915123105.894249914955"
+    "lng": 105.8942499
   },
   {
     "name": "Bao Son Paradise Park",
@@ -1238,8 +1170,7 @@
     "isNature": 1,
     "isPark": 1,
     "lat": 20.99890415,
-    "lng": 105.7343893,
-    "unique_point": "20.9989041472431105.734389262308"
+    "lng": 105.7343893
   },
   {
     "name": "National Library of Vietnam",
@@ -1256,8 +1187,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.02618902,
-    "lng": 105.8501163,
-    "unique_point": "21.0261890176525105.850116318658"
+    "lng": 105.8501163
   },
   {
     "name": "Linh Dam Lake",
@@ -1274,8 +1204,7 @@
     "isNature": 1,
     "isPark": 1,
     "lat": 20.9684687,
-    "lng": 105.8336132,
-    "unique_point": "20.9684687030178105.833613152522"
+    "lng": 105.8336132
   },
   {
     "name": "Hanoi Museum",
@@ -1292,8 +1221,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.01100859,
-    "lng": 105.7875507,
-    "unique_point": "21.0110085913331105.787550667751"
+    "lng": 105.7875507
   },
   {
     "name": "A Dong Art Gallery",
@@ -1310,8 +1238,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.02724194,
-    "lng": 105.8546575,
-    "unique_point": "21.0272419392412105.854657499389"
+    "lng": 105.8546575
   },
   {
     "name": "Cau Giay Park",
@@ -1328,8 +1255,7 @@
     "isNature": 1,
     "isPark": 1,
     "lat": 21.0281969,
-    "lng": 105.7908365,
-    "unique_point": "21.028196899988105.790836455961"
+    "lng": 105.7908365
   },
   {
     "name": "Kim Ngan Temple",
@@ -1346,8 +1272,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.03415325,
-    "lng": 105.8531438,
-    "unique_point": "21.0341532509333105.8531438094"
+    "lng": 105.8531438
   },
   {
     "name": "The Garden Shopping Center",
@@ -1364,8 +1289,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.0155101,
-    "lng": 105.7783836,
-    "unique_point": "21.0155101028573105.778383601463"
+    "lng": 105.7783836
   },
   {
     "name": "Vietnam National Puppetry Theatre",
@@ -1382,8 +1306,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.00211947,
-    "lng": 105.8226464,
-    "unique_point": "21.0021194723442105.822646351197"
+    "lng": 105.8226464
   },
   {
     "name": "Geological Museum",
@@ -1400,8 +1323,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.02503726,
-    "lng": 105.8601962,
-    "unique_point": "21.0250372630776105.860196168172"
+    "lng": 105.8601962
   },
   {
     "name": "Chua Cau Dong",
@@ -1418,8 +1340,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.03620816,
-    "lng": 105.8501358,
-    "unique_point": "21.0362081621205105.850135826595"
+    "lng": 105.8501358
   },
   {
     "name": "Hai Ba Trung Temple",
@@ -1436,8 +1357,7 @@
     "isNature": 0,
     "isPark": 1,
     "lat": 21.01238948,
-    "lng": 105.8562959,
-    "unique_point": "21.0123894787233105.856295859135"
+    "lng": 105.8562959
   },
   {
     "name": "Vincom Center Pham Ngoc Thach",
@@ -1454,8 +1374,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.00772646,
-    "lng": 105.8315303,
-    "unique_point": "21.007726463581105.831530332895"
+    "lng": 105.8315303
   },
   {
     "name": "Cultural Friendship Palace",
@@ -1472,8 +1391,7 @@
     "isNature": 0,
     "isPark": 1,
     "lat": 21.02274017,
-    "lng": 105.8449184,
-    "unique_point": "21.02274016551105.844918387971"
+    "lng": 105.8449184
   },
   {
     "name": "Hanoi Evangelical Church",
@@ -1490,8 +1408,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.03138971,
-    "lng": 105.8466768,
-    "unique_point": "21.031389711013105.846676832151"
+    "lng": 105.8466768
   },
   {
     "name": "Green Palm Gallery",
@@ -1508,8 +1425,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.03235145,
-    "lng": 105.850809,
-    "unique_point": "21.0323514532349105.850808961516"
+    "lng": 105.850809
   },
   {
     "name": "Vietnam National Museum of Nature",
@@ -1526,8 +1442,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.04841919,
-    "lng": 105.8015981,
-    "unique_point": "21.0484191886449105.80159806469"
+    "lng": 105.8015981
   },
   {
     "name": "Hoa Binh Park",
@@ -1544,8 +1459,7 @@
     "isNature": 1,
     "isPark": 1,
     "lat": 21.06795282,
-    "lng": 105.7862849,
-    "unique_point": "21.0679528171594105.786284865224"
+    "lng": 105.7862849
   },
   {
     "name": "Hathor Art Gallery",
@@ -1562,8 +1476,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.03188745,
-    "lng": 105.8445837,
-    "unique_point": "21.0318874538276105.844583705696"
+    "lng": 105.8445837
   },
   {
     "name": "Lang Pagoda",
@@ -1580,8 +1493,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.02421855,
-    "lng": 105.8026473,
-    "unique_point": "21.0242185490046105.802647255961"
+    "lng": 105.8026473
   },
   {
     "name": "Hang Ma Street",
@@ -1598,8 +1510,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.03660932,
-    "lng": 105.8472808,
-    "unique_point": "21.0366093203546105.847280821392"
+    "lng": 105.8472808
   },
   {
     "name": "Hanoi Creative City",
@@ -1616,8 +1527,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.01224798,
-    "lng": 105.8632308,
-    "unique_point": "21.0122479808652105.863230838501"
+    "lng": 105.8632308
   },
   {
     "name": "Work Room Four",
@@ -1634,8 +1544,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.06586758,
-    "lng": 105.8245393,
-    "unique_point": "21.0658675845486105.824539264548"
+    "lng": 105.8245393
   },
   {
     "name": "Pho Linh Temple",
@@ -1652,8 +1561,7 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.06093558,
-    "lng": 105.8238577,
-    "unique_point": "21.0609355802529105.823857699611"
+    "lng": 105.8238577
   },
   {
     "name": "Heritage Space",
@@ -1670,7 +1578,6 @@
     "isNature": 0,
     "isPark": 0,
     "lat": 21.02324497,
-    "lng": 105.8484923,
-    "unique_point": "21.02324497308105.848492311417"
+    "lng": 105.8484923
   }
 ]

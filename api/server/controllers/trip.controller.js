@@ -1,4 +1,5 @@
 const TripService = require("../service/trip.service");
+const TripNeo4jService = require("../../neo4j/api/trip.api");
 
 const TripController = {
   getAllTrips: async (req, res) => {
@@ -17,7 +18,29 @@ const TripController = {
 
   getPair: async (req, res) => {
     try {
-    } catch (error) {}
+      const { placeParam1, placeParam2 } = req.query;
+      const placeParams = [placeParam1, placeParam2];
+      console.log(`place in controller: ${placeParams}`);
+
+      const { accommodationParams } = req.query;
+      // const a_param = [accommodationParams];
+      const a_point = [accommodationParams];
+      console.log(`a_param in copntroller: ${a_point}`);
+
+      const pair = await TripService.getShortestPair(
+        placeParams,
+        accommodationParams
+      );
+      console.log(`pair ${pair}`);
+      // .then((res) => res.toJSON())
+      // .then((json) => {
+      //   res.send(json);
+      // });
+
+      return res.status(200).send(pair);
+    } catch (error) {
+      return res.status(500).json({ msg: error });
+    }
   },
 
   /**
@@ -30,23 +53,3 @@ const TripController = {
 };
 
 module.exports = TripController;
-// createTrip: {
-//   // get main place
-//   // get main accomm
-// }
-
-// getPair: (params) {
-
-// }
-// // get main places
-// // return 1 Place of interest --> unique_point
-
-// // get main accomms
-// // return list of 5 accomms -> accommList ({unique_point})
-
-// // service
-// // {Place, accommList} --> cypher.batch (findShortestPath (Place, accommList))
-// // return (Place, Accomm)
-// // unique_point
-
-// // List place surround

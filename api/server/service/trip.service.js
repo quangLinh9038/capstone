@@ -28,20 +28,27 @@ const TripService = {
 
   getShortestPair: async (placeParams, accommodationParams) => {
     //get main places
+
+    console.log(`Place params in trip service: ${placeParams}`);
     const mainPlaces = await PlaceService.getLandmarkPlaces(placeParams);
 
     const firstPlacePoint = mainPlaces[0].unique_point;
-    /// --> return P1
 
+    console.log(`a_point in trip service: ${accommodationParams}`);
     // get main accomms from
-    const accommsList = await AccommodationService.getMainAccommodation(
+
+    const mainAccomms = await AccommodationService.getMainAccommodation(
       accommodationParams
     );
+    console.log(`mainAccomm queired in trip service ${mainAccomms}`);
+
+    const firstAccommsPoint = mainAccomms[0].unique_point;
+    console.log(`accomms point in trip service: ${firstAccommsPoint}`);
 
     //return pair
     const pair = await TripNeo4jService.getShortestPair(
       firstPlacePoint,
-      accommsList
+      firstAccommsPoint
     );
 
     return pair;

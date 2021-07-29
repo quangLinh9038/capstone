@@ -1,6 +1,11 @@
 const PlaceNeo4jService = require("../../neo4j/api/place.api");
 const PlaceService = require("../service/place.service");
 
+/***
+ * Import utils
+ */
+const parseString = require("../utils/parseString");
+
 const PlaceController = {
   // get all Places
   getAllPlaces: async (req, res) => {
@@ -26,7 +31,7 @@ const PlaceController = {
       const places = await PlaceService.getAllPlaces();
 
       if (places.length === 0) {
-        return res.status(204).json({ message: "Empty Places" });
+        return res.status(204).json({ message: "Places are empty" });
       } else {
         // get query params
         const { param1, param2, param3 } = req.query;
@@ -35,17 +40,11 @@ const PlaceController = {
         const paramList = [param1, param2, param3];
         console.table(paramList);
 
-        // sequelize service
-        // query postgres
+        /**
+         * Use PlaceService.getLandmarkPlaces
+         * to query interested Places from Postgres
+         */
         const landmarkPlaces = await PlaceService.getLandmarkPlaces(paramList);
-
-        // for (let i = 0; i < landmarkPlaces.length; i++) {
-        //   const checkedPoint = landmarkPlaces[i].unique_point;
-
-        //   const unique_point = `"${checkedPoint}"`;
-        //   console.log(unique_point);
-        //   await PlaceNeo4jService.getMainPlaces(unique_point);
-        // }
 
         return res.status(200).json(landmarkPlaces);
       }
@@ -85,7 +84,12 @@ const PlaceController = {
          * Use sequelize create() method
          * to POST data of places to Postgres
          */
-        await PlaceService.createPlaces(newPlaces);
+        const _newPlaces = await PlaceService.createPlaces(newPlaces);
+
+        /**
+         * Parsing _newPlaces to Object to post to Neo4j
+         */
+        const objNewPlaces = parseString(_newPlaces);
 
         /**
          * Use neode to create nodes from JSON request
@@ -93,12 +97,17 @@ const PlaceController = {
          *
          * forEach() objects in newPlaces list
          */
-        await newPlaces.forEach((props) =>
-          PlaceNeo4jService.createPlace(props)
+        await objNewPlaces.forEach(
+          (props) => PlaceNeo4jService.createPlace(props)
+          // console.log(props)
         );
 
         // return results
-        return res.status(201).send(newPlaces);
+        return res.status(201).json({
+          msg: "Place created",
+          results: _newPlaces.length,
+          newPlaces: _newPlaces,
+        });
       }
       return res.status(400).send({
         message: `Places [ ${existedPlaceList} ] are existed`,
