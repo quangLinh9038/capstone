@@ -1,9 +1,12 @@
 const PlaceNeo4jService = require("../../neo4j/api/place.api");
 const PlaceNeo4j = require("../../neo4j/api/place.api");
 const PlaceService = require("../service/place.service");
-const db = require("../src/models");
-const { Place } = db;
 const { Op } = require("sequelize");
+
+/**
+ * Import utils
+ */
+const checkNullObject = require("../utils/checkNullUtils").checkNullObject;
 
 const PlaceController = {
   // get all Places
@@ -49,64 +52,50 @@ const PlaceController = {
         condition8,
       ];
 
-      function checkNullObject(list) {
-        for (var obj in list) {
-          if (list[obj] === null && list[obj] === "") return true;
-        }
-        return false;
-      }
+      /***
+       * set statement of condition is null
+       * to check every object whether null or not
+       */
+      const isEveryObjectNull = (condition) => condition === null;
 
-      console.log(checkNullObject(conditionList));
-
-      if (checkNullObject(conditionList)) {
+      /**
+       * If conditionList has one ore more conditions --> query conditional Places
+       *
+       * If not, query all Places from db
+       */
+      if (!conditionList.every(isEveryObjectNull)) {
         const conditionalPlaces = await PlaceService.getConditionalPlaces(
           conditionList
         );
-        console.log(conditionalPlaces);
 
-        return conditionalPlaces;
-      } else {
-        const allPlaces = await PlaceService.getAllPlaces();
-        console.log(allPlaces);
-        return allPlaces;
+        /**
+         * Check found Places
+         * */
+        if (conditionalPlaces.length === 0)
+          return res.status(204).send({ message: `Places not found` });
+        /**
+         * If not null
+         * response matched conditional Places
+         */
+        return res.json({
+          status: "success",
+          result: conditionalPlaces.length,
+          allPlaces: conditionalPlaces,
+        });
       }
-
-      /***
-       * Query Places have condition
-       *  */
-      // const conditionalPlaces = await PlaceService.getConditionalPlaces(
-      //   conditionList
-      // );
-
-      // console.log(`conditional places: ${conditionalPlaces}`);
-      // /**
-      //  * Without any conditions
-      //  *
-      //  * return empty list
-      //  * */
-      // if (conditionalPlaces.length == 0) {
-      //   /**
-      //    * get all places without conditions
-      //    */
-      //   const allPlaces = await PlaceService.getAllPlaces();
-
-      //   if (allPlace.length === 0) {
-      //     return res.status(204).send({ msg: "Places are empty" });
-      //   }
-
-      //   return res.status(200).json({
-      //     count: allPlaces.length,
-      //     places: allPlaces,
-      //   });
-      // }
-
       /**
-       * response matched conditional Places
+       * If conditions are every null
+       * return GET all places routes
        */
-      res.json({
+      const allPlaces = await PlaceService.getAllPlaces();
+
+      if (allPlaces.length.length === 0)
+        return res.status(204).send({ message: `Places are empty` });
+
+      return res.json({
         status: "success",
-        result: conditionalPlaces.length,
-        allPlaces: conditionalPlaces,
+        result: allPlaces.length,
+        allPlaces: allPlaces,
       });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
