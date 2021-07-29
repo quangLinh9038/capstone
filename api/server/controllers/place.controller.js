@@ -9,16 +9,24 @@ const PlaceController = {
   // get all Places
   getAllPlaces: async (req, res) => {
     try {
-      const name = req.query.name;
-      const isHistorical = req.query.isHistorical;
-      const isUrban = req.query.isUrban;
-      const isReligious = req.query.isReligious;
-      const isMuseum = req.query.isMuseum;
-      const isShopping = req.query.isShopping;
-      const isAdventure = req.query.isAdventure;
-      const isNature = req.query.isNature;
-      const isPark = req.query.isPark;
+      /**
+       * Get params
+       */
+      const {
+        name,
+        isHistorical,
+        isUrban,
+        isReligious,
+        isMuseum,
+        isShopping,
+        isPark,
+        isAdventure,
+        isNature,
+      } = req.query;
 
+      /***
+       * Define conditions for query
+       */
       var condition = name ? { name: { [Op.like]: `%${name}%` } } : null;
       var condition1 = isHistorical ? { isHistorical: { [Op.eq]: 1 } } : null;
       var condition2 = isUrban ? { isUrban: { [Op.eq]: 1 } } : null;
@@ -29,49 +37,77 @@ const PlaceController = {
       var condition7 = isNature ? { isNature: { [Op.eq]: 1 } } : null;
       var condition8 = isPark ? { isPark: { [Op.eq]: 1 } } : null;
 
-      // get data based on search name and filter interest  
-      const allPlaces = await Place.findAll({
-        where: {
-          [Op.or]: [
-            condition,
-            condition1,
-            condition2,
-            condition3,
-            condition4,
-            condition5,
-            condition6,
-            condition7,
-            condition8
-          ],
+      const conditionList = [
+        condition,
+        condition1,
+        condition2,
+        condition3,
+        condition4,
+        condition5,
+        condition6,
+        condition7,
+        condition8,
+      ];
+
+      function checkNullObject(list) {
+        for (var obj in list) {
+          if (list[obj] === null && list[obj] === "") return true;
         }
-      });
-
-      // if empty, get all data
-      if (allPlaces.length == 0) {
-        const allPlaces = await Place.findAll({
-          where: condition
-        });
-
-        // check empty list
-        if (allPlaces.length == 0) {
-          return res.status(204).send({
-            message: "Places are empty!",
-          });
-        }
-
-        res.json({
-          status: 'success',
-          result: allPlaces.length,
-          allPlaces: allPlaces
-        })
+        return false;
       }
 
-      // response list of places
+      console.log(checkNullObject(conditionList));
+
+      if (checkNullObject(conditionList)) {
+        const conditionalPlaces = await PlaceService.getConditionalPlaces(
+          conditionList
+        );
+        console.log(conditionalPlaces);
+
+        return conditionalPlaces;
+      } else {
+        const allPlaces = await PlaceService.getAllPlaces();
+        console.log(allPlaces);
+        return allPlaces;
+      }
+
+      /***
+       * Query Places have condition
+       *  */
+      // const conditionalPlaces = await PlaceService.getConditionalPlaces(
+      //   conditionList
+      // );
+
+      // console.log(`conditional places: ${conditionalPlaces}`);
+      // /**
+      //  * Without any conditions
+      //  *
+      //  * return empty list
+      //  * */
+      // if (conditionalPlaces.length == 0) {
+      //   /**
+      //    * get all places without conditions
+      //    */
+      //   const allPlaces = await PlaceService.getAllPlaces();
+
+      //   if (allPlace.length === 0) {
+      //     return res.status(204).send({ msg: "Places are empty" });
+      //   }
+
+      //   return res.status(200).json({
+      //     count: allPlaces.length,
+      //     places: allPlaces,
+      //   });
+      // }
+
+      /**
+       * response matched conditional Places
+       */
       res.json({
-        status: 'success',
-        result: allPlaces.length,
-        allPlaces: allPlaces
-      })
+        status: "success",
+        result: conditionalPlaces.length,
+        allPlaces: conditionalPlaces,
+      });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
