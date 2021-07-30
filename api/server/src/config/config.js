@@ -10,7 +10,7 @@ module.exports = {
     database: PG_NAME,
     host: PG_HOST,
     dialect: "postgres",
-    logging: true,
+    logging: false,
   },
 
   test: {
