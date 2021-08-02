@@ -16,26 +16,22 @@ const TripController = {
     }
   },
 
+  /**
+   * GET pair Place, Accommodation --> shortest path
+   */
   getPair: async (req, res) => {
     try {
       const { placeParam1, placeParam2 } = req.query;
       const placeParams = [placeParam1, placeParam2];
-      console.log(`place in controller: ${placeParams}`);
+      // console.log(`place in controller: ${placeParams}`);
 
       const { accommodationParams } = req.query;
-      // const a_param = [accommodationParams];
-      const a_point = [accommodationParams];
-      console.log(`a_param in copntroller: ${a_point}`);
+      // console.log(`a_param in controller: ${accomms_point}`);
 
       const pair = await TripService.getShortestPair(
         placeParams,
         accommodationParams
       );
-      console.log(`pair ${pair}`);
-      // .then((res) => res.toJSON())
-      // .then((json) => {
-      //   res.send(json);
-      // });
 
       return res.status(200).send(pair);
     } catch (error) {
@@ -43,9 +39,6 @@ const TripController = {
     }
   },
 
-  /**
-   * GET pair Place, Accommodation --> shortest path
-   */
   createTrip: async (req, res) => {
     try {
     } catch (error) {}

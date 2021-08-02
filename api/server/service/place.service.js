@@ -71,7 +71,6 @@ const PlaceService = {
 
       const sql = generateSqlGetLandmarkResult(_Place, paramList);
 
-      console.log(`sql in place service: ${sql}`);
       const landmarkPlaces = await db.sequelize.query(sql, {
         type: QueryTypes.SELECT,
       });

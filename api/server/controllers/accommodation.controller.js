@@ -110,6 +110,9 @@ const AccommodationController = {
           message: "Empty list!",
         });
       }
+      /**
+       * Postgres DELETE
+       */
       await AccommodationService.deleteAllAccommodations();
 
       await AccommodationNeo4jService.deleteAllAccomms();

@@ -1,5 +1,7 @@
 /* eslint-disable global-require */
 /* eslint-disable import/no-dynamic-require */
+require("dotenv").config();
+
 const fs = require("fs");
 const path = require("path");
 const Sequelize = require("sequelize");
@@ -9,7 +11,9 @@ const env = process.env.NODE_ENV || "development";
 const config = require(`${__dirname}/../config/config.js`)[env];
 const db = {};
 
-// configuration environment
+/***
+ * Configuration environment
+ */
 let sequelize;
 if (config.use_env_variable) {
   // when in production
@@ -25,14 +29,14 @@ if (config.use_env_variable) {
 }
 
 /**
- * importing and reading models
+ * Importing and reading models
  * fs.readdirSync read __dirname as models/index.js
- * models are defined in models/ directory being pulled in from
+ * Models are defined in models/ directory being pulled in from
  */
 fs.readdirSync(__dirname)
 
   /**
-   * filter function to make sure
+   * Filter function to make sure
    * - there are files to read in models/
    * - except index.js (this file)
    * - models end with '.js'
@@ -41,7 +45,10 @@ fs.readdirSync(__dirname)
     (file) =>
       file.indexOf(".") !== 0 && file !== basename && file.slice(-3) === ".js"
   )
-  // each model file keyed into exports Object
+
+  /**
+   * Each model file keyed into exports Object
+   * */
   .forEach((file) => {
     const model = require(path.join(__dirname, file))(
       sequelize,
@@ -50,8 +57,10 @@ fs.readdirSync(__dirname)
     db[model.name] = model;
   });
 
-// associating each model after obtaining all model files
-// running through models' association if exists
+/**
+ * Associating each model after obtaining all model files
+ * running through models' association if exists
+ */
 Object.keys(db).forEach((modelName) => {
   if (db[modelName].associate) {
     db[modelName].associate(db);

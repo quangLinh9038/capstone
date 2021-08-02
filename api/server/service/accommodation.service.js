@@ -27,11 +27,8 @@ const AccommodationService = {
   // get main accommodation from user's interests
   getMainAccommodation: async (paramList) => {
     try {
-      console.log(`a_point in accomm service: ${paramList}`);
-
       // const subQuery = paramList.map((item) => `"${item}"`);
       // console.log(`Accomms params: ${subQuery}`);
-
       const sql = `SELECT * FROM "Accommodation" WHERE "${paramList}" = 1
       LIMIT 5;`;
 
