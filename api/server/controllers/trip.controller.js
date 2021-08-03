@@ -17,9 +17,11 @@ const TripController = {
   },
 
   /**
-   * GET pair Place, Accommodation --> shortest path
+   * GET the shortest Accommodation from landmark Place
+   * Return Accommodation {unique_point} to show info
    */
-  getPair: async (req, res) => {
+
+  getShortestAccommodationFromMainPlace: async (req, res) => {
     try {
       const { placeParam1, placeParam2 } = req.query;
       const placeParams = [placeParam1, placeParam2];
@@ -28,7 +30,7 @@ const TripController = {
       const { accommodationParams } = req.query;
       // console.log(`a_param in controller: ${accomms_point}`);
 
-      const result = await TripService.getShortestPair(
+      const result = await TripService.getSuggestedTrip(
         placeParams,
         accommodationParams
       );

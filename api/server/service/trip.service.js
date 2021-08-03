@@ -25,7 +25,7 @@ const TripService = {
     }
   },
 
-  getShortestPair: async (placeParams, accommodationParams) => {
+  getSuggestedTrip: async (placeParams, accommodationParams) => {
     const accommsUniquePointList = [];
     //get main places
 
@@ -42,7 +42,7 @@ const TripService = {
     });
 
     //return pair
-    const result = await TripNeo4jService.getShortestPair(
+    const result = await TripNeo4jService.getShortestAccommodation(
       firstPlacePoint,
       accommsUniquePointList
     );
