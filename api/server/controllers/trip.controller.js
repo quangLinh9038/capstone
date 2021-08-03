@@ -28,12 +28,12 @@ const TripController = {
       const { accommodationParams } = req.query;
       // console.log(`a_param in controller: ${accomms_point}`);
 
-      const pair = await TripService.getShortestPair(
+      const result = await TripService.getShortestPair(
         placeParams,
         accommodationParams
       );
 
-      return res.status(200).send(pair);
+      return res.status(200).json(result);
     } catch (error) {
       return res.status(500).json({ msg: error });
     }

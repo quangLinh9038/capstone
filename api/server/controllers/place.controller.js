@@ -1,3 +1,6 @@
+/**
+ * Import services
+ */
 const PlaceNeo4jService = require("../../neo4j/api/place.api");
 const PlaceService = require("../service/place.service");
 
@@ -38,7 +41,6 @@ const PlaceController = {
 
         // mapping params as a sub-query string
         const paramList = [param1, param2, param3];
-        console.table(paramList);
 
         /**
          * Use PlaceService.getLandmarkPlaces
@@ -93,15 +95,15 @@ const PlaceController = {
 
         /**
          * Use neode to create nodes from JSON request
-         * @param {props} properties of Place nodes containing {name, lat, lng}
+         * @param {props} properties of Place nodes containing {name, lat, lng, unique_point}
          *
          * forEach() objects in newPlaces list
          */
-        await objNewPlaces.forEach(
-          (props) => PlaceNeo4jService.createPlace(props)
-          // console.log(props)
+        await objNewPlaces.forEach((props) =>
+          PlaceNeo4jService.createPlace(props)
         );
 
+        await PlaceNeo4jService.initRelationship();
         // return results
         return res.status(201).json({
           msg: "Place created",

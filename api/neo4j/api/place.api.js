@@ -1,14 +1,12 @@
 /**
- * Define neode methods for Place label
+ * Define neode instance
  */
-
-// include defined Neode instance
 const neode = require("../index");
 
 const PlaceNeo4jService = {
   getAll: async () => {
     // MATCH (p:Place) RETURN p;
-    await neode.all("Place");
+    return await neode.all("Place");
   },
 
   createPlace: async (properties) => {
@@ -18,7 +16,7 @@ const PlaceNeo4jService = {
 
   deletePlaces: async () => {
     // DELETE (p:Place) DETACH DELETE p;
-    await neode
+    return await neode
       .deleteAll("Place")
       .then(() => console.log("Delete all Place nodes!!!"));
   },
@@ -27,9 +25,24 @@ const PlaceNeo4jService = {
   getMainPlaces: async (unique_point) => {
     // get landmark Place nodes
     // matched unique_point with postgres
-    await neode
+    return await neode
       .cypher(`MATCH (p:Place {unique_point: ${unique_point}}) RETURN p;`)
       .then(console.log("Place queried on Neo4j"));
+  },
+
+  // init relationship between Place and Accommodation to create distance
+  initRelationship: async () => {
+    return await neode
+      .cypher(
+        `CALL apoc.periodic.iterate(
+      "MATCH (p:Place), (a:Accommodation)
+      WHERE NOT (p) -[:DISTANCE_TO]->(a) WITH point({longitude:p.lng, latitude:p.lat}) as p1,
+      point({longitude: a.lng, latitude: a.lat}) as p2, p, a WITH distance(p1, p2) as distance, p, a
+      RETURN p, a, distance",
+      "CREATE (p)-[:DISTANCE_TO {dist: distance}]-> (a) RETURN p, a",
+      {batchSize: 1000, parallel: true})`
+      )
+      .then(console.log(`Init relationship success`));
   },
 };
 

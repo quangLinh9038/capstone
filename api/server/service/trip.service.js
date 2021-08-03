@@ -1,4 +1,3 @@
-const { QueryTypes } = require("sequelize");
 const Trip = require("../src/models").Trip;
 
 const PlaceService = require(".//place.service");
@@ -43,12 +42,12 @@ const TripService = {
     });
 
     //return pair
-    const pair = await TripNeo4jService.getShortestPair(
+    const result = await TripNeo4jService.getShortestPair(
       firstPlacePoint,
       accommsUniquePointList
     );
 
-    return pair;
+    return result;
   },
   // create new trip
   createTrips: async () => {
