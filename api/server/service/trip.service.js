@@ -1,8 +1,8 @@
 const Trip = require("../src/models").Trip;
 
-const PlaceService = require(".//place.service");
+const PlaceService = require("./place.service");
+const AccommodationService = require("./accommodation.service");
 const TripNeo4jService = require("../../neo4j/service/trip.neo4j.service");
-const AccommodationService = require(".//accommodation.service");
 
 const TripService = {
   // get all trip
@@ -30,10 +30,14 @@ const TripService = {
     accommodationParams
   ) => {
     const accommsUniquePointList = [];
-    //get main places
 
+    //get main places
     const mainPlaces = await PlaceService.getLandmarkPlaces(placeParams);
     const firstPlacePoint = mainPlaces[0].unique_point;
+    console.log(
+      "🚀 ~ file: trip.service.js ~ line 37 ~ firstPlacePoint",
+      firstPlacePoint
+    );
 
     // get main accomms from
     const mainAccomms = await AccommodationService.getMainAccommodation(
@@ -43,6 +47,10 @@ const TripService = {
     mainAccomms.forEach((accommodation) => {
       accommsUniquePointList.push(accommodation.unique_point);
     });
+    console.log(
+      "🚀 ~ file: trip.service.js ~ line 49 ~ mainAccomms.forEach ~ accommsUniquePointList",
+      accommsUniquePointList
+    );
 
     //return shortest accommodation
     const shortestAccommodation =
@@ -52,6 +60,7 @@ const TripService = {
       );
 
     const result = shortestAccommodation;
+
     return result;
   },
   // create new trip

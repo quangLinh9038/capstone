@@ -15,6 +15,7 @@ const TripNeo4jService = {
       RETURN p, a, r.dist
       ORDER BY r.dist ASC;`
     );
+    console.log("🚀 ~ file: trip.neo4j.service.js ~ line 18 ~ result", result);
 
     /**
      * Return the shortest Accomms data only
@@ -24,11 +25,3 @@ const TripNeo4jService = {
 };
 
 module.exports = TripNeo4jService;
-
-/**
- *
- * Place [0]
- *
- * --> 5 accomms in neo4j
- * -->
- */
