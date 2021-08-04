@@ -5,7 +5,7 @@ const TripNeo4jService = require("../../neo4j/service/trip.neo4j.service");
 const AccommodationService = require(".//accommodation.service");
 
 const TripService = {
-  // get all tríp
+  // get all trip
   getAllTrips: async () => {
     try {
       return await Trip.findAll({
@@ -25,7 +25,10 @@ const TripService = {
     }
   },
 
-  getSuggestedTrip: async (placeParams, accommodationParams) => {
+  getShortestAccommodationFromMainPlace: async (
+    placeParams,
+    accommodationParams
+  ) => {
     const accommsUniquePointList = [];
     //get main places
 

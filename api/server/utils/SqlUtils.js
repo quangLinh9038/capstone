@@ -1,6 +1,5 @@
 // generate SQL
-
-const generateSqlGetLandmarkResult = function (model, paramList) {
+const generateSqlGetLandmarkResult = (model, paramList) => {
   const subQuery = paramList.map((item) => `"${item}"`).join("+");
 
   const sql = `SELECT *, ${subQuery} AS point

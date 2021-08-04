@@ -25,14 +25,29 @@ const TripController = {
     try {
       const { placeParam1, placeParam2 } = req.query;
       const placeParams = [placeParam1, placeParam2];
-      // console.log(`place in controller: ${placeParams}`);
+      console.log(
+        "🚀 ~ file: trip.controller.js ~ line 28 ~ getShortestAccommodationFromMainPlace: ~ placeParams",
+        placeParams
+      );
 
       const { accommodationParams } = req.query;
-      // console.log(`a_param in controller: ${accomms_point}`);
+      console.log(
+        "🚀 ~ file: trip.controller.js ~ line 34 ~ getShortestAccommodationFromMainPlace: ~ accommodationParams",
+        accommodationParams
+      );
 
-      const result = await TripService.getSuggestedTrip(
+      // check null params
+      if (placeParams.length === 0 && accommodationParams.length === 0) {
+        return res.status(400).send({ message: `Please input params` });
+      }
+
+      const result = await TripService.getShortestAccommodationFromMainPlace(
         placeParams,
         accommodationParams
+      );
+      console.log(
+        "🚀 ~ file: trip.controller.js ~ line 37 ~ getShortestAccommodationFromMainPlace: ~ result",
+        result
       );
 
       return res.status(200).json(result);

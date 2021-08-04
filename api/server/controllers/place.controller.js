@@ -103,7 +103,12 @@ const PlaceController = {
           PlaceNeo4jService.createPlace(props)
         );
 
+        /**
+         * Init relationship between Places and Accommodations
+         *
+         */
         await PlaceNeo4jService.initRelationship();
+
         // return results
         return res.status(201).json({
           msg: "Place created",

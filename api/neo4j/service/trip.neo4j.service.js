@@ -19,8 +19,16 @@ const TripNeo4jService = {
     /**
      * Return the shortest Accomms data only
      */
-    return result.records[0]._fields[1].properties;
+    return result.records[0]._fields;
   },
 };
 
 module.exports = TripNeo4jService;
+
+/**
+ *
+ * Place [0]
+ *
+ * --> 5 accomms in neo4j
+ * -->
+ */
