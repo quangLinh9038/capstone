@@ -11,7 +11,7 @@ const PlaceNeo4jService = {
 
   createPlace: async (properties) => {
     // CREAT (p:Place {properties}) RETURN p;
-    await neode.create("Place", properties);
+    return await neode.create("Place", properties);
   },
 
   deletePlaces: async () => {

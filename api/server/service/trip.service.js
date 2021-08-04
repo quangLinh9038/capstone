@@ -1,7 +1,7 @@
 const Trip = require("../src/models").Trip;
 
 const PlaceService = require(".//place.service");
-const TripNeo4jService = require("../../neo4j/api/trip.api");
+const TripNeo4jService = require("../../neo4j/service/trip.neo4j.service");
 const AccommodationService = require(".//accommodation.service");
 
 const TripService = {
@@ -41,12 +41,14 @@ const TripService = {
       accommsUniquePointList.push(accommodation.unique_point);
     });
 
-    //return pair
-    const result = await TripNeo4jService.getShortestAccommodation(
-      firstPlacePoint,
-      accommsUniquePointList
-    );
+    //return shortest accommodation
+    const shortestAccommodation =
+      await TripNeo4jService.getShortestAccommodation(
+        firstPlacePoint,
+        accommsUniquePointList
+      );
 
+    const result = shortestAccommodation;
     return result;
   },
   // create new trip

@@ -1,5 +1,5 @@
 const AccommodationService = require("../service/accommodation.service");
-const AccommodationNeo4jService = require("../../neo4j/api/accommodation.api");
+const AccommodationNeo4jService = require("../../neo4j/service/accommodation.neo4j.service");
 
 /***
  * Import utils

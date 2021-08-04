@@ -1,5 +1,5 @@
 const TripService = require("../service/trip.service");
-const TripNeo4jService = require("../../neo4j/api/trip.api");
+const TripNeo4jService = require("../../neo4j/service/trip.neo4j.service");
 
 const TripController = {
   getAllTrips: async (req, res) => {

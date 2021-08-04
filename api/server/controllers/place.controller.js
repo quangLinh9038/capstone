@@ -1,7 +1,7 @@
 /**
  * Import services
  */
-const PlaceNeo4jService = require("../../neo4j/api/place.api");
+const PlaceNeo4jService = require("../../neo4j/service/place.neo4j.service");
 const PlaceService = require("../service/place.service");
 
 /***
@@ -59,7 +59,7 @@ const PlaceController = {
   createPlace: async (req, res) => {
     try {
       const newPlaces = req.body;
-      const existedPlaceList = [];
+      let existedPlaceList = [];
 
       // check for each element of array places
       // whether existed place
@@ -76,9 +76,9 @@ const PlaceController = {
       }
 
       /**
-       * if there is none of existed places
+       * If there is none of existed places
        * create new places
-       * if not, return existed error messages
+       * If not, return existed error messages
        */
 
       if (Array.isArray(existedPlaceList) && !existedPlaceList.length) {
