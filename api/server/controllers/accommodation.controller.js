@@ -1,5 +1,10 @@
 const AccommodationService = require("../service/accommodation.service");
-const AccommodationNeo4jService = require("../neo4j/api/accommodation.api");
+const AccommodationNeo4jService = require("../../neo4j/service/accommodation.neo4j.service");
+
+/***
+ * Import utils
+ */
+const parseString = require("../utils/parseString");
 
 const AccommodationController = {
   // get all accommodations
@@ -45,7 +50,7 @@ const AccommodationController = {
       // whether existed accomms
       for (let i = 0; i < newAccomms.length; i += 1) {
         const checkedName = newAccomms[i].name;
-        // eslint-disable-next-line no-await-in-loop
+
         const existAccomms = await AccommodationService.getOneAccommodation(
           checkedName
         );
@@ -67,14 +72,21 @@ const AccommodationController = {
          * Use sequelize create() method
          * to POST data of accomms to Postgres
          */
-        await AccommodationService.createAccommodations(newAccomms);
+        const _newAccomms = await AccommodationService.createAccommodations(
+          newAccomms
+        );
+
+        /**
+         * Parsing _newAccomms as Object
+         */
+        const objNewAccomms = parseString(_newAccomms);
         /**
          * Use neode to create nodes from JSON request
          * @param {props} properties of Accommodation nodes containing {name, lat, lng}
          * forEach() objects in newAccomms list
          */
 
-        await newAccomms.forEach((props) =>
+        await objNewAccomms.forEach((props) =>
           AccommodationNeo4jService.createAccommodation(props)
         );
 
@@ -98,6 +110,9 @@ const AccommodationController = {
           message: "Empty list!",
         });
       }
+      /**
+       * Postgres DELETE
+       */
       await AccommodationService.deleteAllAccommodations();
 
       await AccommodationNeo4jService.deleteAllAccomms();

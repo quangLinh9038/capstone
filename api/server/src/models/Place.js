@@ -1,4 +1,4 @@
-const { Model, UUIDV4 } = require("sequelize");
+const { Model } = require("sequelize");
 
 module.exports = (sequelize, DataTypes) => {
   class Place extends Model {
@@ -31,6 +31,9 @@ module.exports = (sequelize, DataTypes) => {
       },
       category: {
         type: DataTypes.STRING,
+      },
+      description: {
+        type: DataTypes.TEXT,
       },
       img: {
         type: DataTypes.STRING,
@@ -69,27 +72,21 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.FLOAT,
       },
       unique_point: {
-        type: DataTypes.STRING,
-
-        // get: function () {
-        //   const value = this.getDataValue("lat") + this.getDataValue("lng");
-        //   return value;
-        // },
-        // set: function () {
-        //   const value = this.getDataValue("lat") + this.getDataValue("lng");
-        //   this.setDataValue("unique_point", value);
-        // },
+        type: DataTypes.FLOAT,
       },
       city_id: DataTypes.INTEGER,
     },
     {
-      // hooks: {
-      //   beforeBulkCreate: (Place) => {
-      //     Place.unique_point = Place.lat + Place.lng;
-      //   },
-      // },
+      /**
+       * hook used to generate unique_point attributes
+       * by sum of lat and lng
+       */
+      hooks: {
+        beforeCreate: (place, options) => {
+          place.unique_point = place.lat + place.lng;
+        },
+      },
 
-      // define point schema here
       sequelize,
       modelName: "Place",
       freezeTableName: true,

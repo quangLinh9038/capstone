@@ -9,12 +9,9 @@ module.exports = {
     required: true,
     index: true,
   },
-  id: {
-    type: "integer",
-  },
   lat: "float",
   lng: "float",
-  unique_point: "string",
+  unique_point: "float",
 
   // relationship with Trips
 };

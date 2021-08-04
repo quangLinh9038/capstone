@@ -27,15 +27,10 @@ const AccommodationService = {
   // get main accommodation from user's interests
   getMainAccommodation: async (paramList) => {
     try {
-      const subQuery = paramList.map((item) => `"${item}"`);
-      console.log(subQuery);
-
-      const sql = `SELECT * FROM "Accommodation" WHERE ${subQuery} = 1
+      // const subQuery = paramList.map((item) => `"${item}"`);
+      // console.log(`Accomms params: ${subQuery}`);
+      const sql = `SELECT * FROM "Accommodation" WHERE "${paramList}" = 1
       LIMIT 5;`;
-
-      const sql1 = `SELECT *, ${subQuery} AS point
-              FROM "Accommodation"
-              ORDER BY point DESC LIMIT 5;`;
 
       const mainAccommodation = await db.sequelize.query(sql, {
         type: QueryTypes.SELECT,
@@ -50,7 +45,12 @@ const AccommodationService = {
   // bulkCreate accommodations
   createAccommodations: async (newAccommodations) => {
     try {
-      return await Accommodation.bulkCreate(newAccommodations);
+      /**
+       * individualHooks to call beforeCreate for single bulk create
+       */
+      return await Accommodation.bulkCreate(newAccommodations, {
+        individualHooks: true,
+      });
     } catch (error) {
       return error;
     }
