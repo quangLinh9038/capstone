@@ -1,5 +1,6 @@
 const { QueryTypes } = require("sequelize");
 const db = require("../src/models");
+const { Op } = require("sequelize");
 
 const { Place } = db;
 const { City } = db;
@@ -17,6 +18,18 @@ const PlaceService = {
             as: "city",
           },
         ],
+      });
+    } catch (error) {
+      return error;
+    }
+  },
+
+  getConditionalPlaces: async (conditions) => {
+    try {
+      return await Place.findAll({
+        where: {
+          [Op.or]: [conditions],
+        },
       });
     } catch (error) {
       return error;
