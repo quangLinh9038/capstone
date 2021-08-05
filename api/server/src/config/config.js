@@ -13,6 +13,9 @@ const {
 } = process.env;
 
 module.exports = {
+  /**
+   * Cloud DB
+   */
   // development: {
   //   port: PG_PORT,
   //   username: PG_CLOUDUSER,
@@ -32,7 +35,7 @@ module.exports = {
     host: PG_LOCALHOST,
     dialect: "postgres",
     logging: false,
-    ssl: true,
+    ssl: false,
   },
 
   test: {

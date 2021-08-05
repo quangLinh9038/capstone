@@ -36,6 +36,14 @@ const AccommodationService = {
         type: QueryTypes.SELECT,
       });
 
+      if (mainAccommodation.length === 0) {
+        console.log(
+          "🚀 ~ file: accommodation.service.js ~ line 40 ~ getMainAccommodation: ~ !mainAccommodation.length",
+          "Main Accommodations not found"
+        );
+        return null;
+      }
+
       return mainAccommodation;
     } catch (error) {
       return error;

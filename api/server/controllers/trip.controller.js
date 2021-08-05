@@ -21,44 +21,53 @@ const TripController = {
    * Return Accommodation {unique_point} to show info
    */
 
-  getShortestAccommodationFromMainPlace: async (req, res) => {
+  getATripForOneDay: async (req, res) => {
     try {
-      const { placeParam1, placeParam2 } = req.query;
+      const { placeParam1, placeParam2, placeLimit } = req.query;
+
+      if (!placeParam1 || !placeParam2 || !placeLimit) {
+        return res.status(400).send({ msg: "Place params missing" });
+      }
       const placeParams = [placeParam1, placeParam2];
       console.log(
-        "🚀 ~ file: trip.controller.js ~ line 28 ~ getShortestAccommodationFromMainPlace: ~ placeParams",
+        "🚀 ~ file: trip.controller.js ~ line 32 ~ getATripForOneDay: ~ placeParams",
         placeParams
       );
 
       const { accommodationParams } = req.query;
       console.log(
-        "🚀 ~ file: trip.controller.js ~ line 34 ~ getShortestAccommodationFromMainPlace: ~ accommodationParams",
+        "🚀 ~ file: trip.controller.js ~ line 36 ~ getATripForOneDay: ~ accommodationParams",
         accommodationParams
       );
-
-      // check null params
-      if (placeParams.length === 0 && accommodationParams.length === 0) {
-        return res.status(400).send({ message: `Please input params` });
+      if (!accommodationParams) {
+        return res.status(400).send({ msg: "Accommodation params missing" });
       }
 
-      const result = await TripService.getShortestAccommodationFromMainPlace(
+      const shortestAccommodationUniquePoint =
+        await TripService.getShortestAccommodationFromMainPlace(
+          placeParams,
+          placeLimit,
+          accommodationParams
+        );
+
+      const aTripForOneDay = await TripService.getMainPlacesForATrip(
         placeParams,
-        accommodationParams
+        placeLimit,
+        shortestAccommodationUniquePoint
       );
       console.log(
-        "🚀 ~ file: trip.controller.js ~ line 37 ~ getShortestAccommodationFromMainPlace: ~ result",
-        result
+        "🚀 ~ file: trip.controller.js ~ line 51 ~ getATripForOneDay: ~ aTripForOneDay",
+        aTripForOneDay
       );
 
-      return res.status(200).json(result);
+      if (aTripForOneDay.length === 0) {
+        return res.status(204).send({ message: "Not found data" });
+      }
+
+      return res.status(200).json(aTripForOneDay);
     } catch (error) {
       return res.status(500).json({ msg: error });
     }
-  },
-
-  createTrip: async (req, res) => {
-    try {
-    } catch (error) {}
   },
 };
 

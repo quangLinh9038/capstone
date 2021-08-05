@@ -20,17 +20,17 @@ describe("Places", () => {
 
   // Place endpoints coverage
   describe("GET /places", () => {
-    /***
+    /*
      * GET: /places
      * Get all Places testing
      */
-    it("It should get all the Place", (done) => {
+    it("It should get all the Place with no content", (done) => {
       chai
         .request(server)
         .get("/places")
         .set("Accept", "application/json")
         .end((err, res) => {
-          expect(res.status).to.equal(200);
+          expect(res.status).to.equal(204);
           res.body.should.be.a("array");
           res.body.length.should.be.equal(0);
           // res.to.have.property("body[0]").that.include.all.keys(["id", "names"]);
@@ -42,7 +42,7 @@ describe("Places", () => {
   describe("POST /places", () => {
     /***
      * POST: /places
-     * create a list
+     *
      */
 
     it("It should create one Place", (done) => {
@@ -53,7 +53,7 @@ describe("Places", () => {
       };
       chai
         .request(server)
-        .post("/places/create/one")
+        .post("/places")
         .send(place)
         .end((err, res) => {
           res.should.have.status(201);

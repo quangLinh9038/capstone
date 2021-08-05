@@ -3,6 +3,7 @@
  */
 const PlaceNeo4jService = require("../../neo4j/service/place.neo4j.service");
 const PlaceService = require("../service/place.service");
+const { Op } = require("sequelize");
 
 /***
  * Import utils
@@ -13,31 +14,106 @@ const PlaceController = {
   // get all Places
   getAllPlaces: async (req, res) => {
     try {
-      const allPlaces = await PlaceService.getAllPlaces();
+      /**
+       * Get params
+       */
+      const {
+        name,
+        isHistorical,
+        isUrban,
+        isReligious,
+        isMuseum,
+        isShopping,
+        isPark,
+        isAdventure,
+        isNature,
+      } = req.query;
 
-      // check empty list
-      if (allPlaces.length === 0) {
-        return res.status(204).send({
-          message: "Places are empty!",
+      /***
+       * Define conditions for query
+       */
+      var condition = name ? { name: { [Op.like]: `%${name}%` } } : null;
+      var condition1 = isHistorical ? { isHistorical: { [Op.eq]: 1 } } : null;
+      var condition2 = isUrban ? { isUrban: { [Op.eq]: 1 } } : null;
+      var condition3 = isReligious ? { isReligious: { [Op.eq]: 1 } } : null;
+      var condition4 = isMuseum ? { isMuseum: { [Op.eq]: 1 } } : null;
+      var condition5 = isShopping ? { isShopping: { [Op.eq]: 1 } } : null;
+      var condition6 = isAdventure ? { isAdventure: { [Op.eq]: 1 } } : null;
+      var condition7 = isNature ? { isNature: { [Op.eq]: 1 } } : null;
+      var condition8 = isPark ? { isPark: { [Op.eq]: 1 } } : null;
+
+      const conditionList = [
+        condition,
+        condition1,
+        condition2,
+        condition3,
+        condition4,
+        condition5,
+        condition6,
+        condition7,
+        condition8,
+      ];
+
+      /***
+       * set statement of condition is null
+       * to check every object whether null or not
+       */
+      const isEveryObjectNull = (condition) => condition === null;
+
+      /**
+       * If conditionList has one ore more conditions --> query conditional Places
+       *
+       * If not, query all Places from db
+       */
+      if (!conditionList.every(isEveryObjectNull)) {
+        const conditionalPlaces = await PlaceService.getConditionalPlaces(
+          conditionList
+        );
+
+        /**
+         * Check found Places
+         * */
+        if (conditionalPlaces.length === 0)
+          return res.status(404).send({ message: `Places not found` });
+        /**
+         * If not null
+         * response matched conditional Places
+         */
+        return res.json({
+          status: "success",
+          result: conditionalPlaces.length,
+          allPlaces: conditionalPlaces,
         });
       }
-      // response list of places
-      return res.status(200).json(allPlaces);
+      /**
+       * If conditions are every null
+       * return GET all places routes
+       */
+      const allPlaces = await PlaceService.getAllPlaces();
+
+      if (allPlaces.length.length === 0)
+        return res.status(204).send({ message: `Places are empty` });
+
+      return res.json({
+        status: "success",
+        result: allPlaces.length,
+        allPlaces: allPlaces,
+      });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
   },
-
   // get landmark places matched with user's interests
   getLandmarkPlaces: async (req, res) => {
     try {
       const places = await PlaceService.getAllPlaces();
 
       if (places.length === 0) {
-        return res.status(204).json({ message: "Places are empty" });
+        return res.status(404).json({ message: "Places are empty" });
       } else {
         // get query params
         const { param1, param2, param3 } = req.query;
+        const limit = req.query.limit;
 
         // mapping params as a sub-query string
         const paramList = [param1, param2, param3];
@@ -46,7 +122,10 @@ const PlaceController = {
          * Use PlaceService.getLandmarkPlaces
          * to query interested Places from Postgres
          */
-        const landmarkPlaces = await PlaceService.getLandmarkPlaces(paramList);
+        const landmarkPlaces = await PlaceService.getLandmarkPlaces(
+          paramList,
+          limit
+        );
 
         return res.status(200).json(landmarkPlaces);
       }
@@ -104,6 +183,7 @@ const PlaceController = {
         );
 
         await PlaceNeo4jService.initRelationship();
+
         // return results
         return res.status(201).json({
           msg: "Place created",

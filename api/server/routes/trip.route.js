@@ -5,6 +5,6 @@ const tripRoutes = Router();
 
 tripRoutes
   .get("/", TripController.getAllTrips)
-  .get("/pair", TripController.getShortestAccommodationFromMainPlace);
+  .get("/oneDay", TripController.getATripForOneDay);
 
 module.exports = tripRoutes;

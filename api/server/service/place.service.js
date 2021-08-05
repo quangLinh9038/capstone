@@ -68,9 +68,9 @@ const PlaceService = {
   },
 
   /**
-   * Query
+   * Query Places for User's interests
    */
-  getLandmarkPlaces: async (paramList) => {
+  getLandmarkPlaces: async (paramList, limit) => {
     try {
       /**
        * @param {paramList}: query params from users
@@ -80,14 +80,21 @@ const PlaceService = {
        */
 
       // model to query in Postgres database
-      const _Place = "Place";
+      const model = "Place";
 
-      const sql = generateSqlGetLandmarkResult(_Place, paramList);
+      const sql = generateSqlGetLandmarkResult(model, paramList, limit);
 
       const landmarkPlaces = await db.sequelize.query(sql, {
         type: QueryTypes.SELECT,
       });
 
+      if (landmarkPlaces.length === 0) {
+        console.log(
+          "🚀 ~ file: place.service.js ~ line 92 ~ getLandmarkPlaces: ~ !landmarkPlaces.length",
+          "Landmark places are not available"
+        );
+        return null;
+      }
       return landmarkPlaces;
     } catch (error) {
       return error;
