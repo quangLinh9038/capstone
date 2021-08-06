@@ -1,3 +1,5 @@
+const { utils } = require("mocha");
+
 // generate SQL
 const generateSqlGetLandmarkResult = (model, paramList, limit) => {
   const subQuery = paramList.map((item) => `"${item}"`).join("+");

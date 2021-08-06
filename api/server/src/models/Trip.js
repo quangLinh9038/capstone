@@ -1,18 +1,7 @@
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Trip extends Model {
-    static associate(models) {
-      Trip.belongsToMany(models.Place, {
-        through: "PlaceTrip",
-        foreignKey: "trip_id",
-        as: "places",
-      });
-      Trip.belongsToMany(models.Accommodation, {
-        through: "AccommodationTrip",
-        foreignKey: "trip_id",
-        as: "accommodations",
-      });
-    }
+    static associate(models) {}
   }
 
   Trip.init(

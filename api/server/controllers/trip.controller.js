@@ -64,6 +64,8 @@ const TripController = {
         return res.status(204).send({ message: "Not found data" });
       }
 
+      // loop
+
       return res.status(200).json(aTripForOneDay);
     } catch (error) {
       return res.status(500).json({ msg: error });

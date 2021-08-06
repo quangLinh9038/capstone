@@ -26,7 +26,7 @@ const TripNeo4jService = {
       );
       console.log(
         "🚀 ~ file: trip.neo4j.service.js ~ line 18 ~ result",
-        result.records[1]._fields
+        result.records[1].length
       );
 
       /**

@@ -31,7 +31,6 @@ const TripService = {
     accommodationParams
   ) => {
     try {
-      let trip;
       const accommsUniquePointList = [];
 
       //get main places
