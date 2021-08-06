@@ -18,6 +18,10 @@ const TripService = {
             model: Accommodation,
             as: "accommodations",
           },
+          {
+            model: User,
+            as: "user",
+          },
         ],
       });
     } catch (error) {

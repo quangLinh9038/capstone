@@ -2,6 +2,7 @@ const db = require('../src/models');
 
 const { user } = db;
 const { Interest } = db;
+const {Trip} = db;
 
 
 // const { Op } = db.Sequelize.Op;
@@ -10,10 +11,16 @@ const UserController = {
   getAllUsers: async (req, res) => {
     try {
       const allUsers = await user.findAll({
-        include: [{
+        include: [
+          {
           model: Interest,
           as: 'interests',
-        }],
+        },
+        {
+          model: Trip,
+          as: 'trips',
+        }
+      ],
 
       });
       // check empty list

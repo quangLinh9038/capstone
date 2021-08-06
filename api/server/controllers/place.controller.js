@@ -91,7 +91,7 @@ const PlaceController = {
        */
       const allPlaces = await PlaceService.getAllPlaces();
 
-      if (allPlaces.length.length === 0)
+      if (allPlaces.length === 0)
         return res.status(204).send({ message: `Places are empty` });
 
       return res.json({
@@ -108,7 +108,7 @@ const PlaceController = {
     try {
       const places = await PlaceService.getAllPlaces();
 
-      if (places.length === 0) {
+      if (places.length.length === 0) {
         return res.status(404).json({ message: "Places are empty" });
       } else {
         // get query params
