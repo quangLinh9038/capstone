@@ -1,6 +1,6 @@
 const db = require('../src/models');
 
-const { user } = db;
+const { User } = db;
 const { Interest } = db;
 
 // const { Op } = db.Sequelize.Op;
@@ -9,21 +9,23 @@ const InterestController = {
   getAllInterests: async (req, res) => {
     try {
       const allInterests = await Interest.findAll({
-        include: [{
-          model: user,
-          as: 'user',
-        }],
+        include: [
+          {
+            model: User,
+            as: 'user',
+          }
+        ],
 
       });
-      // check empty list
-      if (allInterests === null) {
-        return res.status(204).send({
-          message: 'Interests are empty!',
-        });
-      }
+      // // check empty list
+      // if (allInterests === null) {
+      //   return res.status(204).send({
+      //     message: 'Interests are empty!',
+      //   });
+      // }
 
       // response list of users
-      return res.status(200).json(allInterests);
+      res.status(200).json(allInterests);
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }

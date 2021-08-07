@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const cookieParser = require('cookie-parser');
 
 const port = process.env.PORT;
 require("dotenv").config();
@@ -26,11 +27,12 @@ db.sequelize
 // sequelize sync
 // force: drop table first if exist and create new table
 // alter: check current states of changes of tables in database
-db.sequelize.sync({ force: true, alter: true }).then(() => {
+db.sequelize.sync({ force: false, alter: false }).then(() => {
   console.log("Models synced...");
 });
 
 expressApp.use(cors(corsOptions));
+expressApp.use(cookieParser())
 expressApp.use(bodyParser.json({ limit: "50mb" })); // increase POST json upto 50mb
 expressApp.use(bodyParser.urlencoded({ limit: "50mb", extended: false }));
 
