@@ -9,12 +9,12 @@ const InterestController = {
   getAllInterests: async (req, res) => {
     try {
       const allInterests = await Interest.findAll({
-        include: [
+        include: 
           {
             model: User,
             as: 'user',
           }
-        ],
+        ,
 
       });
       // // check empty list
@@ -25,7 +25,7 @@ const InterestController = {
       // }
 
       // response list of users
-      res.status(200).json(allInterests);
+      return res.status(200).json(allInterests);
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
@@ -60,6 +60,7 @@ const InterestController = {
       if (Array.isArray(existedInterestList) && !existedInterestList.length) {
         // create list of places
         await Interest.bulkCreate(newInterests).then((data) => res.status(201).send(data));
+        return res.json({msg: 'Interest created'});
       }
 
       console.log(newInterests);
