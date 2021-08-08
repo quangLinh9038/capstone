@@ -108,7 +108,7 @@ const UserController = {
   },
   getUser: async (req, res) => {
     try {
-      const user = await User.findByPk(req.user.id,{
+      const user = await User.findByPk(req.user.id, {
         include: [
           {
             model: Interest,
@@ -121,13 +121,44 @@ const UserController = {
         ],
       });
       console.log(user);
-      if(!user) return res.status(400).json({ msg:"User does not exist."})
+      if (!user) return res.status(400).json({ msg: "User does not exist." })
       // response list of users
       return res.status(200).json(user);
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
   },
+  addInterest: async (req, res) => {
+    try {
+      const user = await User.findByPk(req.body.user_id)
+      if (!user) 
+      {
+        console.log("User not found!");
+        return null;
+      }
+      const interest = await Interest.findByPk(req.body.interest_id)
+      if (!interest) 
+      {
+        console.log("Interest not found!");
+        return null;
+      }
+      //populate UserInterest join table
+      await user.addInterest(interest);
+
+      let UserInterest = await User.findByPk(req.body.user_id, {
+        include: [{
+          model: Interest,
+          as: 'interests',
+          attributes: ['id', 'name']
+        }]
+      })
+      res.status(201).send(UserInterest);
+    }
+    catch (err) {
+      console.error("Interest creation server error: ", error);
+      res.status(500).send(error)
+    }
+  }
 };
 
 const createAccessToken = (user) => {

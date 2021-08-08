@@ -10,5 +10,6 @@ userRoutes
   .post('/login', UserController.login)
   .post('/register', UserController.register)
   .get('/refresh_token', UserController.refreshToken)
+  .post('/add_interest', auth, UserController.addInterest)
 
 module.exports = userRoutes;

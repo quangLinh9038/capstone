@@ -9,20 +9,18 @@ const InterestController = {
   getAllInterests: async (req, res) => {
     try {
       const allInterests = await Interest.findAll({
-        include: 
-          {
-            model: User,
-            as: 'user',
-          }
-        ,
-
+        include:
+        [{
+          model: User,
+          as: 'users',
+        }]
       });
-      // // check empty list
-      // if (allInterests === null) {
-      //   return res.status(204).send({
-      //     message: 'Interests are empty!',
-      //   });
-      // }
+      // check empty list
+      if (allInterests.length === 0) {
+        return res.status(204).json({
+          msg: 'Interests are empty!',
+        });
+      }
 
       // response list of users
       return res.status(200).json(allInterests);
@@ -31,7 +29,6 @@ const InterestController = {
     }
   },
 
-  // create new users
   createInterest: async (req, res) => {
     try {
       // check existed users
@@ -54,18 +51,19 @@ const InterestController = {
         }
       }
 
-      // if there is none of existed places
+      // if there is none of existed interests
       // create new places
       // if not, return existed error messages
       if (Array.isArray(existedInterestList) && !existedInterestList.length) {
         // create list of places
-        await Interest.bulkCreate(newInterests).then((data) => res.status(201).send(data));
-        return res.json({msg: 'Interest created'});
+      const _newInterests = await Interest.bulkCreate(newInterests);
+      return res.status(201).json({
+        msg: "Interest created",
+        results: _newInterests.length,
+        newPlaces: _newInterests, 
+      });
       }
 
-      console.log(newInterests);
-      // INSERT query to Neo4j
-      // IMPORT json
       return res.status(400).send({
         message: `Interests [ ${existedInterestList} ] are existed`,
       });
