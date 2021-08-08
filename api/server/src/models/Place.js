@@ -72,21 +72,13 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.FLOAT,
       },
       unique_point: {
-        type: DataTypes.FLOAT,
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+        allowNull: false,
       },
       city_id: DataTypes.INTEGER,
     },
     {
-      /**
-       * hook used to generate unique_point attributes
-       * by sum of lat and lng
-       */
-      hooks: {
-        beforeCreate: (place, options) => {
-          place.unique_point = place.lat + place.lng;
-        },
-      },
-
       sequelize,
       modelName: "Place",
       freezeTableName: true,

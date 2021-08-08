@@ -202,18 +202,20 @@ const PlaceController = {
   // delete places
   // eslint-disable-next-line consistent-return
   async deletePlace(req, res) {
-    const { name } = req.params;
+    const { id } = req.params;
 
     try {
-      const placeToDelete = await PlaceService.deletePlace(name);
+      const placeToDelete = await PlaceService.deletePlaceById(id);
 
       if (placeToDelete) {
         return res.status(200).send({
-          message: `Place: ${name} has been deleted successfully`,
+          status: "success",
+          message: `Place: ${id} has been deleted successfully`,
         });
       }
-      return res.status(404).send({
-        message: `Place: ${name} not found`,
+      return res.status(404).json({
+        status: "failure",
+        message: `Place: ${id} not found`,
       });
     } catch (err) {
       return res.status(500).json({ msg: err.message });

@@ -25,13 +25,13 @@ const TripService = {
     }
   },
 
-  getShortestAccommodationFromMainPlace: async (
+  getFirstPlaceAndShortestAccommodation: async (
     placeParams,
     placeLimit,
     accommodationParams
   ) => {
     try {
-      const accommsUniquePointList = [];
+      const accommodationUniquePointList = [];
 
       //get main places
       const mainPlaces = await PlaceService.getLandmarkPlaces(
@@ -51,6 +51,10 @@ const TripService = {
         mainAccomms.length
       );
 
+      if (!mainPlaces || !mainAccomms) {
+        return null;
+      }
+
       /**
        * Get unique_point as parameters
        */
@@ -60,42 +64,45 @@ const TripService = {
         firstPlacePoint
       );
 
-      // get main accomms
+      /*  
+      Get main accomms unique_point list
+      */
       mainAccomms.forEach((accommodation) => {
-        accommsUniquePointList.push(accommodation.unique_point);
+        accommodationUniquePointList.push(accommodation.unique_point);
       });
-
       console.log(
-        "🚀 ~ file: trip.service.js ~ line 34 ~ accommsUniquePointList",
-        accommsUniquePointList
+        "🚀 ~ file: trip.service.js ~ line 74 ~ mainAccomms.forEach ~ accommodationUniquePointList",
+        accommodationUniquePointList
       );
+
       //return shortest accommodation
-      const shortestAccommodation =
-        await TripNeo4jService.getShortestAccommodation(
+      const firstPlaceAndShortestAccommodation =
+        await TripNeo4jService.getFirstPlaceAndShortestAccommodation(
           firstPlacePoint,
-          accommsUniquePointList
+          accommodationUniquePointList
         );
 
       // check null response
-      if (!shortestAccommodation.length) {
+      if (!firstPlaceAndShortestAccommodation.length) {
         console.log(
-          "🚀 ~ file: trip.service.js ~ line 65 ~ !shortestAccommodation.length",
-          "Result null"
+          "🚀 ~ file: trip.service.js ~ line 87 ~ firstPlaceAndShortestAccommodation",
+          firstPlaceAndShortestAccommodation
         );
+
         return null;
       }
 
       console.log(
-        "🚀 ~ file: trip.service.js ~ line 74 ~ shortestAccommodation",
-        shortestAccommodation[1]
+        "🚀 ~ file: trip.service.js ~ line 96 ~ firstPlaceAndShortestAccommodation",
+        firstPlaceAndShortestAccommodation
       );
 
-      return shortestAccommodation[1];
+      return firstPlaceAndShortestAccommodation;
     } catch (error) {
       return error;
     }
   },
-  // create new trip
+
   getMainPlacesForATrip: async (
     placeParams,
     placeLimit,

@@ -50,15 +50,29 @@ const AccommodationService = {
     }
   },
 
-  // bulkCreate accommodations
   createAccommodations: async (newAccommodations) => {
     try {
       /**
        * individualHooks to call beforeCreate for single bulk create
        */
-      return await Accommodation.bulkCreate(newAccommodations, {
-        individualHooks: true,
-      });
+      return await Accommodation.bulkCreate(newAccommodations);
+    } catch (error) {
+      return error;
+    }
+  },
+
+  deleteAccommodationById: async (id) => {
+    try {
+      const accommodationToDelete = await Accommodation.findByPk(id);
+      console.log(
+        "🚀 ~ file: accommodation.service.js ~ line 67 ~ deleteAccommodationById: ~ accommodationToDelete",
+        accommodationToDelete
+      );
+
+      if (accommodationToDelete) {
+        return await accommodationToDelete.destroy();
+      }
+      return null;
     } catch (error) {
       return error;
     }

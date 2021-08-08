@@ -53,7 +53,7 @@ const PlaceService = {
       /**
        *  individualHooks set to true to call beforeCreate hook for single bulk insert
        */
-      return await Place.bulkCreate(newPlaces, { individualHooks: true });
+      return await Place.bulkCreate(newPlaces);
     } catch (error) {
       return error;
     }
@@ -101,17 +101,12 @@ const PlaceService = {
     }
   },
 
-  deletePlace: async (nameToDelete) => {
+  deletePlaceById: async (id) => {
     try {
-      const placeToDelete = await Place.findOne({
-        where: { name: nameToDelete },
-      });
+      const placeToDelete = await Place.findByPk(id);
 
       if (placeToDelete) {
-        const deletedPlace = await Place.destroy({
-          where: { name: nameToDelete },
-        });
-        return deletedPlace;
+        return await placeToDelete.destroy();
       }
       return null;
     } catch (error) {

@@ -11,7 +11,7 @@ module.exports = {
   },
   lat: "float",
   lng: "float",
-  unique_point: "float",
+  unique_point: "string",
 
   // relationship with Trips
 };

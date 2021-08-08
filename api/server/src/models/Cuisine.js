@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Cuisine extends Model {
     /**
@@ -12,25 +10,55 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
     }
-  };
-  Cuisine.init({
-    name: DataTypes.STRING,
-    url: DataTypes.STRING,
-    img: DataTypes.TEXT,
-    district: DataTypes.STRING,
-    location: DataTypes.STRING,
-    score: DataTypes.FLOAT,
-    price: DataTypes.STRING,
-    features: DataTypes.STRING,
-    is3Stars: DataTypes.NUMBER,
-    is4Stars: DataTypes.NUMBER,
-    is5Stars: DataTypes.NUMBER,
-    isHomestay: DataTypes.NUMBER,
-    lat: DataTypes.FLOAT,
-    lng: DataTypes.FLOAT
-  }, {
-    sequelize,
-    modelName: 'Cuisine',
-  });
+  }
+  Cuisine.init(
+    {
+      tile: {
+        type: DataTypes.STRING,
+      },
+      url: {
+        type: DataTypes.STRING,
+      },
+      img: {
+        type: DataTypes.TEXT,
+      },
+      isVietnamese: {
+        type: DataTypes.INTEGER,
+      },
+      isWestern: {
+        type: DataTypes.INTEGER,
+      },
+      isJapanese: {
+        type: DataTypes.INTEGER,
+      },
+      isThai: {
+        type: DataTypes.INTEGER,
+      },
+      isChinese: {
+        type: DataTypes.INTEGER,
+      },
+      idIndian: {
+        type: DataTypes.INTEGER,
+      },
+      isKorean: {
+        type: DataTypes.INTEGER,
+      },
+      lat: {
+        type: DataTypes.FLOAT,
+      },
+      lng: {
+        type: DataTypes.FLOAT,
+      },
+      unique_point: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+        allowNull: false,
+      },
+    },
+    {
+      sequelize,
+      modelName: "Cuisine",
+    }
+  );
   return Cuisine;
 };

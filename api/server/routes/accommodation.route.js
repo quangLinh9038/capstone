@@ -5,9 +5,8 @@ const accommodationRoutes = Router();
 
 accommodationRoutes
   .get("/", AccommodationController.getAllAccommodations)
-  .get("/get/interests", AccommodationController.getMainAccommodation)
+  .get("/get/interests/", AccommodationController.getMainAccommodation)
   .post("/", AccommodationController.createAccommodations)
   .delete("/", AccommodationController.deleteAllAccommodations)
-  .delete("/delete/neo4j", AccommodationController.deleteAccommsOnNeo4j);
-
+  .delete("/:id/", AccommodationController.deleteAccommodationById);
 module.exports = accommodationRoutes;

@@ -23,6 +23,8 @@ const TripController = {
 
   getATripForOneDay: async (req, res) => {
     try {
+      const mainPlacesUniquePoint = [];
+
       const { placeParam1, placeParam2, placeLimit } = req.query;
 
       if (!placeParam1 || !placeParam2 || !placeLimit) {
@@ -43,17 +45,19 @@ const TripController = {
         return res.status(400).send({ msg: "Accommodation params missing" });
       }
 
-      const shortestAccommodationUniquePoint =
-        await TripService.getShortestAccommodationFromMainPlace(
+      const firstPlaceAndShortestAccommodation =
+        await TripService.getFirstPlaceAndShortestAccommodation(
           placeParams,
           placeLimit,
           accommodationParams
         );
 
+      const shortestAccommodation = firstPlaceAndShortestAccommodation[1];
+
       const aTripForOneDay = await TripService.getMainPlacesForATrip(
         placeParams,
         placeLimit,
-        shortestAccommodationUniquePoint
+        shortestAccommodation
       );
       console.log(
         "🚀 ~ file: trip.controller.js ~ line 51 ~ getATripForOneDay: ~ aTripForOneDay",
@@ -61,12 +65,30 @@ const TripController = {
       );
 
       if (aTripForOneDay.length === 0) {
-        return res.status(204).send({ message: "Not found data" });
+        return res.status(404).send({ message: "Not found data" });
       }
 
-      // loop
+      aTripForOneDay.forEach((item) =>
+        mainPlacesUniquePoint.push(item._fields[0])
+      );
 
-      return res.status(200).json(aTripForOneDay);
+      console.log(
+        "🚀 ~ file: trip.controller.js ~ line 74 ~ getATripForOneDay: ~ mainPlacesUniquePoint",
+        mainPlacesUniquePoint
+      );
+      return res.status(200).json({
+        status: "success",
+        results: {
+          firstPlaceAndShortestAccommodation:
+            firstPlaceAndShortestAccommodation.length,
+          mainPlaces: mainPlacesUniquePoint.length,
+        },
+        data: {
+          firstPlaceAndAccommodation: firstPlaceAndShortestAccommodation,
+
+          interestedPlaces: mainPlacesUniquePoint,
+        },
+      });
     } catch (error) {
       return res.status(500).json({ msg: error });
     }

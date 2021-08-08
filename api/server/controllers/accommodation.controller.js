@@ -101,6 +101,32 @@ const AccommodationController = {
     }
   },
 
+  deleteAccommodationById: async (req, res) => {
+    try {
+      const id = req.params.id;
+      console.log(
+        "🚀 ~ file: accommodation.controller.js ~ line 107 ~ deleteAccommodationById: ~ id",
+        id
+      );
+
+      const accommodationToDelete =
+        await AccommodationService.deleteAccommodationById(id);
+
+      if (accommodationToDelete) {
+        return res.status(200).json({
+          status: "success",
+          message: `Accommodation with ${id} deleted successfully`,
+        });
+      }
+      return res.status(404).json({
+        status: "failure",
+        message: `Accommodation with ${id} not found`,
+      });
+    } catch (error) {
+      return res.status(500).json({ msg: err.message });
+    }
+  },
+
   deleteAllAccommodations: async (req, res) => {
     try {
       const accommodations = await AccommodationService.getAllAccommodations();
