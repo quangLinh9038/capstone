@@ -9,5 +9,9 @@ script:
   - npm run test
 deploy:
   provider: heroku
-  api_key: $heroku_key
+  api_key: 
+    secure: $HEROKU_API_KEY
   app: capstone-tripplanner-back
+  on: 
+    repo: quangLinh9038/capstone
+
