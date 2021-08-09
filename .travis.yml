@@ -1,6 +1,9 @@
 language: node_js
 node_js:
   - 16
+dist:
+  - precise
+  - trust
 script:
   - echo '*** Starting build ***'
   - echo 'Installing dependencies'
