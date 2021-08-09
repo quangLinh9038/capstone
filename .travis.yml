@@ -2,10 +2,6 @@ language: node_js
 node_js:
   - 16
 
-branches: 
-  only:
-  - master
-  
 deploy:
   provider: heroku
     secure: LY67yml7a2PhjtC1GOMoUL7juxDoUz+ZL86JV+GmxW1zapPP/UdFPpsBvZa9i87rh09zS4+JZCMLCEApjHcKgxz/TRWDTtFvzayGMX4rjOl/lbu+OeCT9hBbhOV8MBpoRLCe+kNXAzlk08cUt535cys1W7LHdJU6fdHiWGEZZcBpfffrseSM1iqcvk7SO+uASXdS9LMVw6fig+cIksm4pi9AStJiR1Y9yf5W91KZnivCahk6YpZefmqZMuD9s55e+x5iWMOTXBTV8ULFh9WxULcdu+uvodb86P8sJKLiooqoa4cv/n53D4MNHXkz/02Zn3webmaLoSJVM4GNJPpe3Zv2PnZC4272wOtL10zowtSchbQTLPhuK7vmMcIWzH3l/NjaSGmeYfdaosynYFNATWZbhsvULzoeLRHhxp7eP9d2ko0SqxeOYtrN0ZmtkS6TatPL07+/8TGhb9BQeOSs+rTbNS9OhGWeN5niZ8on/vvD6MSquw2aPJdJnc8DNRMuzRIBMXahMkeNdZMEBBiFseMd+LRI3Rl/uxticZsTjwP/TQt09U5R9/ehL5C4+N4JYA7L2ENkAoE6WwYdZTP/j9f+W6VtFlUNw8ROpm9dqmeGknpEWxyvHSZH3bKuNzK+bm8yIR+zqnO7orLVVs7Ff5RlS7vd1E80Y/FRyL0Je1w=
