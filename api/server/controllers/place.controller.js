@@ -91,10 +91,10 @@ const PlaceController = {
        */
       const allPlaces = await PlaceService.getAllPlaces();
 
-      if (allPlaces.length.length === 0)
-        return res.status(204).send({ message: `Places are empty` });
+      if (allPlaces.length === 0)
+        return res.status(404).send({ message: `Places are empty` });
 
-      return res.json({
+      return res.status(200).json({
         status: "success",
         result: allPlaces.length,
         allPlaces: allPlaces,
