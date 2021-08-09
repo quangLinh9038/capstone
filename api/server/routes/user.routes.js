@@ -11,5 +11,6 @@ userRoutes
   .post('/register', UserController.register)
   .get('/refresh_token', UserController.refreshToken)
   .post('/add_interest', auth, UserController.addInterest)
+  .delete('/remove_interest', auth, UserController.deleteUserInterest)
 
 module.exports = userRoutes;

@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const { User } = db;
 const { Interest } = db;
 const { Trip } = db;
+const { UserInterest } = db;
 
 
 // const { Op } = db.Sequelize.Op;
@@ -106,6 +107,7 @@ const UserController = {
     }
 
   },
+
   getUser: async (req, res) => {
     try {
       const user = await User.findByPk(req.user.id, {
@@ -128,17 +130,16 @@ const UserController = {
       return res.status(500).json({ msg: err.message });
     }
   },
+
   addInterest: async (req, res) => {
     try {
       const user = await User.findByPk(req.body.user_id)
-      if (!user) 
-      {
+      if (!user) {
         console.log("User not found!");
         return null;
       }
       const interest = await Interest.findByPk(req.body.interest_id)
-      if (!interest) 
-      {
+      if (!interest) {
         console.log("Interest not found!");
         return null;
       }
@@ -153,6 +154,36 @@ const UserController = {
         }]
       })
       res.status(201).send(UserInterest);
+    }
+    catch (err) {
+      console.error("Interest creation server error: ", error);
+      res.status(500).send(error)
+    }
+  },
+
+  deleteUserInterest: async (req, res) => {
+    try {
+      const user = await User.findByPk(req.body.user_id)
+      if (!user) {
+        console.log("User not found!");
+        return null;
+      }
+      const interest = await Interest.findByPk(req.body.interest_id)
+      if (!interest) {
+        console.log("Interest not found!");
+        return null;
+      }
+      await user.removeInterest(interest);
+      await interest.removeUser(user);
+
+      await UserInterest.destroy({
+        where: { user_id: req.body.user_id, interest_id: req.body.interest_id }
+      });
+
+      return res.status(200).send({
+        message: `UserInterest has been deleted successfully`,
+      });
+
     }
     catch (err) {
       console.error("Interest creation server error: ", error);
