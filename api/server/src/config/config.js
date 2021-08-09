@@ -26,17 +26,16 @@ module.exports = {
     logging: false,
     ssl: true,
   },
-
-//   development: {
-//     port: PG_PORT,
-//     username: PG_USERNAME,
-//     password: PG_PASSWORD,
-//     database: PG_NAME,
-//     host: PG_LOCALHOST,
-//     dialect: "postgres",
-//     logging: false,
-//     ssl: false,
-//   },
+  //   development: {
+  //     port: PG_PORT,
+  //     username: PG_USERNAME,
+  //     password: PG_PASSWORD,
+  //     database: PG_NAME,
+  //     host: PG_LOCALHOST,
+  //     dialect: "postgres",
+  //     logging: false,
+  //     ssl: false,
+  //   },
 
   test: {
     username: PG_USERNAME,
@@ -47,10 +46,12 @@ module.exports = {
   },
 
   production: {
-    username: PG_USERNAME,
-    password: PG_PASSWORD,
-    database: "database_production",
-    host: PG_LOCALHOST,
+    username: PG_CLOUDUSER,
+    password: PG_CLOUDPWD,
+    database: PG_CLOUDNAME,
+    host: PG_CLOUDHOST,
     dialect: "postgres",
+    logging: false,
+    ssl: true,
   },
 };
