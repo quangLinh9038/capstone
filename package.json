@@ -2,8 +2,13 @@
   "name": "capstone",
   "version": "1.0.0",
   "description": "Intelligent Trip Planner Application ",
+  "engines": {
+    "node": "16.x",
+    "npm": "7.x"
+  },
   "main": "server.js",
   "scripts": {
+    "start": "node ./api/serve.js",
     "test": "nyc mocha api/test/place.test.js --exit --timeout 10000",
     "dev": "nodemon -r dotenv/config ./api/server.js",
     "db:create": "sequelize-cli db:create",
