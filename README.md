@@ -1,1 +1,1 @@
-# capstone
+# Intelligent Trip Planner

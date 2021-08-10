@@ -23,7 +23,6 @@ module.exports = {
     logging: false,
     ssl: false,
   },
-
   test: {
     username: PG_USERNAME,
     password: PG_PASSWORD,
