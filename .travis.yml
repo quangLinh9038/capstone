@@ -1,0 +1,16 @@
+language: node_js
+node_js:
+  - 16
+script:
+  - echo '*** Starting build ***'
+  - echo 'Installing dependencies'
+  - npm install
+  - echo 'Running test'
+  - npm run test
+deploy:
+  provider: heroku
+  api_key: $HEROKU_API_KEY
+  app: capstone-tripplanner-back
+  on:
+    repo: quangLinh9038/capstone
+  skip_cleanup: true
