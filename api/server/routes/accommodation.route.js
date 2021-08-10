@@ -5,7 +5,7 @@ const accommodationRoutes = Router();
 
 accommodationRoutes
   .get("/", AccommodationController.getAllAccommodations)
-  .get("/get/interests/", AccommodationController.getMainAccommodation)
+  .get("/interests/", AccommodationController.getMainAccommodation)
   .post("/", AccommodationController.createAccommodations)
   .delete("/", AccommodationController.deleteAllAccommodations)
   .delete("/:id/", AccommodationController.deleteAccommodationById);

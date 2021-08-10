@@ -31,16 +31,16 @@ const TripController = {
         return res.status(400).send({ msg: "Place params missing" });
       }
       const placeParams = [placeParam1, placeParam2];
-      console.log(
-        "🚀 ~ file: trip.controller.js ~ line 32 ~ getATripForOneDay: ~ placeParams",
-        placeParams
-      );
+      // console.log(
+      // "🚀 ~ file: trip.controller.js ~ line 32 ~ getATripForOneDay: ~ placeParams",
+      // placeParams
+      // );
 
       const { accommodationParams } = req.query;
-      console.log(
-        "🚀 ~ file: trip.controller.js ~ line 36 ~ getATripForOneDay: ~ accommodationParams",
-        accommodationParams
-      );
+      // console.log(
+      // "🚀 ~ file: trip.controller.js ~ line 36 ~ getATripForOneDay: ~ accommodationParams",
+      // accommodationParams
+      // );
       if (!accommodationParams) {
         return res.status(400).send({ msg: "Accommodation params missing" });
       }
@@ -59,10 +59,10 @@ const TripController = {
         placeLimit,
         shortestAccommodation
       );
-      console.log(
-        "🚀 ~ file: trip.controller.js ~ line 51 ~ getATripForOneDay: ~ aTripForOneDay",
-        aTripForOneDay
-      );
+      // console.log(
+      // "🚀 ~ file: trip.controller.js ~ line 51 ~ getATripForOneDay: ~ aTripForOneDay",
+      // aTripForOneDay
+      // );
 
       if (aTripForOneDay.length === 0) {
         return res.status(404).send({ message: "Not found data" });
@@ -72,10 +72,10 @@ const TripController = {
         mainPlacesUniquePoint.push(item._fields[0])
       );
 
-      console.log(
-        "🚀 ~ file: trip.controller.js ~ line 74 ~ getATripForOneDay: ~ mainPlacesUniquePoint",
-        mainPlacesUniquePoint
-      );
+      // console.log(
+      // "🚀 ~ file: trip.controller.js ~ line 74 ~ getATripForOneDay: ~ mainPlacesUniquePoint",
+      // mainPlacesUniquePoint
+      // );
       return res.status(200).json({
         status: "success",
         results: {
