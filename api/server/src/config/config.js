@@ -15,15 +15,14 @@ const {
 module.exports = {
   development: {
     port: PG_PORT,
-    username: PG_USERNAME,
-    password: PG_PASSWORD,
-    database: PG_NAME,
-    host: PG_LOCALHOST,
+    username: PG_CLOUDUSER,
+    password: PG_CLOUDPWD,
+    database: PG_CLOUDNAME,
+    host: PG_CLOUDHOST,
     dialect: "postgres",
     logging: false,
-    ssl: false,
+    ssl: true,
   },
-
   test: {
     username: PG_USERNAME,
     password: PG_PASSWORD,
@@ -31,7 +30,6 @@ module.exports = {
     host: PG_LOCALHOST,
     dialect: "postgres",
   },
-
   /* 
   Cloud Database when in production
   */
