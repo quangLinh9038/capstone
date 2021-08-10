@@ -11,7 +11,6 @@ const { Op } = require("sequelize");
 const parseString = require("../utils/parseString");
 
 const PlaceController = {
-  // get all Places
   getAllPlaces: async (req, res) => {
     try {
       /**
@@ -55,7 +54,7 @@ const PlaceController = {
       ];
 
       /***
-       * set statement of condition is null
+       * Set statement of condition is null
        * to check every object whether null or not
        */
       const isEveryObjectNull = (condition) => condition === null;
@@ -73,17 +72,15 @@ const PlaceController = {
         /**
          * Check found Places
          * */
-        if (conditionalPlaces.length === 0)
-          return res.status(404).send({ message: `Places not found` });
-        /**
-         * If not null
-         * response matched conditional Places
-         */
-        return res.json({
-          status: "success",
-          result: conditionalPlaces.length,
-          allPlaces: conditionalPlaces,
-        });
+        return !conditionalPlaces.length
+          ? res
+              .status(404)
+              .json({ status: "failure", message: `Places not found` })
+          : res.json({
+              status: "success",
+              result: conditionalPlaces.length,
+              allPlaces: conditionalPlaces,
+            });
       }
       /**
        * If conditions are every null
@@ -91,14 +88,13 @@ const PlaceController = {
        */
       const allPlaces = await PlaceService.getAllPlaces();
 
-      if (allPlaces.length === 0)
-        return res.status(404).send({ message: `Places are empty` });
-
-      return res.status(200).json({
-        status: "success",
-        result: allPlaces.length,
-        allPlaces: allPlaces,
-      });
+      return !allPlaces.length
+        ? res.status(204).send({ message: `Places are empty` })
+        : res.json({
+            status: "success",
+            result: allPlaces.length,
+            allPlaces: allPlaces,
+          });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
@@ -108,8 +104,10 @@ const PlaceController = {
     try {
       const places = await PlaceService.getAllPlaces();
 
-      if (places.length === 0) {
-        return res.status(404).json({ message: "Places are empty" });
+      if (!places) {
+        return res
+          .status(404)
+          .json({ status: "failure", message: "Places are empty" });
       } else {
         // get query params
         const { param1, param2, param3 } = req.query;
@@ -127,7 +125,16 @@ const PlaceController = {
           limit
         );
 
-        return res.status(200).json(landmarkPlaces);
+        return !landmarkPlaces.length
+          ? res.status(404).json({
+              status: "failure",
+              message: "Landmark places not found",
+            })
+          : res.status(200).json({
+              status: "success",
+              results: landmarkPlaces.length,
+              data: landmarkPlaces,
+            });
       }
     } catch (error) {
       return res.status(500).json({ msg: error.message });
@@ -140,17 +147,14 @@ const PlaceController = {
       const newPlaces = req.body;
       let existedPlaceList = [];
 
-      // check for each element of array places
-      // whether existed place
-      for (let i = 0; i < newPlaces.length; i += 1) {
-        const checkedName = newPlaces[i].name;
-
-        // eslint-disable-next-line no-await-in-loop
-        const existPlace = await PlaceService.getOnePlace(checkedName);
-
-        // push to existed list containing place.name
-        if (existPlace) {
-          existedPlaceList.push(existPlace.name);
+      /*  
+      Check for each element of array places
+      whether existed place
+      */
+      for (const place of newPlaces) {
+        const existedPlace = await PlaceService.getOnePlace(place.name);
+        if (existedPlace) {
+          existedPlaceList.push(existedPlace.name);
         }
       }
 
@@ -199,20 +203,21 @@ const PlaceController = {
     }
   },
 
-  // delete places
-  // eslint-disable-next-line consistent-return
   async deletePlace(req, res) {
     const { id } = req.params;
 
     try {
-      const placeToDelete = await PlaceService.deletePlaceById(id);
+      const placeToDelete = await PlaceService.getPlaceById(id);
 
       if (placeToDelete) {
+        await PlaceService.deletePlaceById(id);
+        await PlaceNeo4jService.deleteOneNode(placeToDelete.unique_point);
         return res.status(200).send({
           status: "success",
-          message: `Place: ${id} has been deleted successfully`,
+          message: `Place with the  ${id} has been deleted successfully`,
         });
       }
+
       return res.status(404).json({
         status: "failure",
         message: `Place: ${id} not found`,
@@ -222,21 +227,27 @@ const PlaceController = {
     }
   },
 
-  // update places
-  // eslint-disable-next-line consistent-return
   async updatePlace(req, res) {
     const updatePlace = req.body;
     const { id } = req.params;
 
     try {
-      const placeToUpdate = await PlaceService.updatePlace(id, updatePlace);
+      const placeToUpdate = await PlaceService.getPlaceById(id);
+      const unique_point = placeToUpdate.unique_point;
 
-      if (!placeToUpdate) {
-        return res.status(404).send({ message: `Place with ${id} not found!` });
+      if (placeToUpdate) {
+        await PlaceService.updatePlace(id, updatePlace);
+        await PlaceNeo4jService.updatePlace(unique_point, updatePlace);
+        return res.status(200).send({
+          status: "success",
+          message: `Place with ${id} is updated successfully`,
+        });
       }
-      return res
-        .status(200)
-        .send({ message: `Place with ${id} is updated successfully` });
+
+      return res.status(404).send({
+        status: "failure",
+        message: `Place with ${id} not found!`,
+      });
     } catch (err) {
       return res.status(500).send({ msg: err.message });
     }
@@ -245,19 +256,21 @@ const PlaceController = {
   deleteAllPlace: async (req, res) => {
     try {
       const placesToDelete = await PlaceService.getAllPlaces();
+      console.log(
+        "🚀 ~ file: place.controller.js ~ line 252 ~ deleteAllPlace: ~ placesToDelete",
+        placesToDelete
+      );
 
       if (!placesToDelete.length) {
         return res.status(400).send({
           message: "Empty list!",
         });
       }
-      // delete in Postgres
       await PlaceService.deleteAllPlaces();
-
-      // delete all in Neo4j
       await PlaceNeo4jService.deletePlaces();
 
       return res.status(200).json({
+        status: "success",
         message: "Deleted all places!",
       });
     } catch (error) {

@@ -47,6 +47,13 @@ const PlaceService = {
     }
   },
 
+  getPlaceById: async (placeId) => {
+    try {
+      return await Place.findByPk(placeId);
+    } catch (error) {
+      return error;
+    }
+  },
   // create a list of places
   createPlaces: async (newPlaces) => {
     try {
@@ -116,7 +123,7 @@ const PlaceService = {
 
   updatePlace: async (id, updatePlace) => {
     try {
-      const placeToUpdate = await Place.findOne({ where: { id } });
+      const placeToUpdate = await Place.findByPk(id);
 
       if (placeToUpdate) {
         const updatedPlace = await Place.update(updatePlace, { where: { id } });
