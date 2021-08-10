@@ -1,14 +1,10 @@
 const db = require('../src/models');
+const UserService = require("../service/user.service");
+const InterestService = require("../service/interest.service");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const { User } = db;
-const { Interest } = db;
-const { Trip } = db;
-const { UserInterest } = db;
-
-
-// const { Op } = db.Sequelize.Op;
 
 const UserController = {
   // create new user account
@@ -16,7 +12,7 @@ const UserController = {
     try {
       const { lastName, firstName, email, password, role } = req.body;
 
-      const user = await User.findOne({ where: { email: email } });
+      const user = await UserService.getOneUser(email);
       if (user) return res.status(400).json({ msg: "The email already exists." })
 
       if (password.length < 6)
@@ -54,7 +50,7 @@ const UserController = {
     try {
       const { email, password } = req.body;
 
-      const user = await User.findOne({ where: { email: email } })
+      const user = await UserService.getOneUser(email)
       if (!user) return res.status(400).json({ msg: "User does not exist." })
 
       const isMatch = await bcrypt.compare(password, user.password)
@@ -88,6 +84,7 @@ const UserController = {
     }
   },
 
+  // get new token after access token expired
   refreshToken: (req, res) => {
     try {
       const rf_token = req.cookies.refreshtoken;
@@ -108,21 +105,10 @@ const UserController = {
 
   },
 
+  // get user information
   getUser: async (req, res) => {
     try {
-      const user = await User.findByPk(req.user.id, {
-        include: [
-          {
-            model: Interest,
-            as: 'interests',
-            attributes: ['id', 'name', 'img']
-          },
-          {
-            model: Trip,
-            as: 'trips',
-          }
-        ],
-      });
+      const user = await UserService.getUserInfo(req.user.id);
       console.log(user);
       if (!user) return res.status(400).json({ msg: "User does not exist." })
       // response list of users
@@ -132,28 +118,23 @@ const UserController = {
     }
   },
 
+  // add interest that user choose
   addInterest: async (req, res) => {
     try {
-      const user = await User.findByPk(req.body.user_id)
+      const user = await UserService.getUserInfo(req.user.id)
       if (!user) {
-        console.log("User not found!");
+        res.status(404).send({ message: `Association not found` });
         return null;
-      }
-      const interest = await Interest.findByPk(req.body.interest_id)
+      };
+      const interest = await InterestService.getInterestInfo(req.body.interest_id)
       if (!interest) {
-        console.log("Interest not found!");
+        res.status(404).send({ message: `Association not found` });
         return null;
-      }
+      };
       //populate UserInterest join table
       await user.addInterest(interest);
 
-      let UserInterest = await User.findByPk(req.body.user_id, {
-        include: [{
-          model: Interest,
-          as: 'interests',
-          attributes: ['id', 'name', 'img']
-        }]
-      })
+      let UserInterest = await UserService.getUserInfo(req.user.id)
       res.status(201).send(UserInterest);
     }
     catch (err) {
@@ -162,24 +143,23 @@ const UserController = {
     }
   },
 
+  // delete interest that user choosed before
   deleteUserInterest: async (req, res) => {
     try {
-      const user = await User.findByPk(req.body.user_id)
+      const user = await UserService.getUserInfo(req.user.id)
       if (!user) {
-        console.log("User not found!");
+        res.status(404).send({ message: `Association not found` });
         return null;
       }
-      const interest = await Interest.findByPk(req.body.interest_id)
+      const interest = await InterestService.getInterestInfo(req.body.interest_id)
       if (!interest) {
-        console.log("Interest not found!");
+        res.status(404).send({ message: `Association not found` });
         return null;
       }
       await user.removeInterest(interest);
       await interest.removeUser(user);
 
-      await UserInterest.destroy({
-        where: { user_id: req.body.user_id, interest_id: req.body.interest_id }
-      });
+      await UserService.removeUserInterest(req.body.user_id, req.body.interest_id);
 
       return res.status(200).send({
         message: `UserInterest has been deleted successfully`,

@@ -8,7 +8,8 @@ const interestRoutes = Router();
 
 interestRoutes
   .get("/", InterestController.getAllInterests)
-  .post("/", InterestController.createInterest);
+  .post("/", auth, authAdmin, InterestController.createInterest)
+  .delete("/:id", auth, authAdmin, InterestController.deleteInterest);
 
 module.exports = interestRoutes;
 
