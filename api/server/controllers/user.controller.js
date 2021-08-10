@@ -115,6 +115,7 @@ const UserController = {
           {
             model: Interest,
             as: 'interests',
+            attributes: ['id', 'name', 'img']
           },
           {
             model: Trip,
@@ -150,7 +151,7 @@ const UserController = {
         include: [{
           model: Interest,
           as: 'interests',
-          attributes: ['id', 'name']
+          attributes: ['id', 'name', 'img']
         }]
       })
       res.status(201).send(UserInterest);
