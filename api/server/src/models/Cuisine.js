@@ -1,52 +1,46 @@
+"use strict";
 const { Model } = require("sequelize");
-
 module.exports = (sequelize, DataTypes) => {
-  class Place extends Model {
+  class Cuisine extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
     static associate(models) {
-      Place.belongsTo(models.City, {
-        foreignKey: "city_id",
-        as: "city",
-      });
+      // define association here
     }
   }
-
-  Place.init(
+  Cuisine.init(
     {
-      name: {
+      tile: {
         type: DataTypes.STRING,
-        allowNull: false,
       },
       url: {
         type: DataTypes.STRING,
       },
-      category: {
-        type: DataTypes.STRING,
-      },
       img: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
       },
-      isHistorical: {
+      isVietnamese: {
         type: DataTypes.INTEGER,
       },
-      isUrban: {
+      isWestern: {
         type: DataTypes.INTEGER,
       },
-      isReligious: {
+      isJapanese: {
         type: DataTypes.INTEGER,
       },
-      isMuseum: {
+      isThai: {
         type: DataTypes.INTEGER,
       },
-      isShopping: {
+      isChinese: {
         type: DataTypes.INTEGER,
       },
-      isAdventure: {
+      idIndian: {
         type: DataTypes.INTEGER,
       },
-      isNature: {
-        type: DataTypes.INTEGER,
-      },
-      isPark: {
+      isKorean: {
         type: DataTypes.INTEGER,
       },
       lat: {
@@ -55,13 +49,16 @@ module.exports = (sequelize, DataTypes) => {
       lng: {
         type: DataTypes.FLOAT,
       },
-      city_id: DataTypes.INTEGER,
+      unique_point: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+        allowNull: false,
+      },
     },
     {
       sequelize,
-      modelName: "Place",
-      freezeTableName: true,
+      modelName: "Cuisine",
     }
   );
-  return Place;
+  return Cuisine;
 };

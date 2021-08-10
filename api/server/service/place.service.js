@@ -1,8 +1,11 @@
 const { QueryTypes } = require("sequelize");
 const db = require("../src/models");
+const { Op } = require("sequelize");
 
 const { Place } = db;
 const { City } = db;
+
+const generateSqlGetLandmarkResult = require("../utils/SqlUtils");
 
 const PlaceService = {
   // get all places
@@ -21,6 +24,18 @@ const PlaceService = {
     }
   },
 
+  getConditionalPlaces: async (conditions) => {
+    try {
+      return await Place.findAll({
+        where: {
+          [Op.or]: [conditions],
+        },
+      });
+    } catch (error) {
+      return error;
+    }
+  },
+
   // get a place by name
   getOnePlace: async (checkedName) => {
     try {
@@ -32,44 +47,73 @@ const PlaceService = {
     }
   },
 
+  getPlaceById: async (placeId) => {
+    try {
+      return await Place.findByPk(placeId);
+    } catch (error) {
+      return error;
+    }
+  },
   // create a list of places
   createPlaces: async (newPlaces) => {
     try {
+      /**
+       *  individualHooks set to true to call beforeCreate hook for single bulk insert
+       */
       return await Place.bulkCreate(newPlaces);
     } catch (error) {
       return error;
     }
   },
 
-  getLandmarkPlaces: async (paramList) => {
+  createOnePlace: async (newPlace) => {
     try {
-      const subQuery = paramList.map((item) => `"${item}"`).join("+");
+      return await Place.create(newPlace);
+    } catch (error) {
+      return error;
+    }
+  },
 
-      const sql = `SELECT *, ${subQuery} AS point
-              FROM "Place"
-              ORDER BY point DESC LIMIT 5;`;
+  /**
+   * Query Places for User's interests
+   */
+  getLandmarkPlaces: async (paramList, limit) => {
+    try {
+      /**
+       * @param {paramList}: query params from users
+       *
+       * Create new sub-quey array from param list
+       * adding "+" between elements of paramList
+       */
+
+      // model to query in Postgres database
+      const model = "Place";
+
+      const sql = generateSqlGetLandmarkResult(model, paramList, limit);
 
       const landmarkPlaces = await db.sequelize.query(sql, {
         type: QueryTypes.SELECT,
       });
 
+      if (landmarkPlaces.length === 0) {
+        console.log(
+          "🚀 ~ file: place.service.js ~ line 92 ~ getLandmarkPlaces: ~ !landmarkPlaces.length",
+          "Landmark places are not available"
+        );
+        return null;
+      }
       return landmarkPlaces;
     } catch (error) {
       return error;
     }
   },
 
-  deletePlace: async (nameToDelete) => {
+  deletePlaceById: async (id) => {
     try {
-      const placeToDelete = await Place.findOne({
-        where: { name: nameToDelete },
-      });
+      const placeToDelete = await Place.findByPk(id);
 
       if (placeToDelete) {
-        const deletedPlace = await Place.destroy({
-          where: { name: nameToDelete },
-        });
-        return deletedPlace;
+        return await placeToDelete.destroy();
       }
       return null;
     } catch (error) {
@@ -79,7 +123,7 @@ const PlaceService = {
 
   updatePlace: async (id, updatePlace) => {
     try {
-      const placeToUpdate = await Place.findOne({ where: { id } });
+      const placeToUpdate = await Place.findByPk(id);
 
       if (placeToUpdate) {
         const updatedPlace = await Place.update(updatePlace, { where: { id } });

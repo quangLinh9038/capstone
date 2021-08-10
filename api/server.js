@@ -3,16 +3,17 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 
 const port = process.env.PORT;
+require("dotenv").config();
+
 const routes = require("./server/routes");
 const db = require("./server/src/models");
-
 const expressApp = express();
 
 const corsOptions = {
-  origin: "http://localhost:3001",
+  origin: "http://localhost:3000",
 };
 
-// database connection
+// database connection authentication
 db.sequelize
   .authenticate()
   .then(() => {
@@ -36,8 +37,10 @@ expressApp.use(bodyParser.urlencoded({ limit: "50mb", extended: false }));
 // Routes
 expressApp.use("/", routes);
 
-expressApp.listen(port, () => {
-  console.log(`Server is running on PORT ${port}...`);
+expressApp.listen(port, function () {
+  console.log(`Listening  ${port}... `);
+  // server.close(function () {
+  //   console.log("Doh :(");
+  // });
 });
-
 module.exports = expressApp;

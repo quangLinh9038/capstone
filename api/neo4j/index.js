@@ -1,32 +1,19 @@
+require("dotenv").config();
+const Neode = require("neode");
+const { NEO4J_URI, NEO4J_USERNAME, NEO4J_PASSWORD } = process.env;
+
+const PlaceNeo4j = require("./models/Place.neo4j");
+const AccommodationNeo4j = require("./models/Accommodation.neo4j");
 /**
  * Define a Neode Instance
- */
-const neode = require("neode")
-  // Use configuration from .env
-  .fromEnv()
+ * Use configuration from .env
+ * */
 
+const neode = new Neode(NEO4J_URI, NEO4J_USERNAME, NEO4J_PASSWORD)
   // Include models in neo4j-models directory
   .with({
-    // eslint-disable-next-line global-require
-    Place: require("./neo4j-models/Place"),
-    Accommodation: require("./neo4j-models/Accommodation"),
+    Place: PlaceNeo4j,
+    Accommodation: AccommodationNeo4j,
   });
 
 module.exports = neode;
-
-/**
- * Define Neo4j connection via driver
- */
-
-// const neo4j = require("neo4j-driver");
-// const config = require("./config/neo4j.config");
-
-// const { neo4jUsername } = config;
-// const { neo4jPassword } = config;
-
-// const driver = neo4j.driver(
-//   config.neo4j_url,
-//   neo4j.auth.basic(neo4jUsername, neo4jPassword)
-// );
-
-// const session = driver.session();

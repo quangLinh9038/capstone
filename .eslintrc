@@ -1,11 +1,14 @@
 {
-    "extends": ["airbnb-base"],
-    "env": {
-      "node": true,
-      "browser": true
-    },
-    "rules": {
-      "no-console": "off",
-      "quotes": "off"
-    }
+  "extends": ["airbnb", "prettier"],
+  "plugins": ["prettier"],
+  "env": {
+    "node": true,
+    "browser": true
+  },
+  "rules": {
+    "no-console": "off",
+    "quotes": "off",
+    "linebreak-style": "off",
+    "prettier/prettier": ["error"]
   }
+}
