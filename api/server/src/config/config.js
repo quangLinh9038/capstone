@@ -13,20 +13,6 @@ const {
 } = process.env;
 
 module.exports = {
-  /**
-   * Cloud DB
-   */
-  // development: {
-  //   port: PG_PORT,
-  //   username: PG_CLOUDUSER,
-  //   password: PG_CLOUDPWD,
-  //   database: PG_CLOUDNAME,
-  //   host: PG_CLOUDHOST,
-  //   dialect: "postgres",
-  //   logging: false,
-  //   ssl: true,
-  // },
-
   development: {
     port: PG_PORT,
     username: PG_USERNAME,
@@ -46,11 +32,16 @@ module.exports = {
     dialect: "postgres",
   },
 
+  /* 
+  Cloud Database when in production
+  */
   production: {
-    username: PG_USERNAME,
-    password: PG_PASSWORD,
-    database: "database_production",
-    host: PG_LOCALHOST,
+    username: PG_CLOUDUSER,
+    password: PG_CLOUDPWD,
+    database: PG_CLOUDNAME,
+    host: PG_CLOUDHOST,
     dialect: "postgres",
+    logging: false,
+    ssl: true,
   },
 };
