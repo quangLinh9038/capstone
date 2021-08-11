@@ -89,7 +89,7 @@ const PlaceController = {
       const allPlaces = await PlaceService.getAllPlaces();
 
       return !allPlaces.length
-        ? res.status(204).send({ message: `Places are empty` })
+        ? res.status(404).send({ message: `Places are empty` })
         : res.json({
             status: "success",
             result: allPlaces.length,
@@ -256,10 +256,6 @@ const PlaceController = {
   deleteAllPlace: async (req, res) => {
     try {
       const placesToDelete = await PlaceService.getAllPlaces();
-      console.log(
-        "🚀 ~ file: place.controller.js ~ line 252 ~ deleteAllPlace: ~ placesToDelete",
-        placesToDelete
-      );
 
       if (!placesToDelete.length) {
         return res.status(400).send({

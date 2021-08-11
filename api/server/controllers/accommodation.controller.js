@@ -70,7 +70,7 @@ const AccommodationController = {
       if (Array.isArray(existedAccommsList) && !existedAccommsList.length) {
         /**
          * Use sequelize create() method
-         * to POST data of accomms to Postgres
+         * to POST data of accomms to Postgresql
          */
         const _newAccomms = await AccommodationService.createAccommodations(
           newAccomms
@@ -90,7 +90,8 @@ const AccommodationController = {
           AccommodationNeo4jService.createAccommodation(props)
         );
 
-        // return results
+        await AccommodationNeo4jService.initRelationship();
+
         return res.status(201).json(newAccomms);
       }
       return res.status(400).send({
