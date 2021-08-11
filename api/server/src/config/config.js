@@ -15,10 +15,10 @@ const {
 module.exports = {
   development: {
     port: PG_PORT,
-    username: PG_CLOUDUSER,
-    password: PG_CLOUDPWD,
-    database: PG_CLOUDNAME,
-    host: PG_CLOUDHOST,
+    username: PG_USERNAME,
+    password: PG_PASSWORD,
+    database: PG_NAME,
+    host: PG_LOCALHOST,
     dialect: "postgres",
     logging: false,
     ssl: true,
