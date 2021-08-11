@@ -3,9 +3,10 @@ const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Interest extends Model {
     static associate(models) {
-      Interest.belongsTo(models.User, {
-        foreignKey: "user_id",
-        as: "user",
+      Interest.belongsToMany(models.User, {
+        through: "UserInterest",
+        foreignKey: "interest_id",
+        as: "users",
       });
     }
   }
@@ -15,10 +16,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      user_id: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
+      img: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      }
     },
     {
       sequelize,

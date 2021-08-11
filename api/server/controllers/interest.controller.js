@@ -1,24 +1,16 @@
-const db = require('../src/models');
-
-const { user } = db;
-const { Interest } = db;
+const InterestService = require("../service/interest.service");
 
 // const { Op } = db.Sequelize.Op;
 
 const InterestController = {
   getAllInterests: async (req, res) => {
     try {
-      const allInterests = await Interest.findAll({
-        include: [{
-          model: user,
-          as: 'user',
-        }],
+      const allInterests = await InterestService.getAllInterests();
 
-      });
       // check empty list
-      if (allInterests === null) {
-        return res.status(204).send({
-          message: 'Interests are empty!',
+      if (allInterests.length === 0) {
+        return res.status(204).json({
+          msg: 'Interests are empty!',
         });
       }
 
@@ -29,7 +21,6 @@ const InterestController = {
     }
   },
 
-  // create new users
   createInterest: async (req, res) => {
     try {
       // check existed users
@@ -42,9 +33,7 @@ const InterestController = {
         const checkedName = newInterests[i].name;
 
         // eslint-disable-next-line no-await-in-loop
-        const existInterest = await Interest.findOne({
-          where: { name: checkedName },
-        });
+        const existInterest = await InterestService.getOneInterest(checkedName);
 
         // push to existed list
         if (existInterest) {
@@ -52,17 +41,19 @@ const InterestController = {
         }
       }
 
-      // if there is none of existed places
+      // if there is none of existed interests
       // create new places
       // if not, return existed error messages
       if (Array.isArray(existedInterestList) && !existedInterestList.length) {
         // create list of places
-        await Interest.bulkCreate(newInterests).then((data) => res.status(201).send(data));
+      const _newInterests = await InterestService.createInterests(newInterests);
+      return res.status(201).json({
+        msg: "Interest created",
+        results: _newInterests.length,
+        newPlaces: _newInterests, 
+      });
       }
 
-      console.log(newInterests);
-      // INSERT query to Neo4j
-      // IMPORT json
       return res.status(400).send({
         message: `Interests [ ${existedInterestList} ] are existed`,
       });
@@ -70,6 +61,26 @@ const InterestController = {
       return res.status(500).json({ msg: err.message });
     }
   },
+
+  // delete interest by id
+  deleteInterest: async (req, res) =>{
+    const {id} = req.params;
+
+    try {
+      const interestToDelete = await InterestService.deleteInterest(id);
+
+      if (interestToDelete) {
+        return res.status(200).send({
+          message: `Interest: ${id} has been deleted successfully`,
+        });
+      }
+      return res.status(404).send({
+        message: `Interest: ${id} not found`,
+      });
+    } catch (err) {
+      return res.status(500).json({ msg: err.message });
+    }
+  }
 };
 
 module.exports = InterestController;
