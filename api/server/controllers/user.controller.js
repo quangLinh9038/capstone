@@ -1,8 +1,8 @@
-const db = require('../src/models');
+const db = require("../src/models");
 const UserService = require("../service/user.service");
 const InterestService = require("../service/interest.service");
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 const { User } = db;
 
@@ -13,35 +13,41 @@ const UserController = {
       const { lastName, firstName, email, password, role } = req.body;
 
       const user = await UserService.getOneUser(email);
-      if (user) return res.status(400).json({ msg: "The email already exists." })
+      if (user)
+        return res.status(400).json({ msg: "The email already exists." });
 
       if (password.length < 6)
-        return res.status(400).json({ msg: "Password is at least 6 characters." })
+        return res
+          .status(400)
+          .json({ msg: "Password is at least 6 characters." });
 
       //Password Encryption
-      const passwordHash = await bcrypt.hash(password, 10)
+      const passwordHash = await bcrypt.hash(password, 10);
       const newUser = new User({
-        firstName, lastName, email, password: passwordHash, role
-      })
+        firstName,
+        lastName,
+        email,
+        password: passwordHash,
+        role,
+      });
 
       //Save Postgres
-      await newUser.save()
+      await newUser.save();
 
       //Then create jsonwebtoken to authentication
-      const accesstoken = createAccessToken({ id: newUser.id })
-      const refreshtoken = createRefreshToken({ id: newUser.id })
+      const accessToken = createAccessToken({ id: newUser.id });
+      const refreshToken = createRefreshToken({ id: newUser.id });
 
       //auto refresh token after the access token expired
-      res.cookie('refreshtoken', refreshtoken, {
+      res.cookie("refreshToken", refreshToken, {
         httpOnly: true,
-        path: '/users/refresh_token',
-        maxAge: 7 * 24 * 60 * 60 * 1000 //7d
-      })
+        path: "/users/refresh_token",
+        maxAge: 7 * 24 * 60 * 60 * 1000, //7d
+      });
 
-      res.json({ accesstoken })
-
+      res.json({ accessToken: accessToken });
     } catch (err) {
-      return res.status(500).json({ msg: err.message })
+      return res.status(500).json({ msg: err.message });
     }
   },
 
@@ -50,37 +56,36 @@ const UserController = {
     try {
       const { email, password } = req.body;
 
-      const user = await UserService.getOneUser(email)
-      if (!user) return res.status(400).json({ msg: "User does not exist." })
+      const user = await UserService.getOneUser(email);
+      if (!user) return res.status(400).json({ msg: "User does not exist." });
 
-      const isMatch = await bcrypt.compare(password, user.password)
-      if (!isMatch) return res.status(400).json({ msg: "Wrong password." })
+      const isMatch = await bcrypt.compare(password, user.password);
+      if (!isMatch) return res.status(400).json({ msg: "Wrong password." });
 
       //If login success, create access token and refresh token
-      const accesstoken = createAccessToken({ id: user.id })
-      const refreshtoken = createRefreshToken({ id: user.id })
+      const accessToken = createAccessToken({ id: user.id });
+      const refreshToken = createRefreshToken({ id: user.id });
 
       //auto refresh token after the access token expired
-      res.cookie('refreshtoken', refreshtoken, {
+      res.cookie("refreshToken", refreshToken, {
         httpOnly: true,
-        path: '/users/refresh_token',
-        maxAge: 7 * 24 * 60 * 60 * 1000 //7d
-      })
+        path: "/users/refresh_token",
+        maxAge: 7 * 24 * 60 * 60 * 1000, //7d
+      });
 
-      res.json({ accesstoken })
-
+      res.json({ accessToken: accessToken });
     } catch (err) {
-      res.status(500).json({ msg: err.message })
+      res.status(500).json({ msg: err.message });
     }
   },
 
   // clear token to logout
   logout: async (req, res) => {
     try {
-      res.clearCookie('refreshtoken', { path: '/users/refresh_token' })
-      return res.json({ msg: "Logged Out" })
+      res.clearCookie("refreshToken", { path: "/users/refresh_token" });
+      return res.json({ msg: "Logged Out" });
     } catch (err) {
-      return res.status(500).json({ msg: err.message })
+      return res.status(500).json({ msg: err.message });
     }
   },
 
@@ -88,29 +93,30 @@ const UserController = {
   refreshToken: (req, res) => {
     try {
       const rf_token = req.cookies.refreshtoken;
-      if (!rf_token) return res.status(400).json({ msg: "Please Login or Register" })
+      if (!rf_token)
+        return res.status(400).json({ msg: "Please Login or Register" });
 
       jwt.verify(rf_token, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
-        if (err) return res.status(400).json({ msg: "Please Login or Register" })
+        if (err)
+          return res.status(400).json({ msg: "Please Login or Register" });
 
-        const accesstoken = createAccessToken({ id: user.id })
+        const accessToken = createAccessToken({ id: user.id });
 
-        res.json({ accesstoken })
-      })
+        res.json({ accessToken: accessToken });
+      });
 
-      res.json({ rf_token })
+      res.json({ rf_token });
     } catch (err) {
-      return res.status(500).json({ msg: err.message })
+      return res.status(500).json({ msg: err.message });
     }
-
   },
 
   // get user information
   getUser: async (req, res) => {
     try {
       const user = await UserService.getUserInfo(req.user.id);
-      console.log(user);
-      if (!user) return res.status(400).json({ msg: "User does not exist." })
+
+      if (!user) return res.status(400).json({ msg: "User does not exist." });
       // response list of users
       return res.status(200).json(user);
     } catch (err) {
@@ -121,37 +127,40 @@ const UserController = {
   // add interest that user choose
   addInterest: async (req, res) => {
     try {
-      const user = await UserService.getUserInfo(req.user.id)
+      const user = await UserService.getUserInfo(req.user.id);
       if (!user) {
         res.status(404).send({ message: `Association not found` });
         return null;
-      };
-      const interest = await InterestService.getInterestInfo(req.body.interest_id)
+      }
+      const interest = await InterestService.getInterestInfo(
+        req.body.interest_id
+      );
       if (!interest) {
         res.status(404).send({ message: `Association not found` });
         return null;
-      };
+      }
       //populate UserInterest join table
       await user.addInterest(interest);
 
-      let UserInterest = await UserService.getUserInfo(req.user.id)
+      let UserInterest = await UserService.getUserInfo(req.user.id);
       res.status(201).send(UserInterest);
-    }
-    catch (err) {
+    } catch (err) {
       console.error("Interest creation server error: ", error);
-      res.status(500).send(error)
+      res.status(500).send(error);
     }
   },
 
   // delete interest that user choosed before
   deleteUserInterest: async (req, res) => {
     try {
-      const user = await UserService.getUserInfo(req.user.id)
+      const user = await UserService.getUserInfo(req.user.id);
       if (!user) {
         res.status(404).send({ message: `Association not found` });
         return null;
       }
-      const interest = await InterestService.getInterestInfo(req.body.interest_id)
+      const interest = await InterestService.getInterestInfo(
+        req.body.interest_id
+      );
       if (!interest) {
         res.status(404).send({ message: `Association not found` });
         return null;
@@ -159,26 +168,41 @@ const UserController = {
       await user.removeInterest(interest);
       await interest.removeUser(user);
 
-      await UserService.removeUserInterest(req.body.user_id, req.body.interest_id);
+      await UserService.removeUserInterest(
+        req.body.user_id,
+        req.body.interest_id
+      );
 
       return res.status(200).send({
         message: `UserInterest has been deleted successfully`,
       });
-
-    }
-    catch (err) {
+    } catch (err) {
       console.error("Interest creation server error: ", error);
-      res.status(500).send(error)
+      res.status(500).send(error);
     }
-  }
+  },
+
+  deleteAllUsers: async (req, res) => {
+    try {
+      const allUsers = await UserService.getAllUser();
+
+      if (allUsers) {
+        await UserService.deleteAllUser();
+        return res.status(200).json({ status: "success" });
+      }
+      return res
+        .status(404)
+        .json({ status: "error", message: "Users are empty" });
+    } catch (error) {}
+  },
 };
 
 const createAccessToken = (user) => {
-  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '11m' })
-}
+  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "11m" });
+};
 
 const createRefreshToken = (user) => {
-  return jwt.sign(user, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '7d' })
-}
+  return jwt.sign(user, process.env.REFRESH_TOKEN_SECRET, { expiresIn: "7d" });
+};
 
 module.exports = UserController;

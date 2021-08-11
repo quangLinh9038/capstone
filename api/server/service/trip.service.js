@@ -32,9 +32,14 @@ const TripService = {
   getFirstPlaceAndShortestAccommodation: async (
     placeParams,
     placeLimit,
-    accommodationParams
+    accommodationParams,
+    accommodationLimit
   ) => {
     try {
+      // console.log(
+      // "🚀 ~ file: trip.service.js ~ line 40 ~ accommodationLimit",
+      // accommodationLimit
+      // );
       const accommodationUniquePointList = [];
 
       //get main places
@@ -47,15 +52,17 @@ const TripService = {
       // mainPlaces.length
       // );
 
-      const mainAccomms = await AccommodationService.getMainAccommodation(
-        accommodationParams
-      );
+      const mainAccommodations =
+        await AccommodationService.getMainAccommodation(
+          accommodationParams,
+          accommodationLimit
+        );
       // console.log(
       // "🚀 ~ file: trip.service.js ~ line 47 ~ mainAccomms",
-      // mainAccomms.length
+      // mainAccommodations.length
       // );
 
-      if (!mainPlaces || !mainAccomms) {
+      if (!mainPlaces || !mainAccommodations) {
         return null;
       }
 
@@ -71,7 +78,7 @@ const TripService = {
       /*  
       Get main accomms unique_point list
       */
-      mainAccomms.forEach((accommodation) => {
+      mainAccommodations.forEach((accommodation) => {
         accommodationUniquePointList.push(accommodation.unique_point);
       });
       // console.log(

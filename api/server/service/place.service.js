@@ -95,14 +95,7 @@ const PlaceService = {
         type: QueryTypes.SELECT,
       });
 
-      if (landmarkPlaces.length === 0) {
-        console.log(
-          "🚀 ~ file: place.service.js ~ line 92 ~ getLandmarkPlaces: ~ !landmarkPlaces.length",
-          "Landmark places are not available"
-        );
-        return null;
-      }
-      return landmarkPlaces;
+      return !landmarkPlaces.length ? null : landmarkPlaces;
     } catch (error) {
       return error;
     }

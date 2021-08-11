@@ -36,12 +36,12 @@ const TripController = {
       // placeParams
       // );
 
-      const { accommodationParams } = req.query;
+      const { accommodationParams, accommodationLimit } = req.query;
       // console.log(
       // "🚀 ~ file: trip.controller.js ~ line 36 ~ getATripForOneDay: ~ accommodationParams",
       // accommodationParams
       // );
-      if (!accommodationParams) {
+      if (!accommodationParams || !accommodationLimit) {
         return res.status(400).send({ msg: "Accommodation params missing" });
       }
 
@@ -49,7 +49,8 @@ const TripController = {
         await TripService.getFirstPlaceAndShortestAccommodation(
           placeParams,
           placeLimit,
-          accommodationParams
+          accommodationParams,
+          accommodationLimit
         );
 
       const shortestAccommodation = firstPlaceAndShortestAccommodation[1];
