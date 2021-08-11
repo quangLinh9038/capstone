@@ -11,16 +11,16 @@ const TripNeo4jService = {
   ) => {
     try {
       // console.log(
-      // "🚀 ~ file: trip.neo4j.service.js ~ line 12 ~ accommodationUniquePoint",
-      // accommodationUniquePointList
-      // );
-      // console.log(
       // "🚀 ~ file: trip.neo4j.service.js ~ line 12 ~ placeUniquePoint",
       // placeUniquePoint
       // );
 
       const _accommodationUniquePointList = accommodationUniquePointList.map(
         (item) => `"${item}"`
+      );
+      console.log(
+        "🚀 ~ file: trip.neo4j.service.js ~ line 22 ~ _accommodationUniquePointList",
+        _accommodationUniquePointList
       );
 
       const result = await neode.cypher(

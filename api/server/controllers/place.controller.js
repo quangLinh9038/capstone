@@ -8,7 +8,7 @@ const { Op } = require("sequelize");
 /***
  * Import utils
  */
-const parseString = require("../utils/parseString");
+const parsingStringToObject = require("../utils/parsingStringToObject");
 
 const PlaceController = {
   getAllPlaces: async (req, res) => {
@@ -118,7 +118,8 @@ const PlaceController = {
 
         /**
          * Use PlaceService.getLandmarkPlaces
-         * to query interested Places from Postgres
+         * to query interested Places from Postgresql
+
          */
         const landmarkPlaces = await PlaceService.getLandmarkPlaces(
           paramList,
@@ -145,7 +146,7 @@ const PlaceController = {
   createPlace: async (req, res) => {
     try {
       const newPlaces = req.body;
-      let existedPlaceList = [];
+      const existedPlaceList = [];
 
       /*  
       Check for each element of array places
@@ -163,7 +164,6 @@ const PlaceController = {
        * create new places
        * If not, return existed error messages
        */
-
       if (Array.isArray(existedPlaceList) && !existedPlaceList.length) {
         /**
          * Use sequelize create() method
@@ -174,7 +174,7 @@ const PlaceController = {
         /**
          * Parsing _newPlaces to Object to post to Neo4j
          */
-        const objNewPlaces = parseString(_newPlaces);
+        const objNewPlaces = parsingStringToObject(_newPlaces);
 
         /**
          * Use neode to create nodes from JSON request
@@ -190,12 +190,13 @@ const PlaceController = {
 
         // return results
         return res.status(201).json({
-          msg: "Place created",
+          status: "success",
           results: _newPlaces.length,
-          newPlaces: _newPlaces,
+          data: _newPlaces,
         });
       }
       return res.status(400).send({
+        status: "failure",
         message: `Places [ ${existedPlaceList} ] are existed`,
       });
     } catch (err) {
@@ -203,7 +204,7 @@ const PlaceController = {
     }
   },
 
-  async deletePlace(req, res) {
+  deletePlaceById: async (req, res) => {
     const { id } = req.params;
 
     try {
@@ -258,7 +259,7 @@ const PlaceController = {
       const placesToDelete = await PlaceService.getAllPlaces();
 
       if (!placesToDelete.length) {
-        return res.status(400).send({
+        return res.status(404).send({
           message: "Empty list!",
         });
       }

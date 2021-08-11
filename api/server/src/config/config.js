@@ -21,7 +21,7 @@ module.exports = {
     host: PG_LOCALHOST,
     dialect: "postgres",
     logging: false,
-    ssl: true,
+    ssl: false,
   },
   test: {
     username: PG_USERNAME,
