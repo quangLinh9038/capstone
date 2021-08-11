@@ -21,7 +21,7 @@ describe("Places", () => {
         .get("/places")
         .set("Accept", "application/json")
         .end((err, res) => {
-          expect(res.status).to.equal(204);
+          expect(res.status).to.equal(200);
           done();
         });
     });

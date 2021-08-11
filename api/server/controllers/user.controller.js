@@ -1,78 +1,184 @@
 const db = require('../src/models');
+const UserService = require("../service/user.service");
+const InterestService = require("../service/interest.service");
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
-const { user } = db;
-const { Interest } = db;
-
-
-// const { Op } = db.Sequelize.Op;
+const { User } = db;
 
 const UserController = {
-  getAllUsers: async (req, res) => {
+  // create new user account
+  register: async (req, res) => {
     try {
-      const allUsers = await user.findAll({
-        include: [{
-          model: Interest,
-          as: 'interests',
-        }],
+      const { lastName, firstName, email, password, role } = req.body;
 
-      });
-      // check empty list
-      if (allUsers === null) {
-        return res.status(204).send({
-          message: 'Users are empty!',
-        });
-      }
+      const user = await UserService.getOneUser(email);
+      if (user) return res.status(400).json({ msg: "The email already exists." })
 
+      if (password.length < 6)
+        return res.status(400).json({ msg: "Password is at least 6 characters." })
+
+      //Password Encryption
+      const passwordHash = await bcrypt.hash(password, 10)
+      const newUser = new User({
+        firstName, lastName, email, password: passwordHash, role
+      })
+
+      //Save Postgres
+      await newUser.save()
+
+      //Then create jsonwebtoken to authentication
+      const accesstoken = createAccessToken({ id: newUser.id })
+      const refreshtoken = createRefreshToken({ id: newUser.id })
+
+      //auto refresh token after the access token expired
+      res.cookie('refreshtoken', refreshtoken, {
+        httpOnly: true,
+        path: '/users/refresh_token',
+        maxAge: 7 * 24 * 60 * 60 * 1000 //7d
+      })
+
+      res.json({ accesstoken })
+
+    } catch (err) {
+      return res.status(500).json({ msg: err.message })
+    }
+  },
+
+  // login to existed user account
+  login: async (req, res) => {
+    try {
+      const { email, password } = req.body;
+
+      const user = await UserService.getOneUser(email)
+      if (!user) return res.status(400).json({ msg: "User does not exist." })
+
+      const isMatch = await bcrypt.compare(password, user.password)
+      if (!isMatch) return res.status(400).json({ msg: "Wrong password." })
+
+      //If login success, create access token and refresh token
+      const accesstoken = createAccessToken({ id: user.id })
+      const refreshtoken = createRefreshToken({ id: user.id })
+
+      //auto refresh token after the access token expired
+      res.cookie('refreshtoken', refreshtoken, {
+        httpOnly: true,
+        path: '/users/refresh_token',
+        maxAge: 7 * 24 * 60 * 60 * 1000 //7d
+      })
+
+      res.json({ accesstoken })
+
+    } catch (err) {
+      res.status(500).json({ msg: err.message })
+    }
+  },
+
+  // clear token to logout
+  logout: async (req, res) => {
+    try {
+      res.clearCookie('refreshtoken', { path: '/users/refresh_token' })
+      return res.json({ msg: "Logged Out" })
+    } catch (err) {
+      return res.status(500).json({ msg: err.message })
+    }
+  },
+
+  // get new token after access token expired
+  refreshToken: (req, res) => {
+    try {
+      const rf_token = req.cookies.refreshtoken;
+      if (!rf_token) return res.status(400).json({ msg: "Please Login or Register" })
+
+      jwt.verify(rf_token, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
+        if (err) return res.status(400).json({ msg: "Please Login or Register" })
+
+        const accesstoken = createAccessToken({ id: user.id })
+
+        res.json({ accesstoken })
+      })
+
+      res.json({ rf_token })
+    } catch (err) {
+      return res.status(500).json({ msg: err.message })
+    }
+
+  },
+
+  // get user information
+  getUser: async (req, res) => {
+    try {
+      const user = await UserService.getUserInfo(req.user.id);
+      console.log(user);
+      if (!user) return res.status(400).json({ msg: "User does not exist." })
       // response list of users
-      return res.status(200).json(allUsers);
+      return res.status(200).json(user);
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
   },
 
-  // create new users
-  createUser: async (req, res) => {
+  // add interest that user choose
+  addInterest: async (req, res) => {
     try {
-      // check existed users
-      const newUsers = req.body;
-      const existedUserList = [];
+      const user = await UserService.getUserInfo(req.user.id)
+      if (!user) {
+        res.status(404).send({ message: `Association not found` });
+        return null;
+      };
+      const interest = await InterestService.getInterestInfo(req.body.interest_id)
+      if (!interest) {
+        res.status(404).send({ message: `Association not found` });
+        return null;
+      };
+      //populate UserInterest join table
+      await user.addInterest(interest);
 
-      // check for each element of array users
-      // whether existed place
-      for (let i = 0; i < newUsers.length; i += 1) {
-        const checkedName = newUsers[i].name;
-
-        // eslint-disable-next-line no-await-in-loop
-        const existUser = await user.findOne({
-          where: { name: checkedName },
-        });
-
-        // push to existed list
-        if (existUser) {
-
-          existedUserList.push(existUser.name);
-
-        }
-      }
-
-      // if there is none of existed places
-      // create new places
-      // if not, return existed error messages
-      if (Array.isArray(existedUserList) && !existedUserList.length) {
-        // create list of places
-        await user.bulkCreate(newUsers).then((data) => res.status(201).send(data));
-      }
-
-      console.log(newUsers);
-      // INSERT query to Neo4j
-      // IMPORT json
-      return res.status(400).send({
-        message: `Users [ ${existedUserList} ] are existed`,
-      });
-    } catch (err) {
-      return res.status(500).json({ msg: err.message });
+      let UserInterest = await UserService.getUserInfo(req.user.id)
+      res.status(201).send(UserInterest);
+    }
+    catch (err) {
+      console.error("Interest creation server error: ", error);
+      res.status(500).send(error)
     }
   },
+
+  // delete interest that user choosed before
+  deleteUserInterest: async (req, res) => {
+    try {
+      const user = await UserService.getUserInfo(req.user.id)
+      if (!user) {
+        res.status(404).send({ message: `Association not found` });
+        return null;
+      }
+      const interest = await InterestService.getInterestInfo(req.body.interest_id)
+      if (!interest) {
+        res.status(404).send({ message: `Association not found` });
+        return null;
+      }
+      await user.removeInterest(interest);
+      await interest.removeUser(user);
+
+      await UserService.removeUserInterest(req.body.user_id, req.body.interest_id);
+
+      return res.status(200).send({
+        message: `UserInterest has been deleted successfully`,
+      });
+
+    }
+    catch (err) {
+      console.error("Interest creation server error: ", error);
+      res.status(500).send(error)
+    }
+  }
 };
+
+const createAccessToken = (user) => {
+  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '11m' })
+}
+
+const createRefreshToken = (user) => {
+  return jwt.sign(user, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '7d' })
+}
 
 module.exports = UserController;
