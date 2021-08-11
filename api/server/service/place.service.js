@@ -12,7 +12,7 @@ const PlaceService = {
   getAllPlaces: async () => {
     try {
       return await Place.findAll({
-        includes: [
+        include: [
           {
             model: City,
             as: "city",
@@ -30,6 +30,12 @@ const PlaceService = {
         where: {
           [Op.or]: [conditions],
         },
+        include: [
+          {
+            model: City,
+            as: "city",
+          },
+        ],
       });
     } catch (error) {
       return error;
@@ -41,6 +47,12 @@ const PlaceService = {
     try {
       return await Place.findOne({
         where: { name: checkedName },
+        include: [
+          {
+            model: City,
+            as: "city",
+          },
+        ],
       });
     } catch (error) {
       return error;
@@ -49,7 +61,14 @@ const PlaceService = {
 
   getPlaceById: async (placeId) => {
     try {
-      return await Place.findByPk(placeId);
+      return await Place.findByPk(placeId, {
+        include: [
+          {
+            model: City,
+            as: "city",
+          },
+        ],
+      });
     } catch (error) {
       return error;
     }
@@ -93,6 +112,12 @@ const PlaceService = {
 
       const landmarkPlaces = await db.sequelize.query(sql, {
         type: QueryTypes.SELECT,
+        include: [
+          {
+            model: City,
+            as: "city",
+          },
+        ],
       });
 
       return !landmarkPlaces.length ? null : landmarkPlaces;

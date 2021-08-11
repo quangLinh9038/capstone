@@ -113,13 +113,17 @@ const PlaceController = {
         const { param1, param2, param3 } = req.query;
         const limit = req.query.limit;
 
+        if (!param1 || !param2 || !param3 || !limit) {
+          return res
+            .status(400)
+            .json({ status: "failure", message: "Missing params" });
+        }
         // mapping params as a sub-query string
         const paramList = [param1, param2, param3];
 
         /**
          * Use PlaceService.getLandmarkPlaces
          * to query interested Places from Postgresql
-
          */
         const landmarkPlaces = await PlaceService.getLandmarkPlaces(
           paramList,
@@ -148,6 +152,11 @@ const PlaceController = {
       const newPlaces = req.body;
       const existedPlaceList = [];
 
+      if (!newPlaces) {
+        return res
+          .status(404)
+          .json({ status: "failure", message: "Missing request body" });
+      }
       /*  
       Check for each element of array places
       whether existed place
@@ -205,9 +214,14 @@ const PlaceController = {
   },
 
   deletePlaceById: async (req, res) => {
-    const { id } = req.params;
-
     try {
+      const { id } = req.params;
+
+      if (!id)
+        return res
+          .status(400)
+          .json({ status: "failure", message: "Missing params" });
+
       const placeToDelete = await PlaceService.getPlaceById(id);
 
       if (placeToDelete) {
@@ -229,10 +243,15 @@ const PlaceController = {
   },
 
   async updatePlace(req, res) {
-    const updatePlace = req.body;
-    const { id } = req.params;
-
     try {
+      const updatePlace = req.body;
+      const { id } = req.params;
+
+      if (!updatePlace || !id)
+        return res
+          .status(404)
+          .json({ status: "failure", message: "Missing params or body" });
+
       const placeToUpdate = await PlaceService.getPlaceById(id);
       const unique_point = placeToUpdate.unique_point;
 

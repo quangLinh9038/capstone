@@ -6,7 +6,14 @@ const { Accommodation } = db;
 const AccommodationService = {
   getAllAccommodations: async () => {
     try {
-      return await Accommodation.findAll();
+      return await Accommodation.findAll({
+        include: [
+          {
+            model: City,
+            as: "city",
+          },
+        ],
+      });
     } catch (error) {
       return error;
     }
@@ -14,7 +21,14 @@ const AccommodationService = {
 
   getOneAccommodationById: async (id) => {
     try {
-      return await Accommodation.findByPk(id);
+      return await Accommodation.findByPk(id, {
+        include: [
+          {
+            model: City,
+            as: "city",
+          },
+        ],
+      });
     } catch (error) {
       return error;
     }
@@ -24,6 +38,12 @@ const AccommodationService = {
     try {
       return await Accommodation.findOne({
         where: { name: checkedName },
+        include: [
+          {
+            model: City,
+            as: "city",
+          },
+        ],
       });
     } catch (error) {
       return error;

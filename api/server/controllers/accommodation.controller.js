@@ -20,7 +20,7 @@ const AccommodationController = {
           })
         : res.status(404).json({
             status: "failure",
-            message: "Accommodations are empty1",
+            message: "Accommodations are empty",
           });
     } catch (error) {
       return res.status(500).json({
@@ -43,9 +43,14 @@ const AccommodationController = {
       }
 
       const { param1 } = req.query;
-      const paramList = [param1];
-
       const limit = req.query.limit;
+
+      if (!param1 || !limit) {
+        return res
+          .status(400)
+          .json({ status: "failure", message: "Missing params" });
+      }
+      const paramList = [param1];
 
       const mainAccommodation = await AccommodationService.getMainAccommodation(
         paramList,
@@ -75,6 +80,10 @@ const AccommodationController = {
 
       const existedAccommodationList = [];
 
+      if (!newAccommodations)
+        return res
+          .status(400)
+          .json({ status: "failure", message: "Missing request body" });
       /*  
       Check for each element of Places
       whether existed one
@@ -142,6 +151,11 @@ const AccommodationController = {
     try {
       const { id } = req.params;
 
+      if (!id)
+        return res
+          .status(404)
+          .json({ status: "failure", message: "Missing params" });
+
       const accommodationToDelete =
         await AccommodationService.getOneAccommodationById(id);
 
@@ -189,10 +203,18 @@ const AccommodationController = {
   },
 
   async updateAccommodation(req, res) {
-    const updateAccommodation = req.body;
-    const { id } = req.params;
-
     try {
+      const updateAccommodation = req.body;
+      const { id } = req.params;
+
+      if (!updateAccommodation || !id)
+        return res
+          .status(400)
+          .json({
+            status: "failure",
+            message: "Missing params or request body",
+          });
+
       const accommodationToUpdate =
         await AccommodationService.getOneAccommodationById(id);
       const unique_point = accommodationToUpdate.unique_point;
