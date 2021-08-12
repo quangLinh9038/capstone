@@ -2,6 +2,7 @@ const { QueryTypes } = require("sequelize");
 const db = require("../src/models");
 
 const { Accommodation } = db;
+const { City } = db;
 
 const AccommodationService = {
   getAllAccommodations: async () => {
@@ -49,7 +50,21 @@ const AccommodationService = {
       return error;
     }
   },
-
+  getOneAccommodationByName: async (checkedName) => {
+    try {
+      return await Accommodation.findOne({
+        where: { name: checkedName },
+        include: [
+          {
+            model: City,
+            as: "city",
+          },
+        ],
+      });
+    } catch (error) {
+      return error;
+    }
+  },
   // get main accommodation from user's interests
   getMainAccommodation: async (paramList, limit) => {
     try {

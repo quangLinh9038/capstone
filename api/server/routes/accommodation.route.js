@@ -12,4 +12,5 @@ accommodationRoutes
   .delete("/", AccommodationController.deleteAllAccommodations)
   .delete("/:id/", AccommodationController.deleteAccommodationById)
   .put("/:id", AccommodationController.updateAccommodation);
+
 module.exports = accommodationRoutes;

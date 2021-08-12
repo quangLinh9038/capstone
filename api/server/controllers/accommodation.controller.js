@@ -12,7 +12,7 @@ const AccommodationController = {
       const allAccommodations =
         await AccommodationService.getAllAccommodations();
 
-      return allAccommodations
+      return allAccommodations.length
         ? res.status(200).json({
             status: "success",
             result: allAccommodations.length,
@@ -80,7 +80,7 @@ const AccommodationController = {
 
       const existedAccommodationList = [];
 
-      if (!newAccommodations)
+      if (!newAccommodations.length)
         return res
           .status(400)
           .json({ status: "failure", message: "Missing request body" });
@@ -130,7 +130,7 @@ const AccommodationController = {
           AccommodationNeo4jService.createAccommodation(props)
         );
 
-        await AccommodationNeo4jService.initRelationship();
+        // await AccommodationNeo4jService.initRelationship();
 
         return res.status(201).json({
           status: "success",
@@ -140,7 +140,7 @@ const AccommodationController = {
       }
       return res.status(400).send({
         status: "failure",
-        message2: `Accommodations [ ${existedAccommodationList} ] are existed`,
+        message: `Accommodations [ ${existedAccommodationList} ] are existed`,
       });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
@@ -208,12 +208,10 @@ const AccommodationController = {
       const { id } = req.params;
 
       if (!updateAccommodation || !id)
-        return res
-          .status(400)
-          .json({
-            status: "failure",
-            message: "Missing params or request body",
-          });
+        return res.status(400).json({
+          status: "failure",
+          message: "Missing params or request body",
+        });
 
       const accommodationToUpdate =
         await AccommodationService.getOneAccommodationById(id);

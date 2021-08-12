@@ -104,7 +104,7 @@ const PlaceController = {
     try {
       const places = await PlaceService.getAllPlaces();
 
-      if (!places) {
+      if (!places.length) {
         return res
           .status(404)
           .json({ status: "failure", message: "Places are empty" });
@@ -152,9 +152,9 @@ const PlaceController = {
       const newPlaces = req.body;
       const existedPlaceList = [];
 
-      if (!newPlaces) {
+      if (!newPlaces.length) {
         return res
-          .status(404)
+          .status(400)
           .json({ status: "failure", message: "Missing request body" });
       }
       /*  

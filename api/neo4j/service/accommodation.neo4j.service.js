@@ -36,12 +36,12 @@ const AccommodationNeo4jService = {
   initRelationship: async () => {
     const cypher = `CALL apoc.periodic.iterate(
         "MATCH (p:Place), (a:Accommodation)
-        WHERE NOT (p)-[:DISTANCE_TO]->(a)
+        WHERE NOT (a)-[:DISTANCE_TO]->(p)
         WITH point({longitude:p.lng, latitude:p.lat}) as p1,
         point({longitude: a.lng, latitude: a.lat}) as p2, p, a
         WITH distance(p1, p2) as distance, p, a
         RETURN p, a, distance",
-        "CREATE (p)-[:DISTANCE_TO {dist: distance}]->(a) RETURN p, a",
+        "CREATE (a)-[:DISTANCE_TO {dist: distance}]->(p) RETURN p, a",
         {batchSize: 1000, parallel: true})`;
     const result = await neode.cypher(cypher);
 
