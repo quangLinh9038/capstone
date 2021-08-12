@@ -186,14 +186,16 @@ const UserController = {
     try {
       const allUsers = await UserService.getAllUser();
 
-      if (allUsers) {
+      if (allUsers.length) {
         await UserService.deleteAllUser();
         return res.status(200).json({ status: "success" });
       }
       return res
         .status(404)
         .json({ status: "error", message: "Users are empty" });
-    } catch (error) {}
+    } catch (error) {
+      return res.status(500).json({ msg: error.message });
+    }
   },
 };
 
