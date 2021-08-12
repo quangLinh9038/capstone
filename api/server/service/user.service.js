@@ -87,7 +87,9 @@ const UserService = {
   deleteAllUser: async () => {
     try {
       return await User.destroy({ where: {} });
-    } catch (error) {}
+    } catch (error) {
+      return error;
+    }
   },
 };
 

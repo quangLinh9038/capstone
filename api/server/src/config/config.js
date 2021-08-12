@@ -30,7 +30,6 @@ module.exports = {
     host: PG_LOCALHOST,
     dialect: "postgres",
   },
-
   /* 
   Cloud Database when in production
   */
