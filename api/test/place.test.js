@@ -1,9 +1,8 @@
 const chai = require("chai");
 const chaiHttp = require("chai-http");
 const should = require("chai").should;
-// const should = require("should");
 const expect = require("chai").expect;
-const server = require("../server");
+const app = require("../server");
 
 chai.use(chaiHttp);
 chai.use(should);
@@ -17,11 +16,11 @@ describe("Places", () => {
      */
     it("It should get all the Place with no content", (done) => {
       chai
-        .request(server)
+        .request(app)
         .get("/places")
         .set("Accept", "application/json")
         .end((err, res) => {
-          expect(res.status).to.equal(404);
+          expect(res.status).to.equal(200);
           done();
         });
     });

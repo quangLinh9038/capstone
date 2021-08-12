@@ -12,10 +12,24 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "city_id",
         as: "places",
       });
+      City.hasMany(models.Accommodation, {
+        foreignKey: "city_id",
+        as: "accommodations",
+      });
+      City.hasMany(models.Cuisine, {
+        foreignKey: "city_id",
+        as: "cuisines",
+      });
     }
   }
   City.init(
     {
+      id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+      },
+
       name: DataTypes.STRING,
       description: DataTypes.TEXT,
       img: DataTypes.TEXT,

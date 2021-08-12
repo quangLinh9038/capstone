@@ -9,7 +9,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node -r dotenv/config ./api/server.js",
-    "test": "nyc mocha -r dotenv/config api/test/place.test.js --exit --timeout 10000",
+    "test": "nyc mocha -r dotenv/config api/test/routes.test.js --exit --timeout 10000",
     "dev": "nodemon -r dotenv/config ./api/server.js",
     "db:create": "sequelize-cli db:create",
     "db:migrate": "sequelize-cli db:migrate",

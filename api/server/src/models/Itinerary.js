@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "Itinerary",
+      freezeTableName: true,
     }
   );
   return Itinerary;
