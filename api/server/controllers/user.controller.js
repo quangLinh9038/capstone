@@ -128,16 +128,12 @@ const UserController = {
   addInterest: async (req, res) => {
     try {
       const user = await UserService.getUserInfo(req.user.id);
-      if (!user) {
-        res.status(404).send({ message: `Association not found` });
-        return null;
-      }
+      
       const interest = await InterestService.getInterestInfo(
         req.body.interest_id
       );
       if (!interest) {
         res.status(404).send({ message: `Association not found` });
-        return null;
       }
       //populate UserInterest join table
       await user.addInterest(interest);
@@ -154,16 +150,12 @@ const UserController = {
   deleteUserInterest: async (req, res) => {
     try {
       const user = await UserService.getUserInfo(req.user.id);
-      if (!user) {
-        res.status(404).send({ message: `Association not found` });
-        return null;
-      }
+      
       const interest = await InterestService.getInterestInfo(
         req.body.interest_id
       );
       if (!interest) {
         res.status(404).send({ message: `Association not found` });
-        return null;
       }
       await user.removeInterest(interest);
       await interest.removeUser(user);
