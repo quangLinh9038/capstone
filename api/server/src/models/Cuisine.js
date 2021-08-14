@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Cuisine.init(
     {
-      tile: {
+      name: {
         type: DataTypes.STRING,
       },
       url: {

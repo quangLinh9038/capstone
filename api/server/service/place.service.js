@@ -1,14 +1,15 @@
 const { QueryTypes } = require("sequelize");
-const db = require("../src/models");
 const { Op } = require("sequelize");
 
+/* Import models */
+const db = require("../src/models");
 const { Place } = db;
 const { City } = db;
 
+/* Import utils */
 const generateSqlGetLandmarkResult = require("../utils/SqlUtils");
 
 const PlaceService = {
-  // get all places
   getAllPlaces: async () => {
     try {
       return await Place.findAll({
@@ -73,12 +74,8 @@ const PlaceService = {
       return error;
     }
   },
-  // create a list of places
   createPlaces: async (newPlaces) => {
     try {
-      /**
-       *  individualHooks set to true to call beforeCreate hook for single bulk insert
-       */
       return await Place.bulkCreate(newPlaces);
     } catch (error) {
       return error;
@@ -96,10 +93,10 @@ const PlaceService = {
   /**
    * Query Places for User's interests
    */
-  getLandmarkPlaces: async (paramList, limit) => {
+  getLandmarkPlaces: async (params, limit) => {
     try {
       /**
-       * @param {paramList}: query params from users
+       * @param {params}: query params from users
        *
        * Create new sub-quey array from param list
        * adding "+" between elements of paramList
@@ -108,7 +105,7 @@ const PlaceService = {
       // model to query in Postgres database
       const model = "Place";
 
-      const sql = generateSqlGetLandmarkResult(model, paramList, limit);
+      const sql = generateSqlGetLandmarkResult(model, params, limit);
 
       const landmarkPlaces = await db.sequelize.query(sql, {
         type: QueryTypes.SELECT,

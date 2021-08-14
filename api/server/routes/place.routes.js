@@ -1,8 +1,8 @@
 const { Router } = require("express");
-const PlaceController = require("../controllers/place.controller");
 const auth = require("../middleware/auth");
 const authAdmin = require("../middleware/authAdmin");
 
+const PlaceController = require("../controllers/place.controller");
 const placeRoutes = Router();
 
 placeRoutes
