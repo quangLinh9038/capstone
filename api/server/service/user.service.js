@@ -1,9 +1,6 @@
 const db = require("../src/models");
 
-const { User } = db;
-const { Interest } = db;
-const { Trip } = db;
-const { UserInterest } = db;
+const { User, Interest, Trip, UserInterest } = db;
 
 const UserService = {
   getAllUser: async () => {

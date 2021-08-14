@@ -1,9 +1,10 @@
+const { Op } = require("sequelize");
+
 /**
  * Import services
  */
 const PlaceNeo4jService = require("../../neo4j/service/place.neo4j.service");
 const PlaceService = require("../service/place.service");
-const { Op } = require("sequelize");
 
 /***
  * Import utils
@@ -79,7 +80,7 @@ const PlaceController = {
           : res.json({
               status: "success",
               result: conditionalPlaces.length,
-              allPlaces: conditionalPlaces,
+              data: conditionalPlaces,
             });
       }
       /**
@@ -93,7 +94,7 @@ const PlaceController = {
         : res.json({
             status: "success",
             result: allPlaces.length,
-            allPlaces: allPlaces,
+            data: allPlaces,
           });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
@@ -152,7 +153,7 @@ const PlaceController = {
       const newPlaces = req.body;
       const existedPlaceList = [];
 
-      if (!newPlaces) {
+      if (!newPlaces.length) {
         return res
           .status(404)
           .json({ status: "failure", message: "Missing request body" });
@@ -220,7 +221,7 @@ const PlaceController = {
       if (!id)
         return res
           .status(400)
-          .json({ status: "failure", message: "Missing params" });
+          .json({ status: "failure", message: "Missing id params" });
 
       const placeToDelete = await PlaceService.getPlaceById(id);
 

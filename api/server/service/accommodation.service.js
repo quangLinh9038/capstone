@@ -1,7 +1,7 @@
 const { QueryTypes } = require("sequelize");
 const db = require("../src/models");
 
-const { Accommodation } = db;
+const { Accommodation, City } = db;
 
 const AccommodationService = {
   getAllAccommodations: async () => {

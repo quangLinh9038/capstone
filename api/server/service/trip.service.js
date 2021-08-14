@@ -1,15 +1,15 @@
-const Trip = require("../src/models").Trip;
+const db = require("../src/models");
+const { Trip, Place, Accommodation, Cuisine, User } = db;
 
 const PlaceService = require("./place.service");
 const AccommodationService = require("./accommodation.service");
 const TripNeo4jService = require("../../neo4j/service/trip.neo4j.service");
 
 const TripService = {
-  // get all trip
   getAllTrips: async () => {
     try {
       return await Trip.findAll({
-        includes: [
+        include: [
           {
             model: Place,
             as: "places",
@@ -17,6 +17,10 @@ const TripService = {
           {
             model: Accommodation,
             as: "accommodations",
+          },
+          {
+            model: Cuisine,
+            as: "cuisines",
           },
           {
             model: User,
