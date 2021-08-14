@@ -180,6 +180,10 @@ const PlaceController = {
          * to POST data of places to Postgres
          */
         const _newPlaces = await PlaceService.createPlaces(newPlaces);
+        console.log(
+          "🚀 ~ file: place.controller.js ~ line 183 ~ createPlace: ~ _newPlaces",
+          _newPlaces
+        );
 
         /**
          * Parsing _newPlaces to Object to post to Neo4j

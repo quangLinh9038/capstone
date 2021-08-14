@@ -10,10 +10,10 @@ const TripNeo4jService = {
     accommodationUniquePointList
   ) => {
     try {
-      // console.log(
-      // "🚀 ~ file: trip.neo4j.service.js ~ line 12 ~ placeUniquePoint",
-      // placeUniquePoint
-      // );
+      console.log(
+        "🚀 ~ file: trip.neo4j.service.js ~ line 12 ~ placeUniquePoint",
+        placeUniquePoint
+      );
 
       const _accommodationUniquePointList = accommodationUniquePointList.map(
         (item) => `"${item}"`
@@ -29,10 +29,10 @@ const TripNeo4jService = {
       RETURN p.unique_point, a.unique_point, r.dist
       ORDER BY r.dist ASC;`
       );
-      // console.log(
-      // "🚀 ~ file: trip.neo4j.service.js ~ line 18 ~ result",
-      // result.records[1]._fields
-      // );
+      console.log(
+        "🚀 ~ file: trip.neo4j.service.js ~ line 18 ~ result",
+        result.records[1]._fields
+      );
 
       /**
        * Return the shortest Accomms data only
@@ -48,10 +48,10 @@ const TripNeo4jService = {
     placeUniquePoints
   ) => {
     try {
-      // console.log(
-      // "🚀 ~ file: trip.neo4j.service.js ~ line 51 ~ shortestAccommodationUniquePoint",
-      // shortestAccommodationUniquePoint
-      // );
+      console.log(
+        "🚀 ~ file: trip.neo4j.service.js ~ line 51 ~ shortestAccommodationUniquePoint",
+        shortestAccommodationUniquePoint
+      );
       const _placeUniquePoints = placeUniquePoints.map((item) => `"${item}"`);
 
       const result = await neode.cypher(
@@ -61,10 +61,10 @@ const TripNeo4jService = {
         ORDER BY r.dist ASC;`
       );
 
-      // console.log(
-      // "🚀 ~ file: trip.neo4j.service.js ~ line 44 ~ getMainPlacesForATrip: ~ result",
-      // result.records
-      // );
+      console.log(
+        "🚀 ~ file: trip.neo4j.service.js ~ line 44 ~ getMainPlacesForATrip: ~ result",
+        result.records
+      );
 
       return result.records;
     } catch (error) {
