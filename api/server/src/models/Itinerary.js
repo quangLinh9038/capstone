@@ -2,6 +2,21 @@ const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Itinerary extends Model {
     static associate(models) {
+      Itinerary.belongsToMany(models.Place, {
+        through: "PlaceItinerary",
+        foreignKey: "itinerary_id",
+        as: "places",
+      });
+      Itinerary.belongsToMany(models.Accommodation, {
+        through: "AccommodationItinerary",
+        foreignKey: "itinerary_id",
+        as: "accommodations",
+      });
+      Itinerary.belongsToMany(models.Cuisine, {
+        through: "CuisineItinerary",
+        foreignKey: "itinerary_id",
+        as: "cuisines",
+      });
       Itinerary.belongsTo(models.Trip, {
         foreignKey: "trip_id",
         as: "trip",
@@ -10,9 +25,20 @@ module.exports = (sequelize, DataTypes) => {
   }
   Itinerary.init(
     {
-      title: DataTypes.STRING,
-      numberOfItems: DataTypes.INTEGER,
-      itemListElement: DataTypes.ARRAY(DataTypes.INTEGER),
+      id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+      },
+      title: {
+        type: DataTypes.STRING,
+      },
+      numberOfItems: {
+        type: DataTypes.INTEGER,
+      },
+      itemListElement: {
+        type: DataTypes.ARRAY(DataTypes.INTEGER),
+      },
       trip_id: {
         type: DataTypes.INTEGER,
       },

@@ -6,10 +6,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "city_id",
         as: "city",
       });
-      Cuisine.belongsToMany(models.Trip, {
-        through: "CuisineTrip",
-        foreignKey: "place_id",
-        as: "trips",
+      Cuisine.belongsToMany(models.Itinerary, {
+        through: "CuisineItinerary",
+        foreignKey: "cuisine_id",
+        as: "itineraries",
       });
     }
   }
