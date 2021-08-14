@@ -33,7 +33,7 @@ const PlaceNeo4jService = {
   },
 
   // init relationship between Place and Accommodation to create distance
-  initRelationship: async () => {
+  initRelationshipToAccommodation: async () => {
     const cypher = `CALL apoc.periodic.iterate(
       "MATCH (p:Place), (a:Accommodation)
       WHERE NOT (p)-[:DISTANCE_TO]->(a)
@@ -46,8 +46,26 @@ const PlaceNeo4jService = {
     const result = await neode.cypher(cypher);
 
     return result
-      ? console.log(`Init relationship success for Place`)
-      : console.log("Init relationship for Place failure");
+      ? console.log(`Init relationship success Place to Accommodation`)
+      : console.log("Init relationship failure Place to Accommodation");
+  },
+
+  initRelationshipToCuisine: async () => {
+    const cypher = `CALL apoc.periodic.iterate(
+      "MATCH (p:Place), (c:Cuisine)
+      WHERE NOT (p)-[:DISTANCE_TO]->(c)
+      WITH point({longitude:p.lng, latitude:p.lat}) as p1,
+      point({longitude: c.lng, latitude: c.lat}) as p2, p, c
+      WITH distance(p1, p2) as distance, p, c
+      RETURN p, c, distance",
+      "CREATE (p)-[:DISTANCE_TO {dist: distance}]->(c) RETURN p, c",
+      {batchSize: 1000, parallel: true})`;
+
+    const result = await neode.cypher(cypher);
+
+    return result
+      ? console.log(`Init relationship success Place to Cuisine`)
+      : console.log("Init relationship failure Place to Cuisine");
   },
 };
 
