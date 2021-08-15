@@ -37,11 +37,11 @@ const AccommodationNeo4jService = {
     const cypher = `CALL apoc.periodic.iterate(
         "MATCH (a:Accommodation), (c:Cuisine)
         WHERE NOT (a)-[:DISTANCE_TO]->(c)
-        WITH point({longitude:c.lng, latitude:c.lat}) as p1,
-        point({longitude: a.lng, latitude: a.lat}) as p2, c, a
-        WITH distance(p1, p2) as distance, c, a
-        RETURN c, a, distance",
-        "CREATE (a)-[:DISTANCE_TO {dist: distance}]->(c) RETURN c, a",
+        WITH point({longitude:a.lng, latitude:a.lat}) as p1,
+        point({longitude: c.lng, latitude: c.lat}) as p2, a, c
+        WITH distance(p1, p2) as distance, a, c
+        RETURN a, c, distance",
+        "CREATE (a)-[:DISTANCE_TO {dist: distance}]->(c) RETURN a, c",
         {batchSize: 1000, parallel: true})`;
     const result = await neode.cypher(cypher);
 

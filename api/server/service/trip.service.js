@@ -33,6 +33,14 @@ const TripService = {
     }
   },
 
+  createOneTrip: async (newTrip) => {
+    try {
+      return await Trip.create(newTrip);
+    } catch (error) {
+      return error;
+    }
+  },
+
   getFirstPlaceAndShortestAccommodation: async (
     placeParams,
     placeLimit,

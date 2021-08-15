@@ -44,6 +44,11 @@ const CuisineService = {
   },
   getMainCuisine: async (params, limit) => {
     try {
+      console.log(
+        "🚀 ~ file: cuisine.service.js ~ line 48 ~ getMainCuisine: ~ params",
+        params
+      );
+
       const model = "Cuisine";
 
       const sql = generateSqlGetLandmarkResult(model, params, limit);
