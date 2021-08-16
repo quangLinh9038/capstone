@@ -209,7 +209,7 @@ const PlaceController = {
           data: _newPlaces,
         });
       }
-      return res.status(400).send({
+      return res.status(400).json({
         status: "failure",
         message: `Places [ ${existedPlaceList} ] are existed`,
       });

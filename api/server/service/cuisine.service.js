@@ -44,10 +44,10 @@ const CuisineService = {
   },
   getMainCuisine: async (params, limit) => {
     try {
-      console.log(
-        "🚀 ~ file: cuisine.service.js ~ line 48 ~ getMainCuisine: ~ params",
-        params
-      );
+      // console.log(
+      // "🚀 ~ file: cuisine.service.js ~ line 48 ~ getMainCuisine: ~ params",
+      // params
+      // );
 
       const model = "Cuisine";
 
@@ -74,7 +74,20 @@ const CuisineService = {
 
   getOneCuisineByName: async (name) => {
     try {
-      return await Cuisine.findOne({ where: { name: name } });
+      return await Cuisine.findOne({
+        where: { name: name },
+        include: [{ model: City, as: "city" }],
+      });
+    } catch (error) {
+      return error;
+    }
+  },
+  getOneCuisineByUniquePoint: async (unique_point) => {
+    try {
+      return await Cuisine.findOne({
+        where: { unique_point: unique_point },
+        include: [{ model: City, as: "city" }],
+      });
     } catch (error) {
       return error;
     }

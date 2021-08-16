@@ -5,6 +5,7 @@ const itineraryRoutes = Router();
 
 itineraryRoutes
   .get("/", ItineraryController.getAnItinerary)
-  .get("/", ItineraryController.getAnItinerary);
+  .get("/:id", ItineraryController.getOneItinerary)
+  .post("/", ItineraryController.createNewItinerary);
 
 module.exports = itineraryRoutes;

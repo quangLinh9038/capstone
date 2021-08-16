@@ -100,6 +100,8 @@ const ItineraryNeo4jService = {
     placeUniquePoints
   ) => {
     try {
+      const mainPlaceUniquePoints = [];
+
       // // console.log(
       // // "🚀 ~ file: trip.neo4j.service.js ~ line 51 ~ shortestAccommodationUniquePoint",
       // // shortestAccommodationUniquePoint
@@ -118,12 +120,16 @@ const ItineraryNeo4jService = {
       // // );
 
       const mainPlacesForOneItinerary = await neode.cypher(cypher);
-      // // console.log(
-      // // "🚀 ~ file: trip.neo4j.service.js ~ line 44 ~ getMainPlacesForATrip: ~ result",
-      // // result.records
-      // // );
 
-      return mainPlacesForOneItinerary.records;
+      await mainPlacesForOneItinerary.records.forEach((place) =>
+        mainPlaceUniquePoints.push(place._fields[1])
+      );
+      console.log(
+        "🚀 ~ file: itinerary.neo4j.service.js ~ line 128 ~ mainPlaceUniquePoints",
+        mainPlaceUniquePoints
+      );
+
+      return mainPlaceUniquePoints;
     } catch (error) {
       return error;
     }
@@ -134,6 +140,10 @@ const ItineraryNeo4jService = {
       const _cuisineUniquePoints = cuisineUniquePoints.map(
         (item) => `"${item}"`
       );
+      console.log(
+        "🚀 ~ file: itinerary.neo4j.service.js ~ line 137 ~ getShortestDinnerCuisine: ~ _cuisineUniquePoints",
+        _cuisineUniquePoints
+      );
 
       const cypher = generateCypherToFindRoute(
         _cuisineUniquePoints,
@@ -141,10 +151,18 @@ const ItineraryNeo4jService = {
         placeLabel,
         cuisineLabel
       );
+      console.log(
+        "🚀 ~ file: itinerary.neo4j.service.js ~ line 145 ~ getShortestDinnerCuisine: ~ cypher",
+        cypher
+      );
 
-      const shortestDinnerCuisine = await neo.cypher(cypher);
+      const shortestDinnerCuisine = await neode.cypher(cypher);
+      console.log(
+        "🚀 ~ file: itinerary.neo4j.service.js ~ line 154 ~ getShortestDinnerCuisine: ~ shortestDinnerCuisine",
+        shortestDinnerCuisine.records[0]._fields[1]
+      );
 
-      return shortestDinnerCuisine;
+      return shortestDinnerCuisine.records[0]._fields[1];
     } catch (error) {
       return error;
     }
