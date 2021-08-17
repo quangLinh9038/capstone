@@ -1,6 +1,6 @@
 const { QueryTypes } = require("sequelize");
 const db = require("../src/models");
-
+const { Op } = require("sequelize");
 const { Accommodation } = db;
 const { City } = db;
 
@@ -8,6 +8,24 @@ const AccommodationService = {
   getAllAccommodations: async () => {
     try {
       return await Accommodation.findAll({
+        include: [
+          {
+            model: City,
+            as: "city",
+          },
+        ],
+      });
+    } catch (error) {
+      return error;
+    }
+  },
+
+  getConditionalAccoms: async (conditions) => {
+    try {
+      return await Accommodation.findAll({
+        where: {
+          [Op.or]: [conditions],
+        },
         include: [
           {
             model: City,
