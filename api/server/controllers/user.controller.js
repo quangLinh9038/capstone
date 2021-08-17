@@ -128,6 +128,10 @@ const UserController = {
   addInterest: async (req, res) => {
     try {
       const user = await UserService.getUserInfo(req.user.id);
+      // console.log(
+      // "🚀 ~ file: user.controller.js ~ line 131 ~ addInterest: ~ user",
+      // user
+      // );
       if (!user) {
         res.status(404).send({ message: `Association not found` });
         return null;
@@ -135,6 +139,10 @@ const UserController = {
       const interest = await InterestService.getInterestInfo(
         req.body.interest_id
       );
+      // console.log(
+      // "🚀 ~ file: user.controller.js ~ line 138 ~ addInterest: ~ interest",
+      // interest
+      // );
       if (!interest) {
         res.status(404).send({ message: `Association not found` });
         return null;

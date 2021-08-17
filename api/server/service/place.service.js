@@ -59,7 +59,16 @@ const PlaceService = {
       return error;
     }
   },
-
+  getPlaceByUniquePoint: async (unique_point) => {
+    try {
+      return await Place.findOne({
+        where: { unique_point: unique_point },
+        include: [{ model: City, as: "city" }],
+      });
+    } catch (error) {
+      return error;
+    }
+  },
   getPlaceById: async (placeId) => {
     try {
       return await Place.findByPk(placeId, {

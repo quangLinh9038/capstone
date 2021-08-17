@@ -1,5 +1,14 @@
 const neode = require("../index");
 
+/* 
+  Import utils
+*/
+const generateCypherToFindRoute = require("../../server/utils/generateCypherToFindRoute");
+
+const placeLabel = "Place";
+const accommodationLabel = "Accommodation";
+const cuisineLabel = "Cuisine";
+
 const TripNeo4jService = {
   /**
    * This method takes Place {unique_point} and list of Accommodation {unique_point} as parameters
@@ -23,12 +32,18 @@ const TripNeo4jService = {
         _accommodationUniquePointList
       );
 
-      const result = await neode.cypher(
-        `UNWIND [${_accommodationUniquePointList}] AS accommsPoint
-      MATCH (p:Place {unique_point: "${placeUniquePoint}"})-[r:DISTANCE_TO]->(a:Accommodation {unique_point: accommsPoint}) 
-      RETURN p.unique_point, a.unique_point, r.dist
-      ORDER BY r.dist ASC;`
+      const cypher = generateCypherToFindRoute(
+        _accommodationUniquePointList,
+        placeUniquePoint,
+        placeLabel,
+        accommodationLabel
       );
+      // console.log(
+      // "🚀 ~ file: trip.neo4j.service.js ~ line 41 ~ cypher",
+      // cypher
+      // );
+
+      const result = await neode.cypher(cypher);
       // console.log(
       // "🚀 ~ file: trip.neo4j.service.js ~ line 18 ~ result",
       // result.records[1]._fields
@@ -54,13 +69,18 @@ const TripNeo4jService = {
       // );
       const _placeUniquePoints = placeUniquePoints.map((item) => `"${item}"`);
 
-      const result = await neode.cypher(
-        `UNWIND [${_placeUniquePoints}] AS placesPoint
-        MATCH (a:Accommodation {unique_point: "${shortestAccommodationUniquePoint}"})-[r:DISTANCE_TO]-(p:Place {unique_point: placesPoint}) 
-        RETURN p.unique_point, r.dist
-        ORDER BY r.dist ASC;`
+      const cypher = generateCypherToFindRoute(
+        _placeUniquePoints,
+        shortestAccommodationUniquePoint,
+        accommodationLabel,
+        placeLabel
       );
+      // console.log(
+      // "🚀 ~ file: trip.neo4j.service.js ~ line 78 ~ cypher",
+      // cypher
+      // );
 
+      const result = await neode.cypher(cypher);
       // console.log(
       // "🚀 ~ file: trip.neo4j.service.js ~ line 44 ~ getMainPlacesForATrip: ~ result",
       // result.records

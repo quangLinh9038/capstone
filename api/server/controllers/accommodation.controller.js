@@ -130,7 +130,7 @@ const AccommodationController = {
           AccommodationNeo4jService.createAccommodation(props)
         );
 
-        // await AccommodationNeo4jService.initRelationship();
+        await AccommodationNeo4jService.initRelationshipToCuisine();
 
         return res.status(201).json({
           status: "success",

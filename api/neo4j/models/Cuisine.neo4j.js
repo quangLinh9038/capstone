@@ -12,4 +12,14 @@ module.exports = {
   lat: "float",
   lng: "float",
   unique_point: "string",
+
+  distance_to: {
+    type: "relationship",
+    target: "Accommodation",
+    relationship: "DISTANCE_TO",
+    direction: "in",
+    properties: {
+      distance: "float",
+    },
+  },
 };

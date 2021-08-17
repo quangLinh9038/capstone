@@ -7,6 +7,11 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "city_id",
         as: "city",
       });
+      Place.belongsToMany(models.Itinerary, {
+        through: "PlaceItinerary",
+        foreignKey: "place_id",
+        as: "itineraries",
+      });
     }
   }
 
@@ -31,7 +36,13 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.TEXT,
       },
       img: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
+      },
+      img1: {
+        type: DataTypes.TEXT,
+      },
+      img2: {
+        type: DataTypes.TEXT,
       },
       description: {
         type: DataTypes.TEXT,

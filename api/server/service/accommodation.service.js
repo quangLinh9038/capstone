@@ -50,6 +50,21 @@ const AccommodationService = {
       return error;
     }
   },
+  getOneAccommodationByUniquePoint: async (unique_point) => {
+    try {
+      return await Accommodation.findOne({
+        where: { unique_point: unique_point },
+        include: [
+          {
+            model: City,
+            as: "city",
+          },
+        ],
+      });
+    } catch (error) {
+      return error;
+    }
+  },
   getOneAccommodationByName: async (checkedName) => {
     try {
       return await Accommodation.findOne({

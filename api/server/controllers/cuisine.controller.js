@@ -8,6 +8,7 @@ const CuisineService = require("../service/cuisine.service");
 Import utils 
 */
 const parsingStringToObject = require("../utils/parsingStringToObject");
+
 const CuisineController = {
   getAllCuisine: async (req, res) => {
     try {
