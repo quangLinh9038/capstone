@@ -97,49 +97,7 @@ const TripController = {
 
   createNewTrip: async (req, res) => {
     try {
-      /* Params */
-      // start/end date
-      // placeParam / placeLimit
-      // accommodationParam / accommLimit
-      // trip title
-      // user_id
-      /* Services */
-      // getFirstPlaceAndShortestAccommodation(placeParma, placeLimit, accommParams, accommLimit)
-      // return result(firstPlace, shortestAccomm)
-      // const shortestAccomm = result[1]
-      // getMainPlacesForATrip(placeParams, placeLimit, shortestAccomm)
-      // return mainPlaceResult = []
-      /* const newTrip = new Trip [
-          title: this.title
-          date: this.date
-          user_id: this user_id, 
-          itinerary: {
-            "firstPlaceAndAccommodation": [
-              "97b3426a-c4d9-402d-82f1-c2d9b7e45015",
-              "84891c89-fd1e-44b1-8e2f-25325cdf4988",
-              7385.2176963454785
-            ],
-          "interestedPlaces": [
-            "88dea52d-6a91-43c3-901b-9c3a52c7b2f5",
-            "a8523996-a058-4cbf-9383-93fcd18486dd",
-            "2ba59657-2c2a-47b4-b500-0cdb6b66d66b",
-            "8556e3be-b55c-437c-83d3-eb96a3974b9e",
-            "60437d7b-6d52-4ae8-a518-e47178657e01",
-        "e8749a5c-2171-48da-94a0-8ead5ed057aa",
-      "1473057b-1bbf-48b5-a3db-17a6b8c7bbb7",
-      "344218fc-34a8-4258-b747-274b0c479ad0",
-      "3f03c8a7-4105-4986-9b8b-a1f0c71fd551",
-      "97b3426a-c4d9-402d-82f1-c2d9b7e45015"
-    ]
-
-          },
-          places: {
-
-          }
-        */
-      // interestedPLace.forEach((item) =>
-      //   Trip.addPlace({ where: { unique_point: item.unique_point } })
-      // );
+      /* Get params */
       // Trip.create(newTrip)
     } catch (error) {}
   },
