@@ -115,6 +115,10 @@ const AccommodationController = {
         const _newAccommodation =
           await AccommodationService.createAccommodations(newAccommodations);
 
+        // console.log(
+        //   "🚀 ~ file: accommodation.controller.js ~ line 119 ~ createAccommodations: ~ _newAccommodation",
+        //   _newAccommodation
+        // );
         /**
          * Parsing _newAccomms as Object
          */

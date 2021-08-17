@@ -39,7 +39,7 @@ module.exports = (sequelize, DataTypes) => {
       isChinese: {
         type: DataTypes.INTEGER,
       },
-      idIndian: {
+      isIndian: {
         type: DataTypes.INTEGER,
       },
       isKorean: {

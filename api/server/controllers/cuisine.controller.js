@@ -1,3 +1,4 @@
+const { Op } = require("sequelize");
 /* 
 Import services
 */
@@ -13,17 +14,57 @@ const CuisineController = {
   getAllCuisine: async (req, res) => {
     try {
       /* Get params*/
-      const interest = req.query.interest;
-      const limit = req.query.limit;
+      const {
+        name,
+        isVietnamese,
+        isWestern,
+        isJapanese,
+        isThai,
+        isChinese,
+        isIndian,
+        isKorean,
+      } = req.query;
 
-      if (interest !== undefined) {
-        if (!limit) {
-          return res.status(400).json({ error: "Missing limit" });
-        }
-        const conditionalCuisines = await CuisineService.getMainCuisine(
-          interest,
-          limit
+      var nameOption = name ? { name: { [Op.like]: `%${name}%` } } : null;
+      var vietnameseOption = isVietnamese
+        ? { isVietnamese: { [Op.eq]: 1 } }
+        : null;
+      var westernOption = isWestern ? { isWestern: { [Op.eq]: 1 } } : null;
+      var japaneseOption = isJapanese ? { isJapanese: { [Op.eq]: 1 } } : null;
+      var thaiOption = isThai ? { isThai: { [Op.eq]: 1 } } : null;
+      var chineseOption = isChinese ? { isChinese: { [Op.eq]: 1 } } : null;
+      var indianOption = isIndian ? { isIndian: { [Op.eq]: 1 } } : null;
+      var koreanOption = isKorean ? { isKorean: { [Op.eq]: 1 } } : null;
+
+      const conditionList = [
+        nameOption,
+        vietnameseOption,
+        westernOption,
+        japaneseOption,
+        thaiOption,
+        chineseOption,
+        indianOption,
+        koreanOption,
+      ];
+      // console.log(
+      // "🚀 ~ file: cuisine.controller.js ~ line 49 ~ getAllCuisine: ~ conditionList",
+      // conditionList
+      // );
+
+      /***
+       * Set statement of condition is null
+       * to check every object whether null or not
+       */
+      const isEveryObjectNull = (condition) => condition === null;
+
+      if (!conditionList.every(isEveryObjectNull)) {
+        const conditionalCuisines = await CuisineService.getConditionalCuisine(
+          conditionList
         );
+        // console.log(
+        // "🚀 ~ file: cuisine.controller.js ~ line 60 ~ getAllCuisine: ~ conditionalCuisines",
+        // conditionalCuisines
+        // );
         /**
          * Check found Places
          * */
