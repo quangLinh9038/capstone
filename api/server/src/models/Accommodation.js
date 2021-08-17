@@ -44,19 +44,28 @@ module.exports = (sequelize, DataTypes) => {
       price: {
         type: DataTypes.STRING,
       },
-      features: {
-        type: DataTypes.STRING,
-      },
-      is3Stars: {
+      is3stars: {
         type: DataTypes.INTEGER,
       },
-      is4Stars: {
+      is4stars: {
         type: DataTypes.INTEGER,
       },
-      is5Stars: {
+      is5stars: {
         type: DataTypes.INTEGER,
       },
       isHomestay: {
+        type: DataTypes.INTEGER,
+      },
+      hasKitchen: {
+        type: DataTypes.INTEGER,
+      },
+      hasBreakfast: {
+        type: DataTypes.INTEGER,
+      },
+      hasFreeCancel: {
+        type: DataTypes.INTEGER,
+      },
+      hasNoPrepayment: {
         type: DataTypes.INTEGER,
       },
       lat: {
