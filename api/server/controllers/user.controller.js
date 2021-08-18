@@ -97,7 +97,7 @@ const UserController = {
   // get new token after access token expired
   refreshToken: (req, res) => {
     try {
-      const rf_token = req.cookies.refreshtoken;
+      const rf_token = req.cookies.refreshToken;
       if (!rf_token)
         return res.status(400).json({ msg: "Please Login or Register" });
 
