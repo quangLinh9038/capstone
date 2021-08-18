@@ -13,6 +13,11 @@ const UserController = {
       const { lastName, firstName, email, password, role } = req.body;
 
       const user = await UserService.getOneUser(email);
+      // console.log(
+      // "🚀 ~ file: user.controller.js ~ line 16 ~ register: ~ user",
+      // user
+      // );
+
       if (user)
         return res.status(400).json({ msg: "The email already exists." });
 
@@ -105,7 +110,7 @@ const UserController = {
         res.json({ accessToken: accessToken });
       });
 
-      res.json({ rf_token });
+      // res.json({ rf_token });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
@@ -128,10 +133,21 @@ const UserController = {
   addInterest: async (req, res) => {
     try {
       const user = await UserService.getUserInfo(req.user.id);
-
+      // // console.log(
+      // // "🚀 ~ file: user.controller.js ~ line 131 ~ addInterest: ~ user",
+      // // user
+      // // );
+      if (!user) {
+        res.status(404).send({ message: `Association not found` });
+        return null;
+      }
       const interest = await InterestService.getInterestInfo(
         req.body.interest_id
       );
+      // // console.log(
+      // // "🚀 ~ file: user.controller.js ~ line 138 ~ addInterest: ~ interest",
+      // // interest
+      // // );
       if (!interest) {
         return res.status(404).send({ message: `Association not found` });
       }

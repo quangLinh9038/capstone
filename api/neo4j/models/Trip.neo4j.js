@@ -17,7 +17,7 @@ module.exports = {
     type: "relationship",
     relationship: "HAS",
     direction: "out",
-    target: "Place",
+    target: "Itinerary",
     eager: true,
   },
 };

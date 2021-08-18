@@ -6,16 +6,16 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "city_id",
         as: "city",
       });
-      Cuisine.belongsToMany(models.Trip, {
-        through: "CuisineTrip",
-        foreignKey: "place_id",
-        as: "trips",
+      Cuisine.belongsToMany(models.Itinerary, {
+        through: "CuisineItinerary",
+        foreignKey: "cuisine_id",
+        as: "itineraries",
       });
     }
   }
   Cuisine.init(
     {
-      tile: {
+      name: {
         type: DataTypes.STRING,
       },
       url: {
@@ -39,7 +39,7 @@ module.exports = (sequelize, DataTypes) => {
       isChinese: {
         type: DataTypes.INTEGER,
       },
-      idIndian: {
+      isIndian: {
         type: DataTypes.INTEGER,
       },
       isKorean: {

@@ -1,6 +1,6 @@
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class CuisineTrip extends Model {
+  class PlaceItinerary extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -8,16 +8,23 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {}
   }
-  CuisineTrip.init(
+  PlaceItinerary.init(
     {
-      cuisine_id: DataTypes.INTEGER,
-      trip_id: DataTypes.INTEGER,
+      itinerary_id: {
+        type: DataTypes.INTEGER,
+      },
+      place_id: {
+        type: DataTypes.INTEGER,
+      },
+      position: {
+        type: DataTypes.INTEGER,
+      },
     },
     {
       sequelize,
-      modelName: "CuisineTrip",
+      modelName: "PlaceItinerary",
       freezeTableName: true,
     }
   );
-  return CuisineTrip;
+  return PlaceItinerary;
 };

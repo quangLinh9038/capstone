@@ -1,6 +1,6 @@
 const AccommodationService = require("../service/accommodation.service");
 const AccommodationNeo4jService = require("../../neo4j/service/accommodation.neo4j.service");
-
+const { Op } = require("sequelize");
 /***
  * Import utils
  */
@@ -9,18 +9,96 @@ const parsingStringToObject = require("../utils/parsingStringToObject");
 const AccommodationController = {
   getAllAccommodations: async (req, res) => {
     try {
+      /**
+       * Get params
+       */
+      const {
+        name,
+        is3stars,
+        is4stars,
+        is5stars,
+        isHomestay,
+        hasKitchen,
+        hasBreakfast,
+        hasFreeCancel,
+        hasNoPrepayment,
+      } = req.query;
+
+      /***
+       * Define conditions for query
+       */
+      var nameOption = name ? { name: { [Op.like]: `%${name}%` } } : null;
+      var is3starsOption = is3stars ? { is3stars: { [Op.eq]: 1 } } : null;
+      var is4starsOption = is4stars ? { is4stars: { [Op.eq]: 1 } } : null;
+      var is5starsOption = is5stars ? { is5stars: { [Op.eq]: 1 } } : null;
+      var isHomestayOption = isHomestay ? { isHomestay: { [Op.eq]: 1 } } : null;
+      var hasKitchenOption = hasKitchen ? { hasKitchen: { [Op.eq]: 1 } } : null;
+      var hasBreakfastOption = hasBreakfast
+        ? { hasBreakfast: { [Op.eq]: 1 } }
+        : null;
+      var hasFreeCancelOption = hasFreeCancel
+        ? { hasFreeCancel: { [Op.eq]: 1 } }
+        : null;
+      var hasNoPrepaymentOption = hasNoPrepayment
+        ? { hasNoPrepayment: { [Op.eq]: 1 } }
+        : null;
+
+      const conditionList = [
+        nameOption,
+        is3starsOption,
+        is4starsOption,
+        is5starsOption,
+        isHomestayOption,
+        hasKitchenOption,
+        hasBreakfastOption,
+        hasFreeCancelOption,
+        hasNoPrepaymentOption,
+      ];
+
+      /***
+       * Set statement of condition is null
+       * to check every object whether null or not
+       */
+      const isEveryObjectNull = (condition) => condition === null;
+
+      /**
+       * If conditionList has one ore more conditions --> query conditional Accoms
+       *
+       * If not, query all Accoms from db
+       */
+      if (!conditionList.every(isEveryObjectNull)) {
+        const conditionalAccommodation =
+          await AccommodationService.getConditionalAccoms(conditionList);
+
+        /**
+         * Check found Accommodation
+         * */
+        return !conditionalAccommodation.length
+          ? res
+              .status(404)
+              .json({ status: "failure", message: `Accommodations not found` })
+          : res.json({
+              status: "success",
+              result: conditionalAccommodation.length,
+              data: conditionalAccommodation,
+            });
+      }
+      /**
+       * If conditions are every null
+       * return GET all accoms routes
+       */
       const allAccommodations =
         await AccommodationService.getAllAccommodations();
 
-      return allAccommodations.length
-        ? res.status(200).json({
+      return !allAccommodations.length
+        ? res.status(404).json({
+            status: "failure",
+            message: "Accommodations are empty",
+          })
+        : res.status(200).json({
             status: "success",
             result: allAccommodations.length,
             data: allAccommodations,
-          })
-        : res.status(404).json({
-            status: "failure",
-            message: "Accommodations are empty",
           });
     } catch (error) {
       return res.status(500).json({
@@ -115,6 +193,10 @@ const AccommodationController = {
         const _newAccommodation =
           await AccommodationService.createAccommodations(newAccommodations);
 
+        // console.log(
+        //   "🚀 ~ file: accommodation.controller.js ~ line 119 ~ createAccommodations: ~ _newAccommodation",
+        //   _newAccommodation
+        // );
         /**
          * Parsing _newAccomms as Object
          */
@@ -130,7 +212,7 @@ const AccommodationController = {
           AccommodationNeo4jService.createAccommodation(props)
         );
 
-        // await AccommodationNeo4jService.initRelationship();
+        await AccommodationNeo4jService.initRelationshipToCuisine();
 
         return res.status(201).json({
           status: "success",

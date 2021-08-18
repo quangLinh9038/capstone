@@ -1,22 +1,43 @@
-const Trip = require("../src/models").Trip;
+/* 
+  Import models
+*/
+const db = require("../src/models");
+const { Trip } = db;
+const { User } = db;
+const { Itinerary } = db;
+const { Place } = db;
+const { Accommodation } = db;
+const { Cuisine } = db;
 
+/* 
+  Import services
+*/
 const PlaceService = require("./place.service");
 const AccommodationService = require("./accommodation.service");
 const TripNeo4jService = require("../../neo4j/service/trip.neo4j.service");
 
 const TripService = {
-  // get all trip
   getAllTrips: async () => {
     try {
       return await Trip.findAll({
-        includes: [
+        include: [
           {
-            model: Place,
-            as: "places",
-          },
-          {
-            model: Accommodation,
-            as: "accommodations",
+            model: Itinerary,
+            as: "itineraries",
+            include: [
+              {
+                model: Place,
+                as: "places",
+              },
+              {
+                model: Accommodation,
+                as: "accommodations",
+              },
+              {
+                model: Cuisine,
+                as: "cuisines",
+              },
+            ],
           },
           {
             model: User,
@@ -24,6 +45,47 @@ const TripService = {
           },
         ],
       });
+    } catch (error) {
+      return error;
+    }
+  },
+
+  getOneTripById: async (id) => {
+    try {
+      return await Trip.findOne({
+        where: { id: id },
+        include: [
+          {
+            model: Itinerary,
+            as: "itineraries",
+            include: [
+              {
+                model: Place,
+                as: "places",
+              },
+              {
+                model: Accommodation,
+                as: "accommodations",
+              },
+              {
+                model: Cuisine,
+                as: "cuisines",
+              },
+            ],
+          },
+          {
+            model: User,
+            as: "user",
+          },
+        ],
+      });
+    } catch (error) {
+      return error;
+    }
+  },
+  createOneTrip: async (newTrip) => {
+    try {
+      return await Trip.create(newTrip);
     } catch (error) {
       return error;
     }
