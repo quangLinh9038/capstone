@@ -30,14 +30,8 @@ module.exports = (sequelize, DataTypes) => {
         autoIncrement: true,
         primaryKey: true,
       },
-      title: {
-        type: DataTypes.STRING,
-      },
       numberOfItems: {
         type: DataTypes.INTEGER,
-      },
-      itemListElement: {
-        type: DataTypes.ARRAY(DataTypes.INTEGER),
       },
       trip_id: {
         type: DataTypes.INTEGER,

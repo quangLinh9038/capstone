@@ -1,6 +1,17 @@
+/* 
+  Import models
+*/
 const db = require("../src/models");
-const { Trip, Place, Accommodation, Cuisine, User } = db;
+const { Trip } = db;
+const { User } = db;
+const { Itinerary } = db;
+const { Place } = db;
+const { Accommodation } = db;
+const { Cuisine } = db;
 
+/* 
+  Import services
+*/
 const PlaceService = require("./place.service");
 const AccommodationService = require("./accommodation.service");
 const TripNeo4jService = require("../../neo4j/service/trip.neo4j.service");
@@ -11,16 +22,22 @@ const TripService = {
       return await Trip.findAll({
         include: [
           {
-            model: Place,
-            as: "places",
-          },
-          {
-            model: Accommodation,
-            as: "accommodations",
-          },
-          {
-            model: Cuisine,
-            as: "cuisines",
+            model: Itinerary,
+            as: "itineraries",
+            include: [
+              {
+                model: Place,
+                as: "places",
+              },
+              {
+                model: Accommodation,
+                as: "accommodations",
+              },
+              {
+                model: Cuisine,
+                as: "cuisines",
+              },
+            ],
           },
           {
             model: User,
@@ -48,10 +65,10 @@ const TripService = {
     accommodationLimit
   ) => {
     try {
-      console.log(
-        "🚀 ~ file: trip.service.js ~ line 40 ~ accommodationLimit",
-        accommodationLimit
-      );
+      // console.log(
+      // "🚀 ~ file: trip.service.js ~ line 40 ~ accommodationLimit",
+      // accommodationLimit
+      // );
       const accommodationUniquePointList = [];
 
       //get main places
@@ -59,20 +76,20 @@ const TripService = {
         placeParams,
         placeLimit
       );
-      console.log(
-        "🚀 ~ file: trip.service.js ~ line 41 ~ mainPlaces",
-        mainPlaces.length
-      );
+      // console.log(
+      // "🚀 ~ file: trip.service.js ~ line 41 ~ mainPlaces",
+      // mainPlaces.length
+      // );
 
       const mainAccommodations =
         await AccommodationService.getMainAccommodation(
           accommodationParams,
           accommodationLimit
         );
-      console.log(
-        "🚀 ~ file: trip.service.js ~ line 47 ~ mainAccomms",
-        mainAccommodations.length
-      );
+      // console.log(
+      // "🚀 ~ file: trip.service.js ~ line 47 ~ mainAccomms",
+      // mainAccommodations.length
+      // );
 
       if (!mainPlaces || !mainAccommodations) {
         return null;
@@ -82,10 +99,10 @@ const TripService = {
        * Get unique_point as parameters
        */
       const firstPlacePoint = mainPlaces[0].unique_point;
-      console.log(
-        "🚀 ~ file: trip.service.js ~ line 45 ~ firstPlacePoint",
-        firstPlacePoint
-      );
+      // console.log(
+      // "🚀 ~ file: trip.service.js ~ line 45 ~ firstPlacePoint",
+      // firstPlacePoint
+      // );
 
       /*  
       Get main accomms unique_point list
@@ -93,10 +110,10 @@ const TripService = {
       mainAccommodations.forEach((accommodation) => {
         accommodationUniquePointList.push(accommodation.unique_point);
       });
-      console.log(
-        "🚀 ~ file: trip.service.js ~ line 74 ~ mainAccomms.forEach ~ accommodationUniquePointList",
-        accommodationUniquePointList
-      );
+      // console.log(
+      // "🚀 ~ file: trip.service.js ~ line 74 ~ mainAccomms.forEach ~ accommodationUniquePointList",
+      // accommodationUniquePointList
+      // );
 
       //return shortest accommodation
       const firstPlaceAndShortestAccommodation =
@@ -107,18 +124,18 @@ const TripService = {
 
       // check null response
       if (!firstPlaceAndShortestAccommodation.length) {
-        console.log(
-          "🚀 ~ file: trip.service.js ~ line 87 ~ firstPlaceAndShortestAccommodation",
-          firstPlaceAndShortestAccommodation
-        );
+        // console.log(
+        // "🚀 ~ file: trip.service.js ~ line 87 ~ firstPlaceAndShortestAccommodation",
+        // firstPlaceAndShortestAccommodation
+        // );
 
         return null;
       }
 
-      console.log(
-        "🚀 ~ file: trip.service.js ~ line 96 ~ firstPlaceAndShortestAccommodation",
-        firstPlaceAndShortestAccommodation
-      );
+      // console.log(
+      // "🚀 ~ file: trip.service.js ~ line 96 ~ firstPlaceAndShortestAccommodation",
+      // firstPlaceAndShortestAccommodation
+      // );
 
       return firstPlaceAndShortestAccommodation;
     } catch (error) {
@@ -143,18 +160,18 @@ const TripService = {
         placeUniquePointList.push(places.unique_point)
       );
 
-      console.log(
-        "🚀 ~ file: trip.service.js ~ line 118 ~ placeUniquePointList",
-        placeUniquePointList
-      );
+      // console.log(
+      // "🚀 ~ file: trip.service.js ~ line 118 ~ placeUniquePointList",
+      // placeUniquePointList
+      // );
       const mainPlacesForATrip = await TripNeo4jService.getMainPlacesForATrip(
         shortestAccommodationUniquePoint,
         placeUniquePointList
       );
-      console.log(
-        "🚀 ~ file: trip.service.js ~ line 125 ~ mainPlacesForATrip",
-        mainPlacesForATrip
-      );
+      // console.log(
+      // "🚀 ~ file: trip.service.js ~ line 125 ~ mainPlacesForATrip",
+      // mainPlacesForATrip
+      // );
 
       return mainPlacesForATrip;
     } catch (error) {

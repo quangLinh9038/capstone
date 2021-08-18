@@ -1,6 +1,5 @@
 /* Import services */
 const ItineraryService = require("../service/itinerary.service");
-const ItineraryNeo4jService = require("../../neo4j/service/itinerary.neo4j.service");
 
 const PlaceService = require("../service/place.service");
 const AccommodationService = require("../service/accommodation.service");
@@ -188,6 +187,8 @@ const ItineraryController = {
       const accommodations = req.body.accommodations;
       const cuisines = req.body.cuisines;
 
+      var numberOfItems =
+        places.length + accommodations.length + cuisines.length;
       // console.log(
       // "🚀 ~ file: itinerary.controller.js ~ line 144 ~ createNewItinerary: ~ accommodations",
       // accommodations
@@ -209,6 +210,7 @@ const ItineraryController = {
 
       const _newItinerary = await ItineraryService.createOneItinerary({
         title: title,
+        numberOfItems: numberOfItems,
       });
       console.log(
         "🚀 ~ file: itinerary.controller.js ~ line 183 ~ createNewItinerary: ~ _newItinerary",
@@ -216,51 +218,52 @@ const ItineraryController = {
       );
 
       /* 
-        Add Accommodation 
+        Add one Accommodation
+        
+        Not working with several Accommodations
       */
-      // for (const accommodation of accommodations) {
       const _accommodation =
         await AccommodationService.getOneAccommodationByUniquePoint(
           accommodations
         );
 
-      console.log(
-        "🚀 ~ file: itinerary.controller.js ~ line 197 ~ accommodations.forEach ~ _accommodation",
-        _accommodation
-      );
+      // console.log(
+      //   "🚀 ~ file: itinerary.controller.js ~ line 197 ~ accommodations.forEach ~ _accommodation",
+      //   _accommodation
+      // );
 
       await _newItinerary.addAccommodation(_accommodation);
-      // }
+
       /* 
         Add list of Places 
       */
       for (const place of places) {
         const _place = await PlaceService.getPlaceByUniquePoint(place);
-        console.log(
-          "🚀 ~ file: itinerary.controller.js ~ line 189 ~ places.forEach ~ _place",
-          _place
-        );
+        // console.log(
+        //   "🚀 ~ file: itinerary.controller.js ~ line 189 ~ places.forEach ~ _place",
+        //   _place
+        // );
         await _newItinerary.addPlace(_place);
       }
 
-      /* 
-      Add Cuisines 
-     */
+      /*
+        Add Cuisines 
+      */
       for (const cuisine of cuisines) {
         const _cuisine = await CuisineService.getOneCuisineByUniquePoint(
           cuisine
         );
-        console.log(
-          "🚀 ~ file: itinerary.controller.js ~ line 215 ~ cuisines.forEach ~ _cuisine",
-          _cuisine
-        );
+        // console.log(
+        //   "🚀 ~ file: itinerary.controller.js ~ line 215 ~ cuisines.forEach ~ _cuisine",
+        //   _cuisine
+        // );
         await _newItinerary.addCuisine(_cuisine);
       }
 
-      console.log(
-        "🚀 ~ file: itinerary.controller.js ~ line 155 ~ createNewItinerary: ~ _newItinerary",
-        _newItinerary
-      );
+      // console.log(
+      //   "🚀 ~ file: itinerary.controller.js ~ line 155 ~ createNewItinerary: ~ _newItinerary",
+      //   _newItinerary
+      // );
 
       return _newItinerary
         ? res.status(201).json({ status: "success", data: _newItinerary })

@@ -6,6 +6,7 @@ const interestsRoute = require("./interest.routes");
 const tripRoute = require("./trip.route");
 const cuisineRoutes = require("./cuisine.route");
 const itineraryRoutes = require("./itinerary.route");
+const cityRoutes = require("./city.route");
 
 routes.use("/places", placesRoute);
 routes.use("/accommodations", accommodationsRoute);
@@ -14,6 +15,7 @@ routes.use("/users", usersRoute);
 routes.use("/interests", interestsRoute);
 routes.use("/cuisines", cuisineRoutes);
 routes.use("/itineraries", itineraryRoutes);
+routes.use("/cities", cityRoutes);
 
 routes.get("/", (req, res) => {
   res.status(200).json({ message: "API on air" });
