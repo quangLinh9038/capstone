@@ -9,11 +9,11 @@ const TripController = {
     try {
       const trips = await TripService.getAllTrips();
 
-      if (!trips.length) {
-        return res.status(204).send({ msg: `Empty Trips` });
-      }
-
-      return res.status(200).json(trips);
+      return trip.length
+        ? res.status(200).json({ status: "success", data: { trips: trips } })
+        : res
+            .status(404)
+            .json({ status: "failure", message: "Trips are empty" });
     } catch (error) {
       return res.status(500).json({ msg: error.message });
     }
