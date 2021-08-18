@@ -149,17 +149,16 @@ const UserController = {
       // // interest
       // // );
       if (!interest) {
-        res.status(404).send({ message: `Association not found` });
-        return null;
+        return res.status(404).send({ message: `Association not found` });
       }
+
       //populate UserInterest join table
       await user.addInterest(interest);
 
       let UserInterest = await UserService.getUserInfo(req.user.id);
-      res.status(201).send(UserInterest);
+      return res.status(201).json(UserInterest);
     } catch (err) {
-      console.error("Interest creation server error: ", error);
-      res.status(500).send(error);
+      return res.status(500).send(error);
     }
   },
 
@@ -167,16 +166,12 @@ const UserController = {
   deleteUserInterest: async (req, res) => {
     try {
       const user = await UserService.getUserInfo(req.user.id);
-      if (!user) {
-        res.status(404).send({ message: `Association not found` });
-        return null;
-      }
+
       const interest = await InterestService.getInterestInfo(
         req.body.interest_id
       );
       if (!interest) {
-        res.status(404).send({ message: `Association not found` });
-        return null;
+        return res.status(404).send({ message: `Association not found` });
       }
       await user.removeInterest(interest);
       await interest.removeUser(user);
@@ -190,8 +185,7 @@ const UserController = {
         message: `UserInterest has been deleted successfully`,
       });
     } catch (err) {
-      console.error("Interest creation server error: ", error);
-      res.status(500).send(error);
+      return res.status(500).send(error);
     }
   },
 
