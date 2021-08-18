@@ -140,54 +140,9 @@ const UserController = {
         const _interest = await InterestService.getInterestInfo(interest);
         await user.addInterest(_interest);
       }
-      // const interest = await InterestService.getInterestInfo(
-      //   req.body.interest_id
-      // );
-      // console.log(
-      // "🚀 ~ file: user.controller.js ~ line 138 ~ addInterest: ~ interest",
-      // interest
-      // );
-      // if (!interest) {
-      //   res.status(404).send({ message: `Association not found` });
-      //   return null;
-      // }
-      // //populate UserInterest join table
-      // await user.addInterest(interest);
 
       let UserInterest = await UserService.getUserInfo(req.user.id);
       res.status(201).send(UserInterest);
-    } catch (err) {
-      console.error("Interest creation server error: ", error);
-      res.status(500).send(error);
-    }
-  },
-
-  // delete interest that user choosed before
-  deleteUserInterest: async (req, res) => {
-    try {
-      const user = await UserService.getUserInfo(req.user.id);
-      if (!user) {
-        res.status(404).send({ message: `Association not found` });
-        return null;
-      }
-      const interest = await InterestService.getInterestInfo(
-        req.body.interest_id
-      );
-      if (!interest) {
-        res.status(404).send({ message: `Association not found` });
-        return null;
-      }
-      await user.removeInterest(interest);
-      await interest.removeUser(user);
-
-      await UserService.removeUserInterest(
-        req.body.user_id,
-        req.body.interest_id
-      );
-
-      return res.status(200).send({
-        message: `UserInterest has been deleted successfully`,
-      });
     } catch (err) {
       console.error("Interest creation server error: ", error);
       res.status(500).send(error);
