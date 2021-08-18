@@ -102,10 +102,10 @@ const UserController = {
 
         const accessToken = createAccessToken({ id: user.id });
 
-        res.json({ accessToken: accessToken });
+        res.json({ accessToken });
       });
 
-      res.json({ rf_token });
+      // res.json({ rf_token });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
@@ -132,23 +132,27 @@ const UserController = {
       // "🚀 ~ file: user.controller.js ~ line 131 ~ addInterest: ~ user",
       // user
       // );
-      if (!user) {
-        res.status(404).send({ message: `Association not found` });
-        return null;
+      const interests = req.body.interests;
+      /* 
+      Add list of Interests 
+    */
+      for (const interest of interests) {
+        const _interest = await InterestService.getInterestInfo(interest);
+        await user.addInterest(_interest);
       }
-      const interest = await InterestService.getInterestInfo(
-        req.body.interest_id
-      );
+      // const interest = await InterestService.getInterestInfo(
+      //   req.body.interest_id
+      // );
       // console.log(
       // "🚀 ~ file: user.controller.js ~ line 138 ~ addInterest: ~ interest",
       // interest
       // );
-      if (!interest) {
-        res.status(404).send({ message: `Association not found` });
-        return null;
-      }
-      //populate UserInterest join table
-      await user.addInterest(interest);
+      // if (!interest) {
+      //   res.status(404).send({ message: `Association not found` });
+      //   return null;
+      // }
+      // //populate UserInterest join table
+      // await user.addInterest(interest);
 
       let UserInterest = await UserService.getUserInfo(req.user.id);
       res.status(201).send(UserInterest);
