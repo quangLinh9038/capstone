@@ -1,9 +1,10 @@
 const db = require("../src/models");
 
-const User = db;
-const Interest = db;
-const Trip = db;
-const UserInterest = db;
+const { User } = db;
+const { Interest } = db;
+const { Trip } = db;
+const { UserInterest } = db;
+
 const UserService = {
   getAllUser: async () => {
     try {
@@ -12,11 +13,12 @@ const UserService = {
       return error;
     }
   },
+  
   //get user by email
-  getOneUser: async (email) => {
+  getOneUser: async (checkEmail) => {
     try {
       return await User.findOne({
-        where: { email: email },
+        where: { email: checkEmail },
         include: [
           {
             model: Interest,
