@@ -105,7 +105,7 @@ const UserController = {
         res.json({ accessToken: accessToken });
       });
 
-      res.json({ rf_token });
+      // res.json({ rf_token });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
