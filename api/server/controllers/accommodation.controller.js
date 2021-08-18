@@ -12,7 +12,7 @@ const AccommodationController = {
       /**
        * Get params
        */
-       const {
+      const {
         name,
         is3stars,
         is4stars,
@@ -33,9 +33,15 @@ const AccommodationController = {
       var is5starsOption = is5stars ? { is5stars: { [Op.eq]: 1 } } : null;
       var isHomestayOption = isHomestay ? { isHomestay: { [Op.eq]: 1 } } : null;
       var hasKitchenOption = hasKitchen ? { hasKitchen: { [Op.eq]: 1 } } : null;
-      var hasBreakfastOption = hasBreakfast ? { hasBreakfast: { [Op.eq]: 1 } } : null;
-      var hasFreeCancelOption = hasFreeCancel ? { hasFreeCancel: { [Op.eq]: 1 } } : null;
-      var hasNoPrepaymentOption = hasNoPrepayment ? { hasNoPrepayment: { [Op.eq]: 1 } } : null;
+      var hasBreakfastOption = hasBreakfast
+        ? { hasBreakfast: { [Op.eq]: 1 } }
+        : null;
+      var hasFreeCancelOption = hasFreeCancel
+        ? { hasFreeCancel: { [Op.eq]: 1 } }
+        : null;
+      var hasNoPrepaymentOption = hasNoPrepayment
+        ? { hasNoPrepayment: { [Op.eq]: 1 } }
+        : null;
 
       const conditionList = [
         nameOption,
@@ -60,40 +66,40 @@ const AccommodationController = {
        *
        * If not, query all Accoms from db
        */
-       if (!conditionList.every(isEveryObjectNull)) {
-        const conditionalAccoms = await AccommodationService.getConditionalAccoms(
-          conditionList
-        );
+      if (!conditionList.every(isEveryObjectNull)) {
+        const conditionalAccommodation =
+          await AccommodationService.getConditionalAccoms(conditionList);
 
         /**
-         * Check found Accoms
+         * Check found Accommodation
          * */
-        return !conditionalAccoms.length
+        return !conditionalAccommodation.length
           ? res
               .status(404)
               .json({ status: "failure", message: `Accommodations not found` })
           : res.json({
               status: "success",
-              result: conditionalAccoms.length,
-              data: conditionalAccoms,
+              result: conditionalAccommodation.length,
+              data: conditionalAccommodation,
             });
       }
       /**
        * If conditions are every null
        * return GET all accoms routes
        */
-      const allAccommodations = await AccommodationService.getAllAccommodations();
+      const allAccommodations =
+        await AccommodationService.getAllAccommodations();
 
       return !allAccommodations.length
         ? res.status(404).json({
-          status: "failure",
-          message: "Accommodations are empty",
-        })
+            status: "failure",
+            message: "Accommodations are empty",
+          })
         : res.status(200).json({
-          status: "success",
-          result: allAccommodations.length,
-          data: allAccommodations,
-        })
+            status: "success",
+            result: allAccommodations.length,
+            data: allAccommodations,
+          });
     } catch (error) {
       return res.status(500).json({
         message: error.message,

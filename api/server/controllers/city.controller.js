@@ -1,7 +1,7 @@
 const CityService = require("../service/city.service");
 
 const CityController = {
-  createMewCities: async (req, res) => {
+  createNewCities: async (req, res) => {
     try {
       const newCities = req.body;
       const existedCitiesList = [];
@@ -12,7 +12,7 @@ const CityController = {
         const checkedName = newCities[i].name;
 
         // eslint-disable-next-line no-await-in-loop
-        const existCity = await InterestService.getOneInterest(checkedName);
+        const existCity = await CityService.getOneCityByName(checkedName);
 
         // push to existed list
         if (existCity) {

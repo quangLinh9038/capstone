@@ -5,6 +5,6 @@ const authAdmin = require("../middleware/authAdmin");
 
 const cityRoutes = Router();
 
-cityRoutes.post("/", CityController.createMewCities);
+cityRoutes.post("/", CityController.createNewCities);
 
 module.exports = cityRoutes;

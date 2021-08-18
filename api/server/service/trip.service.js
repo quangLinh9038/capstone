@@ -50,6 +50,39 @@ const TripService = {
     }
   },
 
+  getOneTripById: async (id) => {
+    try {
+      return await Trip.findOne({
+        where: { id: id },
+        include: [
+          {
+            model: Itinerary,
+            as: "itineraries",
+            include: [
+              {
+                model: Place,
+                as: "places",
+              },
+              {
+                model: Accommodation,
+                as: "accommodations",
+              },
+              {
+                model: Cuisine,
+                as: "cuisines",
+              },
+            ],
+          },
+          {
+            model: User,
+            as: "user",
+          },
+        ],
+      });
+    } catch (error) {
+      return error;
+    }
+  },
   createOneTrip: async (newTrip) => {
     try {
       return await Trip.create(newTrip);

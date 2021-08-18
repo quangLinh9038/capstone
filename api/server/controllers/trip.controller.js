@@ -19,6 +19,33 @@ const TripController = {
     }
   },
 
+  getOneTripById: async (req, res) => {
+    try {
+      const id = req.params.id;
+      console.log(
+        "🚀 ~ file: trip.controller.js ~ line 25 ~ getOneTripById: ~ id",
+        id
+      );
+
+      if (!id) {
+        return res
+          .status(400)
+          .json({ status: "failure", message: "Missing id " });
+      }
+
+      const trip = await TripService.getOneTripById(id);
+      // console.log("🚀 ~ file: trip.controller.js ~ line 37 ~ getOneTripById: ~ trip", trip)
+
+      return trip
+        ? res.status(200).json({ status: "success", data: trip })
+        : res
+            .status(404)
+            .json({ status: "failure", message: "Trip not found" });
+    } catch (error) {
+      return res.status(500).json({ msg: error.message });
+    }
+  },
+
   createNewTrip: async (req, res) => {
     try {
     } catch (error) {
@@ -191,10 +218,10 @@ const TripController = {
             accommodation
           );
 
-        console.log(
-          "🚀 ~ file: trip.controller.js ~ line 155 ~ createNewTrip: ~ _accommodation",
-          _accommodation.length
-        );
+        // console.log(
+        //   "🚀 ~ file: trip.controller.js ~ line 155 ~ createNewTrip: ~ _accommodation",
+        //   _accommodation.length
+        // );
         await newItinerary.addAccommodation(_accommodation);
       }
 
@@ -203,25 +230,25 @@ const TripController = {
         */
       for (const place of places) {
         const _place = await PlaceService.getPlaceByUniquePoint(place);
-        console.log(
-          "🚀 ~ file: trip.controller.js ~ line 166 ~ createNewTrip: ~ _place",
-          _place.length
-        );
+        // console.log(
+        //   "🚀 ~ file: trip.controller.js ~ line 166 ~ createNewTrip: ~ _place",
+        //   _place.length
+        // );
 
         await newItinerary.addPlace(_place);
       }
 
       /* 
         Add Cuisines 
-        */
+      */
       for (const cuisine of cuisines) {
         const _cuisine = await CuisineService.getOneCuisineByUniquePoint(
           cuisine
         );
-        console.log(
-          "🚀 ~ file: trip.controller.js ~ line 182 ~ createNewTrip: ~ _cuisine",
-          _cuisine.length
-        );
+        // console.log(
+        //   "🚀 ~ file: trip.controller.js ~ line 182 ~ createNewTrip: ~ _cuisine",
+        //   _cuisine.length
+        // );
 
         await newItinerary.addCuisine(_cuisine);
       }
@@ -230,8 +257,8 @@ const TripController = {
       // "🚀 ~ file: trip.controller.js ~ line 177 ~ createNewTrip: ~ newItinerary",
       // newItinerary
       // );
-      return newItinerary
-        ? res.status(201).json({ status: "success", data: newItinerary })
+      return newTrip
+        ? res.status(201).json({ status: "success", data: newTrip })
         : res.status(400).json({ status: "failure" });
     } catch (error) {
       return res.status(500).json({ message: error.message });

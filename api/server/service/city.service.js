@@ -9,6 +9,14 @@ const CityService = {
       return error;
     }
   },
+
+  getOneCityByName: async (name) => {
+    try {
+      return await City.findOne({ name: name });
+    } catch (error) {
+      return error;
+    }
+  },
 };
 
 module.exports = CityService;

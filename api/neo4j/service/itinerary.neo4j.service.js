@@ -19,16 +19,16 @@ const ItineraryNeo4jService = {
     accommodationUniquePointList
   ) => {
     try {
-      // // console.log(
-      // // "🚀 ~ file: trip.neo4j.service.js ~ line 12 ~ placeUniquePoint",
-      // // placeUniquePoint
-      // // );
+      console.log(
+        "🚀 ~ file: itinerary.neo4j.service.js ~ line 21 ~ placeUniquePoint",
+        placeUniquePoint
+      );
 
       const _accommodationUniquePointList = accommodationUniquePointList.map(
         (item) => `"${item}"`
       );
       console.log(
-        "🚀 ~ file: trip.neo4j.service.js ~ line 22 ~ _accommodationUniquePointList",
+        "🚀 ~ file: itinerary.neo4j.service.js ~ line 30 ~ _accommodationUniquePointList",
         _accommodationUniquePointList
       );
 
@@ -38,16 +38,12 @@ const ItineraryNeo4jService = {
         placeLabel,
         accommodationLabel
       );
-      // // console.log(
-      // // "🚀 ~ file: trip.neo4j.service.js ~ line 41 ~ cypher",
-      // // cypher
-      // // );
 
       const firstPlaceAndShortestAccommodation = await neode.cypher(cypher);
-      // // console.log(
-      // // "🚀 ~ file: trip.neo4j.service.js ~ line 18 ~ result",
-      // // result.records[1]._fields
-      // // );
+      console.log(
+        "🚀 ~ file: itinerary.neo4j.service.js ~ line 43 ~ firstPlaceAndShortestAccommodation",
+        firstPlaceAndShortestAccommodation.records[1].length
+      );
 
       /**
        * Return the shortest Accomms data only
@@ -86,7 +82,7 @@ const ItineraryNeo4jService = {
 
       console.log(
         "🚀 ~ file: itinerary.neo4j.service.js ~ line 87 ~ shortestLunchCuisineFromAccommodation",
-        shortestLunchCuisineFromAccommodation.records[0]._fields[1]
+        shortestLunchCuisineFromAccommodation.records[0].length
       );
 
       return shortestLunchCuisineFromAccommodation.records[0]._fields[1];
@@ -102,10 +98,11 @@ const ItineraryNeo4jService = {
     try {
       const mainPlaceUniquePoints = [];
 
-      // // console.log(
-      // // "🚀 ~ file: trip.neo4j.service.js ~ line 51 ~ shortestAccommodationUniquePoint",
-      // // shortestAccommodationUniquePoint
-      // // );
+      console.log(
+        "🚀 ~ file: itinerary.neo4j.service.js ~ line 98 ~ shortestCuisineUniquePoint",
+        shortestCuisineUniquePoint
+      );
+
       const _placeUniquePoints = placeUniquePoints.map((item) => `"${item}"`);
 
       const cypher = generateCypherToFindRoute(
@@ -114,12 +111,16 @@ const ItineraryNeo4jService = {
         cuisineLabel,
         placeLabel
       );
-      // // console.log(
-      // // "🚀 ~ file: trip.neo4j.service.js ~ line 78 ~ cypher",
-      // // cypher
-      // // );
+      console.log(
+        "🚀 ~ file: trip.neo4j.service.js ~ line 78 ~ cypher",
+        cypher
+      );
 
       const mainPlacesForOneItinerary = await neode.cypher(cypher);
+      console.log(
+        "🚀 ~ file: itinerary.neo4j.service.js ~ line 119 ~ mainPlacesForOneItinerary",
+        mainPlacesForOneItinerary.records.length
+      );
 
       await mainPlacesForOneItinerary.records.forEach((place) =>
         mainPlaceUniquePoints.push(place._fields[1])

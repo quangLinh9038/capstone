@@ -27,10 +27,10 @@ const TripNeo4jService = {
       const _accommodationUniquePointList = accommodationUniquePointList.map(
         (item) => `"${item}"`
       );
-      console.log(
-        "🚀 ~ file: trip.neo4j.service.js ~ line 22 ~ _accommodationUniquePointList",
-        _accommodationUniquePointList
-      );
+      // console.log(
+      //   "🚀 ~ file: trip.neo4j.service.js ~ line 22 ~ _accommodationUniquePointList",
+      //   _accommodationUniquePointList
+      // );
 
       const cypher = generateCypherToFindRoute(
         _accommodationUniquePointList,
