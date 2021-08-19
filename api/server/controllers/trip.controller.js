@@ -9,7 +9,7 @@ const TripController = {
     try {
       const trips = await TripService.getAllTrips();
 
-      return trip.length
+      return trips.length
         ? res.status(200).json({ status: "success", data: { trips: trips } })
         : res
             .status(404)
