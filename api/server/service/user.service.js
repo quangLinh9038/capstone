@@ -66,25 +66,6 @@ const UserService = {
     }
   },
 
-  //delete UserInterest association
-  removeUserInterest: async (user_id, interest_id) => {
-    try {
-      const userInterest = await UserInterest.findOne({
-        where: { user_id: user_id, interest_id: interest_id },
-      });
-
-      if (userInterest) {
-        const deletedUserInterest = await UserInterest.destroy({
-          where: { user_id: user_id, interest_id: interest_id },
-        });
-        return deletedUserInterest;
-      }
-      return null;
-    } catch (error) {
-      return error;
-    }
-  },
-
   deleteAllUser: async () => {
     try {
       return await User.destroy({ where: {} });
