@@ -149,6 +149,29 @@ const UserController = {
     }
   },
 
+  // delete interests that user choosed before
+  deleteInterest: async (req, res) => {
+    try {
+      const user = await UserService.getUserInfo(req.user.id);
+
+      const interests = req.body.interests;
+      /* 
+      Remove list of Interests 
+    */
+      for (const interest of interests) {
+        const _interest = await InterestService.getInterestInfo(interest);
+        await user.removeInterest(_interest);
+      }
+
+      return res.status(200).send({
+        message: `UserInterest has been deleted successfully`,
+      });
+    } catch (err) {
+      console.error("Interest creation server error: ", error);
+      res.status(500).send(error);
+    }
+  },
+
   deleteAllUsers: async (req, res) => {
     try {
       const allUsers = await UserService.getAllUser();
