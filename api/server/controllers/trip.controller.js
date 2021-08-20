@@ -210,7 +210,7 @@ const TripController = {
       });
 
       /* 
-      Add Accommodations
+        Add Accommodations
       */
       for (const accommodation of accommodations) {
         const _accommodation =
@@ -227,7 +227,7 @@ const TripController = {
 
       /* 
         Add Places 
-        */
+      */
       for (const place of places) {
         const _place = await PlaceService.getPlaceByUniquePoint(place);
         // console.log(

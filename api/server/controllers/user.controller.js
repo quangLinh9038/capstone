@@ -97,7 +97,7 @@ const UserController = {
   // get new token after access token expired
   refreshToken: (req, res) => {
     try {
-      const rf_token = req.cookies.refreshtoken;
+      const rf_token = req.cookies.refreshToken;
       if (!rf_token)
         return res.status(400).json({ msg: "Please Login or Register" });
 
@@ -121,22 +121,40 @@ const UserController = {
     try {
       const user = await UserService.getUserInfo(req.user.id);
 
-      if (!user) return res.status(400).json({ msg: "User does not exist." });
-      // response list of users
-      return res.status(200).json(user);
+      return user
+        ? res.status(200).json(user)
+        : res.status(400).json({ msg: "User does not exist." });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
   },
 
+  getTripsByUser: async (req, res) => {
+    try {
+      const trips = await UserService.getTripsByUser(req.user.id);
+      console.log(
+        "🚀 ~ file: user.controller.js ~ line 135 ~ getTripsByUser: ~ trips",
+        trips
+      );
+
+      return trips
+        ? res.status(200).json({ status: "success", data: trips })
+        : res.status(404).json({
+            status: "failure",
+            msg: `Trips not found with User ${id}`,
+          });
+    } catch (error) {
+      return res.status(500).json({ msg: error.message });
+    }
+  },
   // add interest that user choose
   addInterest: async (req, res) => {
     try {
       const user = await UserService.getUserInfo(req.user.id);
-      // // console.log(
-      // // "🚀 ~ file: user.controller.js ~ line 131 ~ addInterest: ~ user",
-      // // user
-      // // );
+      // console.log(
+      // "🚀 ~ file: user.controller.js ~ line 131 ~ addInterest: ~ user",
+      // user
+      // );
       if (!user) {
         res.status(404).send({ message: `Association not found` });
         return null;
@@ -144,10 +162,10 @@ const UserController = {
       const interest = await InterestService.getInterestInfo(
         req.body.interest_id
       );
-      // // console.log(
-      // // "🚀 ~ file: user.controller.js ~ line 138 ~ addInterest: ~ interest",
-      // // interest
-      // // );
+      // console.log(
+      // "🚀 ~ file: user.controller.js ~ line 138 ~ addInterest: ~ interest",
+      // interest
+      // );
       if (!interest) {
         return res.status(404).send({ message: `Association not found` });
       }

@@ -42,6 +42,7 @@ const CuisineService = {
       return error;
     }
   },
+
   getMainCuisine: async (params, limit) => {
     try {
       // console.log(
@@ -82,6 +83,7 @@ const CuisineService = {
       return error;
     }
   },
+
   getOneCuisineByUniquePoint: async (unique_point) => {
     try {
       return await Cuisine.findOne({
