@@ -42,20 +42,21 @@ const ItineraryController = {
       /* Get params */
       const placeParams = req.query.places;
       const placeLimit = req.query.placeLimit;
+
+      const accommodationParams = req.query.accommodations;
+      const accommodationLimit = req.query.accommodationLimit;
+
+      const cuisineParams = req.query.cuisines;
+      const cuisineLimit = req.query.cuisineLimit;
       // console.log(
       // "🚀 ~ file: itinerary.controller.js ~ line 16 ~ getAnItinerary: ~ placeParams",
       // placeParams
       // );
 
-      const accommodationParams = req.query.accommodations;
-      const accommodationLimit = req.query.accommodationLimit;
       // console.log(
       // "🚀 ~ file: itinerary.controller.js ~ line 23 ~ getAnItinerary: ~ accommodationParams",
       // accommodationParams
       // );
-
-      const cuisineParams = req.query.cuisines;
-      const cuisineLimit = req.query.cuisineLimit;
 
       // console.log(
       // "🚀 ~ file: itinerary.controller.js ~ line 31 ~ getAnItinerary: ~ cuisineParams",
@@ -105,13 +106,14 @@ const ItineraryController = {
       /* 
         Get the shortest lunch cuisine from resulted Accommodation
       */
-      const shortestLunchCuisineFromAccommodation =
+      const shortestLunchCuisineFromAccommodationList =
         await ItineraryService.getShortestLunchCuisine(
           shortestAccommodationFromFirstPlace,
           cuisineParams,
           cuisineLimit
         );
 
+      const shortestLunchCuisine = shortestLunchCuisineFromAccommodationList[0];
       // console.log(
       // "🚀 ~ file: itinerary.controller.js ~ line 61 ~ getAnItinerary: ~ shortestLunchCuisineFromAccommodation",
       // shortestLunchCuisineFromAccommodation
@@ -123,7 +125,7 @@ const ItineraryController = {
       const mainPlacesForOneItinerary = await ItineraryService.getMainPlaces(
         placeParams,
         placeLimit,
-        shortestLunchCuisineFromAccommodation
+        shortestLunchCuisine
       );
       // console.log(
       // "🚀 ~ file: itinerary.controller.js ~ line 74 ~ getAnItinerary: ~ mainPlacesForOneItinerary",
@@ -153,13 +155,14 @@ const ItineraryController = {
       /*
         Summarizing items of an Itinerary 
       */
-      const places = [firstPlaceAndShortestAccommodation[0]].concat(
-        mainPlacesForOneItinerary
-      );
+      const places = [
+        ...[firstPlaceAndShortestAccommodation[0]],
+        ...mainPlacesForOneItinerary,
+      ];
       const accommodations = [firstPlaceAndShortestAccommodation[1]];
       const cuisines = [
-        shortestLunchCuisineFromAccommodation,
-        shortestDinnerCuisine,
+        ...shortestLunchCuisineFromAccommodationList,
+        ...shortestDinnerCuisine,
       ];
 
       return shortestDinnerCuisine
@@ -168,7 +171,6 @@ const ItineraryController = {
             data: {
               accommodations: accommodations,
               cuisines: cuisines,
-
               places: places,
             },
           })
@@ -216,10 +218,10 @@ const ItineraryController = {
         title: title,
         numberOfItems: numberOfItems,
       });
-      console.log(
-        "🚀 ~ file: itinerary.controller.js ~ line 183 ~ createNewItinerary: ~ _newItinerary",
-        typeof _newItinerary
-      );
+      // console.log(
+      //   "🚀 ~ file: itinerary.controller.js ~ line 183 ~ createNewItinerary: ~ _newItinerary",
+      //   typeof _newItinerary
+      // );
 
       /* 
         Add one Accommodation
@@ -231,10 +233,10 @@ const ItineraryController = {
           accommodations
         );
 
-      console.log(
-        "🚀 ~ file: itinerary.controller.js ~ line 197 ~ accommodations.forEach ~ _accommodation",
-        _accommodation
-      );
+      // console.log(
+      //   "🚀 ~ file: itinerary.controller.js ~ line 197 ~ accommodations.forEach ~ _accommodation",
+      //   _accommodation
+      // );
 
       await _newItinerary.addAccommodation(_accommodation);
 
@@ -243,10 +245,10 @@ const ItineraryController = {
       */
       for (const place of places) {
         const _place = await PlaceService.getPlaceByUniquePoint(place);
-        console.log(
-          "🚀 ~ file: itinerary.controller.js ~ line 189 ~ places.forEach ~ _place",
-          _place
-        );
+        // console.log(
+        //   "🚀 ~ file: itinerary.controller.js ~ line 189 ~ places.forEach ~ _place",
+        //   _place
+        // );
         await _newItinerary.addPlace(_place);
       }
 
@@ -257,17 +259,17 @@ const ItineraryController = {
         const _cuisine = await CuisineService.getOneCuisineByUniquePoint(
           cuisine
         );
-        console.log(
-          "🚀 ~ file: itinerary.controller.js ~ line 215 ~ cuisines.forEach ~ _cuisine",
-          _cuisine
-        );
+        // console.log(
+        //   "🚀 ~ file: itinerary.controller.js ~ line 215 ~ cuisines.forEach ~ _cuisine",
+        //   _cuisine
+        // );
         await _newItinerary.addCuisine(_cuisine);
       }
 
-      console.log(
-        "🚀 ~ file: itinerary.controller.js ~ line 155 ~ createNewItinerary: ~ _newItinerary",
-        _newItinerary
-      );
+      // console.log(
+      //   "🚀 ~ file: itinerary.controller.js ~ line 155 ~ createNewItinerary: ~ _newItinerary",
+      //   _newItinerary
+      // );
 
       return _newItinerary
         ? res.status(201).json({ status: "success", data: _newItinerary })

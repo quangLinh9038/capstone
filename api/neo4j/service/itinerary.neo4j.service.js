@@ -59,6 +59,7 @@ const ItineraryNeo4jService = {
     shortestAccommodationUniquePoint
   ) => {
     try {
+      const listOfLunchCuisine = [];
       const _cuisineUniquePoints = cuisineUniquePoints.map(
         (item) => `"${item}"`
       );
@@ -78,14 +79,13 @@ const ItineraryNeo4jService = {
       // cypher
       // );
 
-      const shortestLunchCuisineFromAccommodation = await neode.cypher(cypher);
+      const result = await neode.cypher(cypher);
 
-      // console.log(
-      // "🚀 ~ file: itinerary.neo4j.service.js ~ line 87 ~ shortestLunchCuisineFromAccommodation",
-      // shortestLunchCuisineFromAccommodation.records[0].length
-      // );
+      for (const record of result.records) {
+        await listOfLunchCuisine.push(record._fields[1]);
+      }
 
-      return shortestLunchCuisineFromAccommodation.records[0]._fields[1];
+      return listOfLunchCuisine;
     } catch (error) {
       return error;
     }
@@ -138,6 +138,8 @@ const ItineraryNeo4jService = {
 
   getShortestDinnerCuisine: async (cuisineUniquePoints, placeUniquePoint) => {
     try {
+      const listOfDinnerCuisine = [];
+
       const _cuisineUniquePoints = cuisineUniquePoints.map(
         (item) => `"${item}"`
       );
@@ -157,13 +159,16 @@ const ItineraryNeo4jService = {
       // cypher
       // );
 
-      const shortestDinnerCuisine = await neode.cypher(cypher);
-      // console.log(
-      // "🚀 ~ file: itinerary.neo4j.service.js ~ line 154 ~ getShortestDinnerCuisine: ~ shortestDinnerCuisine",
-      // shortestDinnerCuisine.records[0]._fields[1]
-      // );
+      const result = await neode.cypher(cypher);
 
-      return shortestDinnerCuisine.records[0]._fields[1];
+      for (const record of result.records) {
+        await listOfDinnerCuisine.push(record._fields[1]);
+      }
+
+      /* 
+        Return the shortest dinner Cuisine only
+      */
+      return listOfDinnerCuisine;
     } catch (error) {
       return error;
     }

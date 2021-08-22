@@ -24,6 +24,9 @@ module.exports = (sequelize, DataTypes) => {
       img: {
         type: DataTypes.TEXT,
       },
+      category: {
+        type: DataTypes.STRING,
+      },
       isVietnamese: {
         type: DataTypes.INTEGER,
       },
