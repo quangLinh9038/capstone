@@ -15,7 +15,7 @@ const PlaceNeo4jService = {
   },
   deleteOneNode: async (unique_point) => {
     const cypher = `MATCH (p:Place {unique_point: '${unique_point}'}) DETACH DELETE p`;
-    return await neode.cypher(cypher);
+    return await neode.writeCypher(cypher);
   },
   deletePlaces: async () => {
     // DELETE (p:Place) DETACH DELETE p;
@@ -43,7 +43,8 @@ const PlaceNeo4jService = {
       RETURN p, a, distance",
       "CREATE (p)-[:DISTANCE_TO {dist: distance}]->(a) RETURN p, a",
       {batchSize: 1000, parallel: true})`;
-    const result = await neode.cypher(cypher);
+
+    const result = await neode.writeCypher(cypher);
 
     return result
       ? console.log(`Init relationship success Place to Accommodation`)
@@ -61,7 +62,7 @@ const PlaceNeo4jService = {
       "CREATE (p)-[:DISTANCE_TO {dist: distance}]->(c) RETURN p, c",
       {batchSize: 1000, parallel: true})`;
 
-    const result = await neode.cypher(cypher);
+    const result = await neode.writeCypher(cypher);
 
     return result
       ? console.log(`Init relationship success Place to Cuisine`)

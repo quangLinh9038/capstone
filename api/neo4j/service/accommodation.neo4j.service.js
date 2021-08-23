@@ -17,7 +17,7 @@ const AccommodationNeo4jService = {
 
   deleteOneAccommodationNode: async (unique_point) => {
     const cypher = `MATCH (a:Accommodation {unique_point: '${unique_point}'}) DETACH DELETE a`;
-    return await neode.cypher(cypher);
+    return await neode.writeCypher(cypher);
   },
 
   deleteAllAccommodations: async () => {
@@ -45,7 +45,7 @@ const AccommodationNeo4jService = {
         RETURN a, c, distance",
         "CREATE (a)-[:DISTANCE_TO {dist: distance}]->(c) RETURN a, c",
         {batchSize: 1000, parallel: true})`;
-    const result = await neode.cypher(cypher);
+    const result = await neode.writeCypher(cypher);
 
     return result
       ? console.log(`Init relationship success Accommodation to Cuisine`)
