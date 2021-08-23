@@ -11,7 +11,7 @@ const Cuisine = require("./models/Cuisine.neo4j");
   Use configuration from .env
 */
 
-const neode = new Neode.fromEnv()
+const neode = new Neode(NEO4J_URI, NEO4J_USERNAME, NEO4J_PASSWORD)
   // Include models in neo4j-models directory
   .with({
     Place: PlaceNeo4j,
