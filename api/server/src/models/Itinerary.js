@@ -33,6 +33,9 @@ module.exports = (sequelize, DataTypes) => {
       numberOfItems: {
         type: DataTypes.INTEGER,
       },
+      totalPrice: {
+        type: DataTypes.FLOAT,
+      },
       trip_id: {
         type: DataTypes.INTEGER,
       },

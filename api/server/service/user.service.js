@@ -2,8 +2,12 @@ const db = require("../src/models");
 
 const { User } = db;
 const { Interest } = db;
-const { Trip } = db;
 const { UserInterest } = db;
+const { Trip } = db;
+const { Itinerary } = db;
+const { Place } = db;
+const { Accommodation } = db;
+const { Cuisine } = db;
 
 const UserService = {
   getAllUser: async () => {
@@ -57,6 +61,36 @@ const UserService = {
           {
             model: Trip,
             as: "trips",
+          },
+        ],
+      });
+    } catch (error) {
+      return error;
+    }
+  },
+
+  getTripsByUser: async (id) => {
+    console.log(
+      "🚀 ~ file: user.service.js ~ line 73 ~ getTripsByUser: ~ user_id",
+      id
+    );
+    try {
+      return await User.findByPk(id, {
+        include: [
+          {
+            model: Trip,
+            as: "trips",
+            include: [
+              {
+                model: Itinerary,
+                as: "itineraries",
+                include: [
+                  { model: Place, as: "places" },
+                  { model: Accommodation, as: "accommodations" },
+                  { model: Cuisine, as: "cuisines" },
+                ],
+              },
+            ],
           },
         ],
       });

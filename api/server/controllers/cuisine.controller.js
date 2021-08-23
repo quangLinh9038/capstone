@@ -97,6 +97,37 @@ const CuisineController = {
     }
   },
 
+  getMainCuisine: async (req, res) => {
+    try {
+      const cuisineParams = req.query.interests;
+      const limit = req.query.limit;
+      const category = req.query.category;
+      const cuisines = await CuisineService.getAllCuisine();
+
+      if (!cuisines.length) {
+        return res.status(404).json({ message: "Cuisines are empty" });
+      }
+
+      const mainCuisines = await CuisineService.getMainCuisine(
+        cuisineParams,
+        category,
+        limit
+      );
+
+      return mainCuisines.length
+        ? res.status(200).json({
+            status: "success",
+            results: mainCuisines.length,
+            data: mainCuisines,
+          })
+        : res
+            .status(404)
+            .json({ status: "failure", message: "Main Cuisines not found" });
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
+  },
+
   createCuisine: async (req, res) => {
     try {
       const newCuisine = req.body;

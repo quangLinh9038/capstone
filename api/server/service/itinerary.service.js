@@ -135,8 +135,11 @@ const ItineraryService = {
   ) => {
     try {
       const cuisineUniquePointList = [];
+
+      const typeOfCuisine = "lunch";
       const mainCuisines = await CuisineService.getMainCuisine(
         cuisineParams,
+        typeOfCuisine,
         cuisineLimit
       );
       // console.log(
@@ -147,13 +150,6 @@ const ItineraryService = {
       mainCuisines.forEach((cuisine) => {
         cuisineUniquePointList.push(cuisine.unique_point);
       });
-
-      if (cuisineUniquePointList.length === 0) {
-        // console.log(
-        // "🚀 ~ file: itinerary.service.js ~ line 120 ~ mainCuisines.forEach ~ cuisineUniquePointList is empty",
-        // cuisineUniquePointList
-        // );
-      }
 
       const shortestLunchCuisine =
         await ItineraryNeo4jService.getShortestLunchCuisine(
@@ -227,8 +223,11 @@ const ItineraryService = {
   ) => {
     try {
       const dinnerCuisineUniquePointList = [];
+
+      const typeOfCuisine = "dinner";
       const mainDinnerCuisine = await CuisineService.getMainCuisine(
         dinnerCuisineParams,
+        typeOfCuisine,
         cuisineLimit
       );
       // console.log(

@@ -42,23 +42,31 @@ const CuisineService = {
       return error;
     }
   },
-  getMainCuisine: async (params, limit) => {
+
+  getMainCuisine: async (params, category, limit) => {
     try {
       // console.log(
       // "🚀 ~ file: cuisine.service.js ~ line 48 ~ getMainCuisine: ~ params",
       // params
       // );
+      let subQuery;
+      if (typeof params === "string") {
+        subQuery = `"${params}"`;
+      } else {
+        subQuery = params.map((item) => `"${item}"`).join("+");
+      }
 
       const model = "Cuisine";
-
-      const sql = generateSqlGetLandmarkResult(model, params, limit);
+      const sql = `SELECT *, ${subQuery} AS point
+                FROM "${model}" WHERE category='${category}'
+                ORDER BY point DESC LIMIT ${limit};`;
 
       const mainCuisine = await db.sequelize.query(sql, {
         type: QueryTypes.SELECT,
         include: [{ model: City, as: "city" }],
       });
 
-      return !mainCuisine ? null : mainCuisine;
+      return mainCuisine ? mainCuisine : null;
     } catch (error) {
       return error;
     }
@@ -82,6 +90,7 @@ const CuisineService = {
       return error;
     }
   },
+
   getOneCuisineByUniquePoint: async (unique_point) => {
     try {
       return await Cuisine.findOne({

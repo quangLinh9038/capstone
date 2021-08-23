@@ -1,5 +1,5 @@
 /**
- * Define neode methods for Place label
+ * Define neode methods for Accommodation label
  */
 
 // include defined Neode instance
@@ -11,18 +11,20 @@ const AccommodationNeo4jService = {
   },
 
   createAccommodation: async (properties) => {
-    // Cypher:
     // CREATE (a:Accommodation {properties}) RETURN a
     await neode.create("Accommodation", properties);
   },
+
   deleteOneAccommodationNode: async (unique_point) => {
     const cypher = `MATCH (a:Accommodation {unique_point: '${unique_point}'}) DETACH DELETE a`;
-    return await neode.cypher(cypher);
+    return await neode.writeCypher(cypher);
   },
+
   deleteAllAccommodations: async () => {
     // DELETE (a:Accommodation) DETACH DELETE a;
     await neode.deleteAll("Accommodation");
   },
+
   updateAccommodation: async (unique_point, updateAccommodation) => {
     const accommodationToUpdate = await neode.first(
       "Accommodation",
@@ -32,7 +34,7 @@ const AccommodationNeo4jService = {
     return await accommodationToUpdate.update(updateAccommodation);
   },
 
-  // init relationship between Place and Accommodation to create distance
+  // init relationship between Place and Accommodation to create distance properties
   initRelationshipToCuisine: async () => {
     const cypher = `CALL apoc.periodic.iterate(
         "MATCH (a:Accommodation), (c:Cuisine)
@@ -43,7 +45,7 @@ const AccommodationNeo4jService = {
         RETURN a, c, distance",
         "CREATE (a)-[:DISTANCE_TO {dist: distance}]->(c) RETURN a, c",
         {batchSize: 1000, parallel: true})`;
-    const result = await neode.cypher(cypher);
+    const result = await neode.writeCypher(cypher);
 
     return result
       ? console.log(`Init relationship success Accommodation to Cuisine`)

@@ -14,7 +14,7 @@ const CuisineNeo4jService = {
   },
   deleteOneCuisineNode: async (unique_point) => {
     const cypher = `MATCH (c:Cuisine {unique_point: '${unique_point}'}) DETACH DELETE c`;
-    return await neode.cypher(cypher);
+    return await neode.writeCypher(cypher);
   },
   deleteAllCuisines: async () => {
     // DELETE (p:Place) DETACH DELETE p;

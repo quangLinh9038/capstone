@@ -24,6 +24,12 @@ module.exports = (sequelize, DataTypes) => {
       img: {
         type: DataTypes.TEXT,
       },
+      category: {
+        type: DataTypes.STRING,
+      },
+      price: {
+        type: DataTypes.FLOAT,
+      },
       isVietnamese: {
         type: DataTypes.INTEGER,
       },
