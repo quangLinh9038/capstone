@@ -7,15 +7,11 @@ const InterestController = {
     try {
       const allInterests = await InterestService.getAllInterests();
 
-      // check empty list
-      if (allInterests.length === 0) {
-        return res.status(204).json({
-          msg: 'Interests are empty!',
-        });
-      }
-
-      // response list of users
-      return res.status(200).json(allInterests);
+      return allInterests.length
+        ? res.status(200).json(allInterests)
+        : res.status(404).json({
+            msg: "Interests are empty!",
+          });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
@@ -46,12 +42,14 @@ const InterestController = {
       // if not, return existed error messages
       if (Array.isArray(existedInterestList) && !existedInterestList.length) {
         // create list of places
-      const _newInterests = await InterestService.createInterests(newInterests);
-      return res.status(201).json({
-        msg: "Interest created",
-        results: _newInterests.length,
-        newPlaces: _newInterests, 
-      });
+        const _newInterests = await InterestService.createInterests(
+          newInterests
+        );
+        return res.status(201).json({
+          msg: "Interest created",
+          results: _newInterests.length,
+          newPlaces: _newInterests,
+        });
       }
 
       return res.status(400).send({
@@ -63,8 +61,8 @@ const InterestController = {
   },
 
   // delete interest by id
-  deleteInterest: async (req, res) =>{
-    const {id} = req.params;
+  deleteInterest: async (req, res) => {
+    const { id } = req.params;
 
     try {
       const interestToDelete = await InterestService.deleteInterest(id);
@@ -80,8 +78,7 @@ const InterestController = {
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
-  }
+  },
 };
 
 module.exports = InterestController;
-

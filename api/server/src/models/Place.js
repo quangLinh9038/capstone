@@ -32,6 +32,10 @@ module.exports = (sequelize, DataTypes) => {
       category: {
         type: DataTypes.STRING,
       },
+
+      price: {
+        type: DataTypes.FLOAT,
+      },
       description: {
         type: DataTypes.TEXT,
       },

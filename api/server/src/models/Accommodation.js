@@ -42,7 +42,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: true,
       },
       price: {
-        type: DataTypes.STRING,
+        type: DataTypes.FLOAT,
       },
       is3stars: {
         type: DataTypes.INTEGER,
