@@ -48,6 +48,8 @@ const ItineraryController = {
 
       const cuisineParams = req.query.cuisines;
       const cuisineLimit = req.query.cuisineLimit;
+
+      var totalPrice = 0;
       // console.log(
       // "🚀 ~ file: itinerary.controller.js ~ line 16 ~ getAnItinerary: ~ placeParams",
       // placeParams
@@ -159,16 +161,52 @@ const ItineraryController = {
         ...[firstPlaceAndShortestAccommodation[0]],
         ...mainPlacesForOneItinerary,
       ];
+
       const accommodations = [firstPlaceAndShortestAccommodation[1]];
+
       const cuisines = [
         ...shortestLunchCuisineFromAccommodationList,
         ...shortestDinnerCuisine,
       ];
 
+      /* 
+        Get price of Places 
+      */
+      for (const place of places) {
+        const _place = await PlaceService.getPlaceByUniquePoint(place);
+
+        totalPrice += _place.price;
+      }
+
+      /* 
+        Get price of Accommodations
+      */
+      for (const accommodation of accommodations) {
+        const _accommodation =
+          await AccommodationService.getOneAccommodationByUniquePoint(
+            accommodation
+          );
+
+        // accommodation price calculated according to number of traveling days
+        totalPrice += _accommodation.price * (cuisines.length / 2);
+      }
+
+      /* 
+        Get price of Cuisines 
+      */
+      for (const cuisine of cuisines) {
+        const _cuisine = await CuisineService.getOneCuisineByUniquePoint(
+          cuisine
+        );
+
+        totalPrice += _cuisine.price;
+      }
+
       return shortestDinnerCuisine
         ? res.status(200).json({
             status: "success",
             data: {
+              totalPrice: totalPrice,
               accommodations: accommodations,
               cuisines: cuisines,
               places: places,
