@@ -13,6 +13,9 @@ const {
 } = process.env;
 
 module.exports = {
+  /* 
+    Local database when in development 
+  */
   development: {
     port: PG_PORT,
     username: PG_USERNAME,
