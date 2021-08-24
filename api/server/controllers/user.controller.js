@@ -45,7 +45,7 @@ const UserController = {
 
       //auto refresh token after the access token expired
       res.cookie("refreshToken", refreshToken, {
-        httpOnly: false,
+        //httpOnly: true,
         path: "/users/refresh_token",
         maxAge: 7 * 24 * 60 * 60 * 1000, //7d
       });
@@ -73,7 +73,7 @@ const UserController = {
 
       //auto refresh token after the access token expired
       res.cookie("refreshToken", refreshToken, {
-        httpOnly: false,
+        //httpOnly: true,
         path: "/users/refresh_token",
         maxAge: 7 * 24 * 60 * 60 * 1000, //7d
       });
