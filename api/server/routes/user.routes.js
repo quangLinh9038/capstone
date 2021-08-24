@@ -12,7 +12,7 @@ userRoutes
   .post("/login", UserController.login)
   .post("/register", UserController.register)
   .post("/interests", auth, UserController.addInterest)
-  .delete("/interests", auth, UserController.deleteUserInterest)
+  .delete("/interests", auth, UserController.deleteInterest)
   .delete("/", UserController.deleteAllUsers);
 
 module.exports = userRoutes;

@@ -2,12 +2,17 @@ const db = require("../src/models");
 
 const { User } = db;
 const { Interest } = db;
+<<<<<<< HEAD
 const { UserInterest } = db;
 const { Trip } = db;
 const { Itinerary } = db;
 const { Place } = db;
 const { Accommodation } = db;
 const { Cuisine } = db;
+=======
+const { Trip } = db;
+const { UserInterest } = db;
+>>>>>>> b82dc5dfa6e1da20f66a216e85ce6aa770ddf70f
 
 const UserService = {
   getAllUser: async () => {

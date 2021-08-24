@@ -163,6 +163,22 @@ const UserController = {
         const _interest = await InterestService.getInterestInfo(interest);
         await user.addInterest(_interest);
       }
+<<<<<<< HEAD
+      const interest = await InterestService.getInterestInfo(
+        req.body.interest_id
+      );
+      // console.log(
+      // "🚀 ~ file: user.controller.js ~ line 138 ~ addInterest: ~ interest",
+      // interest
+      // );
+      if (!interest) {
+        return res.status(404).send({ message: `Association not found` });
+      }
+
+      //populate UserInterest join table
+      await user.addInterest(interest);
+=======
+>>>>>>> b82dc5dfa6e1da20f66a216e85ce6aa770ddf70f
 
       let UserInterest = await UserService.getUserInfo(req.user.id);
       return res.status(201).json(UserInterest);
@@ -175,6 +191,18 @@ const UserController = {
   deleteInterest: async (req, res) => {
     try {
       const user = await UserService.getUserInfo(req.user.id);
+<<<<<<< HEAD
+
+      const interest = await InterestService.getInterestInfo(
+        req.body.interest_id
+      );
+      if (!interest) {
+        return res.status(404).send({ message: `Association not found` });
+      }
+      await user.removeInterest(interest);
+      await interest.removeUser(user);
+=======
+>>>>>>> b82dc5dfa6e1da20f66a216e85ce6aa770ddf70f
 
       const interests = req.body.interests;
       /* 
