@@ -17,7 +17,7 @@ const UserService = {
       return error;
     }
   },
-  
+
   //get user by email
   getOneUser: async (checkEmail) => {
     try {
@@ -70,7 +70,6 @@ const UserService = {
     }
   },
 
-<<<<<<< HEAD
   getTripsByUser: async (id) => {
     console.log(
       "🚀 ~ file: user.service.js ~ line 73 ~ getTripsByUser: ~ user_id",
@@ -120,8 +119,6 @@ const UserService = {
     }
   },
 
-=======
->>>>>>> b82dc5dfa6e1da20f66a216e85ce6aa770ddf70f
   deleteAllUser: async () => {
     try {
       return await User.destroy({ where: {} });
