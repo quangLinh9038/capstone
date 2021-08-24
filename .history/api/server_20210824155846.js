@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
-const morganMiddleware = require("./server/middleware/morganMiddleware");
+const morganMiddleware = require("");
 
 const port = process.env.PORT;
 require("dotenv").config();
@@ -37,8 +37,7 @@ app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(bodyParser.json({ limit: "50mb" })); // increase POST json upto 50mb
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: false }));
-// app.use(morgan("short"));
-app.use(morganMiddleware);
+app.use(morgan("short"));
 
 // Routes
 app.use("/", routes);

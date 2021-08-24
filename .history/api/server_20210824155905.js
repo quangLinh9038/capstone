@@ -37,8 +37,7 @@ app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(bodyParser.json({ limit: "50mb" })); // increase POST json upto 50mb
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: false }));
-// app.use(morgan("short"));
-app.use(morganMiddleware);
+app.use(morgan("short"));
 
 // Routes
 app.use("/", routes);
