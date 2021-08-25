@@ -102,12 +102,12 @@ const UserController = {
         return res.status(400).json({ msg: "Please Login or Register" });
 
       jwt.verify(rf_token, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
-        if (err)
+        if (err) {
           return res.status(400).json({ msg: "Please Login or Register" });
+        }
 
         const accessToken = createAccessToken({ id: user.id });
-
-        res.json({ accessToken: accessToken });
+        return res.json({ accessToken: accessToken });
       });
 
       // res.json({ rf_token });
