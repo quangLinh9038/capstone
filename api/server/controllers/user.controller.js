@@ -107,7 +107,7 @@ const UserController = {
         }
 
         const accessToken = createAccessToken({ id: user.id });
-        return res.json({ accessToken });
+        return res.status(200).json({status: "success", accessToken: accessToken });
       });
 
       return res.json({ rf_token });
