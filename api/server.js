@@ -39,7 +39,7 @@ expressApp.use(bodyParser.urlencoded({ limit: "50mb", extended: false }));
 expressApp.use("/", routes);
 
 expressApp.listen(process.env.PORT || 5000, "0.0.0.0", function () {
-  console.log(`Listening  ${port}... `);
+  console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
   // server.close(function () {
   //   console.log("Doh :(");
   // });
