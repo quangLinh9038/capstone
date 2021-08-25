@@ -11,7 +11,7 @@ const db = require("./server/src/models");
 const expressApp = express();
 
 var corsOptions = {
-  origin: 'https://wkgetaway.herokuapp.com/,
+  origin: 'https://wkgetaway.herokuapp.com/',
   optionsSuccessStatus: 200
 }
 
