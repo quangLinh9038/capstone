@@ -5,7 +5,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 
-const port = process.env.PORT;
+const port = process.env.PORT || 5000;
 console.log(port);
 const routes = require("./server/routes");
 const db = require("./server/src/models");
