@@ -10,6 +10,10 @@ const routes = require("./server/routes");
 const db = require("./server/src/models");
 const expressApp = express();
 
+var corsOptions = {
+  origin: 'https://capstone-tripplanner-back.herokuapp.com/',
+  optionsSuccessStatus: 200
+}
 
 // database connection authentication
 db.sequelize
@@ -28,7 +32,7 @@ db.sequelize.sync({ force: false, alter: false }).then(() => {
   console.log("Models synced...");
 });
 
-expressApp.use(cors());
+expressApp.use(cors(corsOptions));
 expressApp.use(cookieParser());
 expressApp.use(bodyParser.json({ limit: "50mb" })); // increase POST json upto 50mb
 expressApp.use(bodyParser.urlencoded({ limit: "50mb", extended: false }));
