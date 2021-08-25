@@ -32,7 +32,7 @@ const PlaceController = {
       /***
        * Define conditions for query
        */
-      var condition = name ? { name: { [Op.like]: `%${name}%` } } : null;
+      var condition = name ? { name: { [Op.iLike]: `%${name}%` } } : null;
       var condition1 = isHistorical ? { isHistorical: { [Op.eq]: 1 } } : null;
       var condition2 = isUrban ? { isUrban: { [Op.eq]: 1 } } : null;
       var condition3 = isReligious ? { isReligious: { [Op.eq]: 1 } } : null;
