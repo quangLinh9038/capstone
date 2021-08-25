@@ -107,10 +107,10 @@ const UserController = {
         }
 
         const accessToken = createAccessToken({ id: user.id });
-        return res.json({ accessToken: accessToken });
+        return res.json({ accessToken });
       });
 
-      // res.json({ rf_token });
+      return res.json({ rf_token });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
