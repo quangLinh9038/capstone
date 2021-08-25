@@ -1,4 +1,5 @@
 require("dotenv").config();
+var port = process.env.PORT;
 
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -9,9 +10,6 @@ const routes = require("./server/routes");
 const db = require("./server/src/models");
 const expressApp = express();
 
-const corsOptions = {
-  origin: "http://localhost:3000",
-};
 
 // database connection authentication
 db.sequelize
@@ -30,7 +28,7 @@ db.sequelize.sync({ force: false, alter: false }).then(() => {
   console.log("Models synced...");
 });
 
-expressApp.use(cors(corsOptions));
+expressApp.use(cors());
 expressApp.use(cookieParser());
 expressApp.use(bodyParser.json({ limit: "50mb" })); // increase POST json upto 50mb
 expressApp.use(bodyParser.urlencoded({ limit: "50mb", extended: false }));
@@ -38,10 +36,7 @@ expressApp.use(bodyParser.urlencoded({ limit: "50mb", extended: false }));
 // Routes
 expressApp.use("/", routes);
 
-expressApp.listen(process.env.PORT || 5000, "0.0.0.0", function () {
+expressApp.listen(port, function () {
   console.log("Express server listening on port %d in %s mode", this.address().port, expressApp.settings.env);
-  // server.close(function () {
-  //   console.log("Doh :(");
-  // });
 });
 module.exports = expressApp;
