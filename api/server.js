@@ -5,9 +5,6 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 
-const port = process.env.PORT || 5000;
-const host = '0.0.0.0';
-
 const routes = require("./server/routes");
 const db = require("./server/src/models");
 const expressApp = express();
@@ -41,7 +38,7 @@ expressApp.use(bodyParser.urlencoded({ limit: "50mb", extended: false }));
 // Routes
 expressApp.use("/", routes);
 
-expressApp.listen(port, host, function () {
+expressApp.listen(process.env.PORT || 5000, "0.0.0.0", function () {
   console.log(`Listening  ${port}... `);
   // server.close(function () {
   //   console.log("Doh :(");
