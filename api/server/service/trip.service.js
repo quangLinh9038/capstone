@@ -9,13 +9,6 @@ const { Place } = db;
 const { Accommodation } = db;
 const { Cuisine } = db;
 
-/* 
-  Import services
-*/
-const PlaceService = require("./place.service");
-const AccommodationService = require("./accommodation.service");
-const TripNeo4jService = require("../../neo4j/service/trip.neo4j.service");
-
 const TripService = {
   getAllTrips: async () => {
     try {
@@ -42,6 +35,36 @@ const TripService = {
           {
             model: User,
             as: "user",
+          },
+        ],
+      });
+    } catch (error) {
+      return error;
+    }
+  },
+
+  getAllTripByUser: async (uId) => {
+    try {
+      return await Trips.findAll({
+        where: { user_id: uId },
+        include: [
+          {
+            model: Itinerary,
+            as: "itineraries",
+            include: [
+              {
+                model: Place,
+                as: "places",
+              },
+              {
+                model: Accommodation,
+                as: "accommodations",
+              },
+              {
+                model: Cuisine,
+                as: "cuisines",
+              },
+            ],
           },
         ],
       });
@@ -83,6 +106,7 @@ const TripService = {
       return error;
     }
   },
+
   createOneTrip: async (newTrip) => {
     try {
       return await Trip.create(newTrip);
@@ -91,122 +115,41 @@ const TripService = {
     }
   },
 
-  getFirstPlaceAndShortestAccommodation: async (
-    placeParams,
-    placeLimit,
-    accommodationParams,
-    accommodationLimit
-  ) => {
+  deleteTripById: async (tripToDelete) => {
     try {
-      // console.log(
-      // "🚀 ~ file: trip.service.js ~ line 40 ~ accommodationLimit",
-      // accommodationLimit
-      // );
-      const accommodationUniquePointList = [];
-
-      //get main places
-      const mainPlaces = await PlaceService.getLandmarkPlaces(
-        placeParams,
-        placeLimit
-      );
-      // console.log(
-      // "🚀 ~ file: trip.service.js ~ line 41 ~ mainPlaces",
-      // mainPlaces.length
-      // );
-
-      const mainAccommodations =
-        await AccommodationService.getMainAccommodation(
-          accommodationParams,
-          accommodationLimit
-        );
-      // console.log(
-      // "🚀 ~ file: trip.service.js ~ line 47 ~ mainAccomms",
-      // mainAccommodations.length
-      // );
-
-      if (!mainPlaces || !mainAccommodations) {
-        return null;
-      }
-
-      /**
-       * Get unique_point as parameters
-       */
-      const firstPlacePoint = mainPlaces[0].unique_point;
-      // console.log(
-      // "🚀 ~ file: trip.service.js ~ line 45 ~ firstPlacePoint",
-      // firstPlacePoint
-      // );
-
-      /*  
-      Get main accomms unique_point list
-      */
-      mainAccommodations.forEach((accommodation) => {
-        accommodationUniquePointList.push(accommodation.unique_point);
-      });
-      // console.log(
-      // "🚀 ~ file: trip.service.js ~ line 74 ~ mainAccomms.forEach ~ accommodationUniquePointList",
-      // accommodationUniquePointList
-      // );
-
-      //return shortest accommodation
-      const firstPlaceAndShortestAccommodation =
-        await TripNeo4jService.getFirstPlaceAndShortestAccommodation(
-          firstPlacePoint,
-          accommodationUniquePointList
-        );
-
-      // check null response
-      if (!firstPlaceAndShortestAccommodation.length) {
-        // console.log(
-        // "🚀 ~ file: trip.service.js ~ line 87 ~ firstPlaceAndShortestAccommodation",
-        // firstPlaceAndShortestAccommodation
-        // );
-
-        return null;
-      }
-
-      // console.log(
-      // "🚀 ~ file: trip.service.js ~ line 96 ~ firstPlaceAndShortestAccommodation",
-      // firstPlaceAndShortestAccommodation
-      // );
-
-      return firstPlaceAndShortestAccommodation;
+      return await tripToDelete.destroy();
     } catch (error) {
       return error;
     }
   },
 
-  getMainPlacesForATrip: async (
-    placeParams,
-    placeLimit,
-    shortestAccommodationUniquePoint
-  ) => {
+  deleteAllTripByUserId: async (uId) => {
     try {
-      const placeUniquePointList = [];
+      return await Trip.destroy({ where: { user_id: uId } });
+    } catch (error) {
+      return error;
+    }
+  },
 
-      const landmarkPlaces = await PlaceService.getLandmarkPlaces(
-        placeParams,
-        placeLimit
-      );
+  deleteAllTrip: async () => {
+    try {
+      return await Trip.destroy({ where: {} });
+    } catch (error) {
+      return error;
+    }
+  },
 
-      landmarkPlaces.forEach((places) =>
-        placeUniquePointList.push(places.unique_point)
-      );
+  updateTripById: async (id, updateTrip) => {
+    try {
+      const tripToUpdate = await Trip.findByPk(id);
 
-      // console.log(
-      // "🚀 ~ file: trip.service.js ~ line 118 ~ placeUniquePointList",
-      // placeUniquePointList
-      // );
-      const mainPlacesForATrip = await TripNeo4jService.getMainPlacesForATrip(
-        shortestAccommodationUniquePoint,
-        placeUniquePointList
-      );
-      // console.log(
-      // "🚀 ~ file: trip.service.js ~ line 125 ~ mainPlacesForATrip",
-      // mainPlacesForATrip
-      // );
-
-      return mainPlacesForATrip;
+      if (tripToUpdate) {
+        const _updateTrip = await Trip.update(updateTrip, {
+          where: { id: id },
+        });
+        return _updateTrip;
+      }
+      return null;
     } catch (error) {
       return error;
     }

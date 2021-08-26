@@ -5,11 +5,6 @@ Import services
 const CuisineNeo4jService = require("../../neo4j/service/cuisine.neo4j.service");
 const CuisineService = require("../service/cuisine.service");
 
-/* 
-Import utils 
-*/
-const parsingStringToObject = require("../utils/parsingStringToObject");
-
 const CuisineController = {
   getAllCuisine: async (req, res) => {
     try {
@@ -165,21 +160,13 @@ const CuisineController = {
         const _newCuisines = await CuisineService.createCuisines(newCuisine);
 
         /**
-         * Parsing _newPlaces to Object to post to Neo4j
-         */
-        const objNewCuisines = parsingStringToObject(_newCuisines);
-
-        /**
          * Use neode to create nodes from JSON request
-         * @param {props} properties of Place nodes containing {name, lat, lng, unique_point}
-         *
-         * forEach() objects in newPlaces list
+         * @param {props} properties of Place label containing {name, lat, lng, unique_point}
          */
-        await objNewCuisines.forEach((props) =>
-          CuisineNeo4jService.createCuisine(props)
-        );
-
-        // return results
+        for (const cuisine of _newCuisines) {
+          const props = cuisine.dataValues;
+          await CuisineNeo4jService.createCuisine(props);
+        }
         return res.status(201).json({
           status: "success",
           results: _newCuisines.length,
@@ -291,10 +278,3 @@ const CuisineController = {
 };
 
 module.exports = CuisineController;
-
-/* Params */
-// isVietnamese
-// isWestern
-// isJapanese
-// isThai
-// idIndian

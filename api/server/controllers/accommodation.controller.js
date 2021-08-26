@@ -1,10 +1,7 @@
+const { Op } = require("sequelize");
+
 const AccommodationService = require("../service/accommodation.service");
 const AccommodationNeo4jService = require("../../neo4j/service/accommodation.neo4j.service");
-const { Op } = require("sequelize");
-/***
- * Import utils
- */
-const parsingStringToObject = require("../utils/parsingStringToObject");
 
 const AccommodationController = {
   getAllAccommodations: async (req, res) => {
@@ -85,7 +82,7 @@ const AccommodationController = {
       }
       /**
        * If conditions are every null
-       * return GET all accoms routes
+       * return GET all accommodation routes
        */
       const allAccommodations =
         await AccommodationService.getAllAccommodations();
@@ -197,21 +194,20 @@ const AccommodationController = {
         //   "🚀 ~ file: accommodation.controller.js ~ line 119 ~ createAccommodations: ~ _newAccommodation",
         //   _newAccommodation
         // );
-        /**
-         * Parsing _newAccomms as Object
-         */
-        const objNewAccommodation = parsingStringToObject(_newAccommodation);
-
+        if (!_newAccommodation.length) {
+          return res.status(500).json({
+            msg: "Cannot create Accommodations to Postgresql database.",
+          });
+        }
         /**
          * Use neode to create nodes from JSON request
          * @param {props} properties of Accommodation nodes containing {name, lat, lng}
          * forEach() objects in newAccommodations list
          */
-
-        await objNewAccommodation.forEach((props) =>
-          AccommodationNeo4jService.createAccommodation(props)
-        );
-
+        for (const accommodation of _newAccommodation) {
+          const props = accommodation.dataValues;
+          await AccommodationNeo4jService.createAccommodation(props);
+        }
         await AccommodationNeo4jService.initRelationshipToCuisine();
 
         return res.status(201).json({

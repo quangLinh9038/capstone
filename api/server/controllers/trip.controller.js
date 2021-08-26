@@ -1,8 +1,12 @@
+/* 
+  Import services
+*/
 const TripService = require("../service/trip.service");
 const ItineraryService = require("../service/itinerary.service");
 const PlaceService = require("../service/place.service");
 const AccommodationService = require("../service/accommodation.service");
 const CuisineService = require("../service/cuisine.service");
+const UserService = require("../service/user.service");
 
 const TripController = {
   getAllTrips: async (req, res) => {
@@ -14,6 +18,26 @@ const TripController = {
       }
 
       return res.status(200).json(trips);
+    } catch (error) {
+      return res.status(500).json({ msg: error.message });
+    }
+  },
+
+  getAllTripByUser: async (req, res) => {
+    try {
+      const uId = req.user.id;
+      const user = await UserService.getOneUserByEmail(uId);
+
+      if (user) {
+        const trips = TripService.getAllTripByUser(uId);
+        return res
+          .status(200)
+          .json({ status: "success", result: trips.length, data: trips });
+      }
+      return res.status(404).json({
+        status: "failure",
+        message: `Not found any Trips with User ID: ${uId}`,
+      });
     } catch (error) {
       return res.status(500).json({ msg: error.message });
     }
@@ -48,93 +72,12 @@ const TripController = {
 
   createNewTrip: async (req, res) => {
     try {
-    } catch (error) {
-      return res.status(500).json({ message: error.message });
-    }
-  },
-
-  /**
-   * GET the shortest Accommodation from landmark Place
-   * Return Accommodation {unique_point} to show info
-   */
-  getATripForOneDay: async (req, res) => {
-    try {
-      const mainPlacesUniquePoint = [];
-
-      const { placeParam1, placeParam2, placeLimit } = req.query;
-
-      if (!placeParam1 || !placeParam2 || !placeLimit) {
-        return res.status(400).send({ msg: "Place params missing" });
-      }
-      const placeParams = [placeParam1, placeParam2];
-      // console.log(
-      // "🚀 ~ file: trip.controller.js ~ line 32 ~ getATripForOneDay: ~ placeParams",
-      // placeParams
-      // );
-
-      const { accommodationParams, accommodationLimit } = req.query;
-      // console.log(
-      // "🚀 ~ file: trip.controller.js ~ line 36 ~ getATripForOneDay: ~ accommodationParams",
-      // accommodationParams
-      // );
-      if (!accommodationParams || !accommodationLimit) {
-        return res.status(400).send({ msg: "Accommodation params missing" });
-      }
-
-      const firstPlaceAndShortestAccommodation =
-        await TripService.getFirstPlaceAndShortestAccommodation(
-          placeParams,
-          placeLimit,
-          accommodationParams,
-          accommodationLimit
-        );
-
-      const shortestAccommodation = firstPlaceAndShortestAccommodation[1];
-
-      const aTripForOneDay = await TripService.getMainPlacesForATrip(
-        placeParams,
-        placeLimit,
-        shortestAccommodation
-      );
-      // console.log(
-      // "🚀 ~ file: trip.controller.js ~ line 51 ~ getATripForOneDay: ~ aTripForOneDay",
-      // aTripForOneDay
-      // );
-
-      if (aTripForOneDay.length === 0) {
-        return res.status(404).send({ message: "Not found data" });
-      }
-
-      aTripForOneDay.forEach((item) =>
-        mainPlacesUniquePoint.push(item._fields[0])
-      );
-
-      // console.log(
-      // "🚀 ~ file: trip.controller.js ~ line 74 ~ getATripForOneDay: ~ mainPlacesUniquePoint",
-      // mainPlacesUniquePoint
-      // );
-      return res.status(200).json({
-        status: "success",
-        results: {
-          firstPlaceAndShortestAccommodation:
-            firstPlaceAndShortestAccommodation.length,
-          mainPlaces: mainPlacesUniquePoint.length,
-        },
-        data: {
-          firstPlaceAndAccommodation: firstPlaceAndShortestAccommodation,
-
-          interestedPlaces: mainPlacesUniquePoint,
-        },
-      });
-    } catch (error) {
-      return res.status(500).json({ msg: error });
-    }
-  },
-
-  createNewTrip: async (req, res) => {
-    try {
       /* Get params */
+      /* 
+        TODO: get uId from req.user.id 
+      */
       const user_id = req.body.user_id;
+
       const tripTitle = req.body.title;
       const places = req.body.places;
       const accommodations = req.body.accommodations;
@@ -145,33 +88,9 @@ const TripController = {
       const numberOfItems =
         places.length + accommodations.length + cuisines.length;
 
-      // console.log(
-      // "🚀 ~ file: trip.controller.js ~ line 108 ~ createNewTrip: ~ uId",
-      // uId
-      // );
-
-      // console.log(
-      // "🚀 ~ file: trip.controller.js ~ line 114 ~ createNewTrip: ~ tripTitle",
-      // tripTitle
-      // );
-
-      // console.log(
-      // "🚀 ~ file: trip.controller.js ~ line 120 ~ createNewTrip: ~ places",
-      // places
-      // );
-      // console.log(
-      // "🚀 ~ file: trip.controller.js ~ line 125 ~ createNewTrip: ~ accommodations",
-      // accommodations
-      // );
-      // console.log(
-      // "🚀 ~ file: trip.controller.js ~ line 130 ~ createNewTrip: ~ cuisines",
-      // cuisines
-      // );
-
-      // console.log(
-      // "🚀 ~ file: trip.controller.js ~ line 137 ~ createNewTrip: ~ numberOfItems",
-      // numberOfItems
-      // );
+      /* 
+        TODO: get totalPrice params 
+      */
 
       if (
         !tripTitle.length &&
@@ -186,7 +105,6 @@ const TripController = {
           .status(400)
           .json({ status: "failure", message: "Missing request body" });
       }
-
       /* 
         Create new Trip
       */
@@ -260,6 +178,42 @@ const TripController = {
       return newTrip
         ? res.status(201).json({ status: "success", data: newTrip })
         : res.status(400).json({ status: "failure" });
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
+  },
+
+  deleteTripById: async (req, res) => {
+    try {
+      const id = req.query.id;
+
+      const tripToDelete = await TripService.getOneTripById(id);
+
+      if (tripToDelete) {
+        await TripService.deleteTripById(tripToDelete);
+        return res.status(204).json({
+          status: "success",
+          message: `Trip with ID: ${id} deleted successfully`,
+        });
+      }
+      return res
+        .status(404)
+        .json({ status: "failure", message: `Trip with ${id} not found!` });
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
+  },
+
+  deleteAllTripByUser: async (req, res) => {
+    try {
+      const user_id = req.params.user_id;
+
+      const user = UserService.getOneUserByEmail(user_id);
+
+      if (user) {
+        await TripService.deleteAllTripByUserId(user_id);
+        return res.status(200).json({ status: "success", message: "" });
+      }
     } catch (error) {
       return res.status(500).json({ message: error.message });
     }

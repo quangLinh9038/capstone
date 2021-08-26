@@ -1,4 +1,8 @@
 const routes = require("express").Router();
+
+/* 
+  Import routers
+*/
 const placesRoute = require("./place.routes");
 const accommodationsRoute = require("./accommodation.route");
 const usersRoute = require("./user.routes");
@@ -18,7 +22,7 @@ routes.use("/itineraries", itineraryRoutes);
 routes.use("/cities", cityRoutes);
 
 routes.get("/", (req, res) => {
-  res.status(200).json({ message: "API on air" });
+  res.status(200).json({ message: "API is ready" });
 });
 
 module.exports = routes;
