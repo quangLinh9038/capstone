@@ -1,8 +1,7 @@
 const { Router } = require("express");
 const InterestController = require("../controllers/interest.controller");
 const auth = require("../middleware/auth");
-const authAdmin = require("../middleware/authAdmin")
-
+const authAdmin = require("../middleware/authAdmin");
 
 const interestRoutes = Router();
 
@@ -12,4 +11,3 @@ interestRoutes
   .delete("/:id", auth, authAdmin, InterestController.deleteInterest);
 
 module.exports = interestRoutes;
-

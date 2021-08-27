@@ -131,13 +131,13 @@ const CuisineController = {
       if (!newCuisine.length) {
         return res
           .status(404)
-          .json({ status: "failure", message: "Missing request body" });
+          .json({ status: "failure", message: "Not found City ID" });
       }
 
       /*  
-            Check for each element of array places
-            whether existed place
-            */
+        Check for each element of array places
+        whether existed place
+      */
       for (const cuisine of newCuisine) {
         const existedCuisine = await CuisineService.getOneCuisineByName(
           cuisine.name
@@ -159,10 +159,10 @@ const CuisineController = {
          */
         const _newCuisines = await CuisineService.createCuisines(newCuisine);
 
-        /**
-         * Use neode to create nodes from JSON request
-         * @param {props} properties of Place label containing {name, lat, lng, unique_point}
-         */
+        if (!_newCuisines.length) {
+          return res.status(400).json({ status: "failure", me });
+        }
+
         for (const cuisine of _newCuisines) {
           const props = cuisine.dataValues;
           await CuisineNeo4jService.createCuisine(props);

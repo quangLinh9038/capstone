@@ -72,25 +72,21 @@ const TripController = {
 
   createNewTrip: async (req, res) => {
     try {
-      /* Get params */
-      /* 
-        TODO: get uId from req.user.id 
-      */
+      /* Get Trip params */
       const user_id = req.body.user_id;
-
+      const startDate = req.body.startDate;
+      const endDate = req.body.endDate;
       const tripTitle = req.body.title;
+
+      /* 
+        Get Itinerary params
+      */
       const places = req.body.places;
       const accommodations = req.body.accommodations;
       const cuisines = req.body.cuisines;
-      const startDate = req.body.startDate;
-      const endDate = req.body.endDate;
-
+      const totalPrice = req.body.totalPrice;
       const numberOfItems =
         places.length + accommodations.length + cuisines.length;
-
-      /* 
-        TODO: get totalPrice params 
-      */
 
       if (
         !tripTitle.length &&
@@ -124,6 +120,7 @@ const TripController = {
       */
       const newItinerary = await ItineraryService.createOneItinerary({
         numberOfItems: numberOfItems,
+        totalPrice: totalPrice,
         trip_id: newTrip.id,
       });
 
@@ -204,10 +201,30 @@ const TripController = {
     }
   },
 
+  updateTripById: async (req, res) => {
+    try {
+      const id = req.params.id;
+      const tripToUpdate = req.body;
+
+      const _tripToUpdate = await TripService.getOneTripById(id);
+
+      if (!_tripToUpdate) {
+        return res
+          .status(404)
+          .json({ status: "failure", message: `Trip with id ${id} not found` });
+      }
+
+      const updatedTrip = await TripService.updateTripById(id, tripToUpdate);
+
+      return res.status(200).json({ status: "success", data: updatedTrip });
+    } catch {
+      return res.status(500).json({ message: error.message });
+    }
+  },
+
   deleteAllTripByUser: async (req, res) => {
     try {
       const user_id = req.params.user_id;
-
       const user = UserService.getOneUserByEmail(user_id);
 
       if (user) {

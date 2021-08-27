@@ -123,14 +123,6 @@ const TripService = {
     }
   },
 
-  deleteAllTripByUserId: async (uId) => {
-    try {
-      return await Trip.destroy({ where: { user_id: uId } });
-    } catch (error) {
-      return error;
-    }
-  },
-
   deleteAllTrip: async () => {
     try {
       return await Trip.destroy({ where: {} });
@@ -149,7 +141,6 @@ const TripService = {
         });
         return _updateTrip;
       }
-      return null;
     } catch (error) {
       return error;
     }
