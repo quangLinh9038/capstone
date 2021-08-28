@@ -169,6 +169,16 @@ const ItineraryController = {
         ...shortestDinnerCuisine,
       ];
 
+      if ((!places.length, !accommodations.length, !cuisines.length)) {
+        return res.status(404).json({
+          status: "Not Found",
+          data: {
+            placeResults: places.length,
+            accommodationResult: accommodations.length,
+            cuisineResult: cuisines.length,
+          },
+        });
+      }
       /* 
         Get price of Places 
       */
