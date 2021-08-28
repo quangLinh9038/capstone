@@ -19,7 +19,7 @@ const UserService = {
   },
 
   //get user by email
-  getOneUser: async (checkEmail) => {
+  getOneUserByEmail: async (checkEmail) => {
     try {
       return await User.findOne({
         where: { email: checkEmail },
@@ -71,10 +71,6 @@ const UserService = {
   },
 
   getTripsByUser: async (id) => {
-    console.log(
-      "🚀 ~ file: user.service.js ~ line 73 ~ getTripsByUser: ~ user_id",
-      id
-    );
     try {
       return await User.findByPk(id, {
         include: [
@@ -100,7 +96,7 @@ const UserService = {
     }
   },
 
-  //delete UserInterest association
+  // delete UserInterest association
   removeUserInterest: async (user_id, interest_id) => {
     try {
       const userInterest = await UserInterest.findOne({

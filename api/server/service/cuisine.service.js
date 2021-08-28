@@ -6,9 +6,6 @@ const db = require("../src/models");
 const { Cuisine } = db;
 const { City } = db;
 
-/* Import utils */
-const generateSqlGetLandmarkResult = require("../utils/SqlUtils");
-
 const CuisineService = {
   getAllCuisine: async () => {
     try {

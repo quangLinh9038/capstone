@@ -174,7 +174,6 @@ const ItineraryController = {
       */
       for (const place of places) {
         const _place = await PlaceService.getPlaceByUniquePoint(place);
-
         totalPrice += _place.price;
       }
 
@@ -186,7 +185,6 @@ const ItineraryController = {
           await AccommodationService.getOneAccommodationByUniquePoint(
             accommodation
           );
-
         // accommodation price calculated according to number of traveling days
         totalPrice += _accommodation.price * (cuisines.length / 2);
       }
@@ -198,7 +196,6 @@ const ItineraryController = {
         const _cuisine = await CuisineService.getOneCuisineByUniquePoint(
           cuisine
         );
-
         totalPrice += _cuisine.price;
       }
 
