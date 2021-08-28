@@ -55,16 +55,17 @@ const ItineraryService = {
       // accommodationLimit
       // );
       const accommodationUniquePointList = [];
-
+      const duplicatedPlace = null;
       //get main places
-      const mainPlaces = await PlaceService.getLandmarkPlaces(
+      const landmarkPlaces = await PlaceService.getLandmarkPlaces(
         placeParams,
-        placeLimit
+        placeLimit,
+        duplicatedPlace
       );
-      // console.log(
-      // "🚀 ~ file: itinerary.service.js ~ line 65 ~ mainPlaces",
-      // mainPlaces.length
-      // );
+      console.log(
+        "🚀 ~ file: itinerary.service.js ~ line 65 ~ mainPlaces",
+        landmarkPlaces.length
+      );
 
       const mainAccommodations =
         await AccommodationService.getMainAccommodation(
@@ -76,14 +77,14 @@ const ItineraryService = {
       // mainAccommodations.length
       // );
 
-      if (!mainPlaces || !mainAccommodations) {
+      if (!landmarkPlaces || !mainAccommodations) {
         return null;
       }
 
       /**
        * Get unique_point as parameters
        */
-      const firstPlacePoint = mainPlaces[0].unique_point;
+      const firstPlacePoint = landmarkPlaces[0].unique_point;
       // console.log(
       // "🚀 ~ file: itinerary.service.js ~ line 88 ~ firstPlacePoint",
       // firstPlacePoint
@@ -171,8 +172,13 @@ const ItineraryService = {
   getMainPlaces: async (
     placeParams,
     placeLimit,
-    shortestCuisineUniquePoint
+    shortestCuisineUniquePoint,
+    duplicatedPlace
   ) => {
+    console.log(
+      "🚀 ~ file: itinerary.service.js ~ line 178 ~ duplicatedPlace",
+      duplicatedPlace
+    );
     try {
       // console.log(
       // "🚀 ~ file: itinerary.service.js ~ line 156 ~ placeParams",
@@ -182,16 +188,17 @@ const ItineraryService = {
 
       const placeUniquePointList = [];
 
-      const landmarkPlaces = await PlaceService.getLandmarkPlaces(
+      const mainPlaces = await PlaceService.getLandmarkPlaces(
         placeParams,
-        placeLimit
+        placeLimit,
+        duplicatedPlace
       );
-      // console.log(
-      // "🚀 ~ file: itinerary.service.js ~ line 167 ~ landmarkPlaces",
-      // landmarkPlaces.length
-      // );
+      console.log(
+        "🚀 ~ file: itinerary.service.js ~ line 197 ~ mainPlaces",
+        mainPlaces
+      );
 
-      landmarkPlaces.forEach((places) =>
+      mainPlaces.forEach((places) =>
         placeUniquePointList.push(places.unique_point)
       );
 
