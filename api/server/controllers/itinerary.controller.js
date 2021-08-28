@@ -89,10 +89,10 @@ const ItineraryController = {
           accommodationParams,
           accommodationLimit
         );
-      // console.log(
-      // "🚀 ~ file: itinerary.controller.js ~ line 43 ~ getAnItinerary: ~ firstPlaceAndShortestAccommodation",
-      // firstPlaceAndShortestAccommodation
-      // );
+      console.log(
+        "🚀 ~ file: itinerary.controller.js ~ line 43 ~ getAnItinerary: ~ firstPlaceAndShortestAccommodation",
+        firstPlaceAndShortestAccommodation.length
+      );
 
       /*  
         Get shortest Accommodation from queried results above
@@ -124,15 +124,22 @@ const ItineraryController = {
       /* 
         Get list of Places with the first one is the shortest from lunch Cuisine
       */
+      const duplicatePlace = firstPlaceAndShortestAccommodation[0];
+      console.log(
+        "🚀 ~ file: itinerary.controller.js ~ line 128 ~ getAnItinerary: ~ duplicatePlace",
+        duplicatePlace
+      );
+
       const mainPlacesForOneItinerary = await ItineraryService.getMainPlaces(
         placeParams,
         placeLimit,
-        shortestLunchCuisine
+        shortestLunchCuisine,
+        duplicatePlace
       );
-      // console.log(
-      // "🚀 ~ file: itinerary.controller.js ~ line 74 ~ getAnItinerary: ~ mainPlacesForOneItinerary",
-      // mainPlacesForOneItinerary
-      // );
+      console.log(
+        "🚀 ~ file: itinerary.controller.js ~ line 74 ~ getAnItinerary: ~ mainPlacesForOneItinerary",
+        mainPlacesForOneItinerary
+      );
 
       const penultimatePlace = mainPlacesForOneItinerary.slice(-3)[0];
       // console.log(
