@@ -9,10 +9,6 @@ const ItineraryController = {
   getOneItinerary: async (req, res) => {
     try {
       const { id } = req.params;
-      // console.log(
-      // "🚀 ~ file: itinerary.controller.js ~ line 13 ~ getOneItinerary: ~ id",
-      // id
-      // );
 
       if (!id) {
         return res
@@ -21,10 +17,6 @@ const ItineraryController = {
       }
 
       const itinerary = await ItineraryService.getOneItineraryById(id);
-      // console.log(
-      // "🚀 ~ file: itinerary.controller.js ~ line 25 ~ getOneItinerary: ~ itinerary",
-      // itinerary
-      // );
 
       return itinerary
         ? res.status(200).json({ status: "success", data: itinerary })
@@ -49,21 +41,10 @@ const ItineraryController = {
       const cuisineParams = req.query.cuisines;
       const cuisineLimit = req.query.cuisineLimit;
 
+      /* 
+        Init totalPrice default value 
+      */
       var totalPrice = 0;
-      // console.log(
-      // "🚀 ~ file: itinerary.controller.js ~ line 16 ~ getAnItinerary: ~ placeParams",
-      // placeParams
-      // );
-
-      // console.log(
-      // "🚀 ~ file: itinerary.controller.js ~ line 23 ~ getAnItinerary: ~ accommodationParams",
-      // accommodationParams
-      // );
-
-      // console.log(
-      // "🚀 ~ file: itinerary.controller.js ~ line 31 ~ getAnItinerary: ~ cuisineParams",
-      // cuisineParams
-      // );
 
       /* Check missing params */
       if (
@@ -89,10 +70,6 @@ const ItineraryController = {
           accommodationParams,
           accommodationLimit
         );
-      // console.log(
-      // "🚀 ~ file: itinerary.controller.js ~ line 43 ~ getAnItinerary: ~ firstPlaceAndShortestAccommodation",
-      // firstPlaceAndShortestAccommodation
-      // );
 
       /*  
         Get shortest Accommodation from queried results above
@@ -100,10 +77,6 @@ const ItineraryController = {
       */
       const shortestAccommodationFromFirstPlace =
         firstPlaceAndShortestAccommodation[1];
-      // console.log(
-      // "🚀 ~ file: itinerary.controller.js ~ line 49 ~ getAnItinerary: ~ shortestAccommodationFromFirstPlace",
-      // shortestAccommodationFromFirstPlace
-      // );
 
       /* 
         Get the shortest lunch cuisine from resulted Accommodation
@@ -116,29 +89,20 @@ const ItineraryController = {
         );
 
       const shortestLunchCuisine = shortestLunchCuisineFromAccommodationList[0];
-      // console.log(
-      // "🚀 ~ file: itinerary.controller.js ~ line 61 ~ getAnItinerary: ~ shortestLunchCuisineFromAccommodation",
-      // shortestLunchCuisineFromAccommodation
-      // );
 
       /* 
         Get list of Places with the first one is the shortest from lunch Cuisine
       */
+      const duplicatePlace = firstPlaceAndShortestAccommodation[0];
+
       const mainPlacesForOneItinerary = await ItineraryService.getMainPlaces(
         placeParams,
         placeLimit,
-        shortestLunchCuisine
+        shortestLunchCuisine,
+        duplicatePlace
       );
-      // console.log(
-      // "🚀 ~ file: itinerary.controller.js ~ line 74 ~ getAnItinerary: ~ mainPlacesForOneItinerary",
-      // mainPlacesForOneItinerary
-      // );
 
       const penultimatePlace = mainPlacesForOneItinerary.slice(-3)[0];
-      // console.log(
-      // "🚀 ~ file: itinerary.controller.js ~ line 89 ~ getAnItinerary: ~ penultimatePlace",
-      // penultimatePlace
-      // );
 
       /* 
         Get the shortest dinner Cuisine from the penultimate Places of above list
@@ -150,10 +114,6 @@ const ItineraryController = {
           penultimatePlace
         );
 
-      // console.log(
-      // "🚀 ~ file: itinerary.controller.js ~ line 143 ~ getAnItinerary: ~ shortestDinnerCuisine",
-      // shortestDinnerCuisine
-      // );
       /*
         Summarizing items of an Itinerary 
       */
@@ -169,12 +129,21 @@ const ItineraryController = {
         ...shortestDinnerCuisine,
       ];
 
+      if ((!places.length, !accommodations.length, !cuisines.length)) {
+        return res.status(404).json({
+          status: "Not Found",
+          data: {
+            placeResults: places.length,
+            accommodationResult: accommodations.length,
+            cuisineResult: cuisines.length,
+          },
+        });
+      }
       /* 
         Get price of Places 
       */
       for (const place of places) {
         const _place = await PlaceService.getPlaceByUniquePoint(place);
-
         totalPrice += _place.price;
       }
 
@@ -186,7 +155,6 @@ const ItineraryController = {
           await AccommodationService.getOneAccommodationByUniquePoint(
             accommodation
           );
-
         // accommodation price calculated according to number of traveling days
         totalPrice += _accommodation.price * (cuisines.length / 2);
       }
@@ -198,7 +166,6 @@ const ItineraryController = {
         const _cuisine = await CuisineService.getOneCuisineByUniquePoint(
           cuisine
         );
-
         totalPrice += _cuisine.price;
       }
 
@@ -222,10 +189,6 @@ const ItineraryController = {
   createNewItinerary: async (req, res) => {
     try {
       const title = req.body.title;
-      // console.log(
-      // "🚀 ~ file: itinerary.controller.js ~ line 151 ~ createNewItinerary: ~ newItinerary",
-      // title
-      // );
 
       const places = req.body.places;
       const accommodations = req.body.accommodations;
@@ -233,18 +196,6 @@ const ItineraryController = {
 
       var numberOfItems =
         places.length + accommodations.length + cuisines.length;
-      // console.log(
-      // "🚀 ~ file: itinerary.controller.js ~ line 144 ~ createNewItinerary: ~ accommodations",
-      // accommodations
-      // );
-      // console.log(
-      // "🚀 ~ file: itinerary.controller.js ~ line 142 ~ createNewItinerary: ~ places",
-      // places
-      // );
-      // console.log(
-      // "🚀 ~ file: itinerary.controller.js ~ line 146 ~ createNewItinerary: ~ cuisines",
-      // cuisines
-      // );
 
       if (!title.length) {
         return res
@@ -256,10 +207,6 @@ const ItineraryController = {
         title: title,
         numberOfItems: numberOfItems,
       });
-      // console.log(
-      //   "🚀 ~ file: itinerary.controller.js ~ line 183 ~ createNewItinerary: ~ _newItinerary",
-      //   typeof _newItinerary
-      // );
 
       /* 
         Add one Accommodation
@@ -270,11 +217,6 @@ const ItineraryController = {
         await AccommodationService.getOneAccommodationByUniquePoint(
           accommodations
         );
-
-      // console.log(
-      //   "🚀 ~ file: itinerary.controller.js ~ line 197 ~ accommodations.forEach ~ _accommodation",
-      //   _accommodation
-      // );
 
       await _newItinerary.addAccommodation(_accommodation);
 
@@ -297,17 +239,8 @@ const ItineraryController = {
         const _cuisine = await CuisineService.getOneCuisineByUniquePoint(
           cuisine
         );
-        // console.log(
-        //   "🚀 ~ file: itinerary.controller.js ~ line 215 ~ cuisines.forEach ~ _cuisine",
-        //   _cuisine
-        // );
         await _newItinerary.addCuisine(_cuisine);
       }
-
-      // console.log(
-      //   "🚀 ~ file: itinerary.controller.js ~ line 155 ~ createNewItinerary: ~ _newItinerary",
-      //   _newItinerary
-      // );
 
       return _newItinerary
         ? res.status(201).json({ status: "success", data: _newItinerary })

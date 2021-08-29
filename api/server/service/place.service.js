@@ -102,7 +102,7 @@ const PlaceService = {
   /**
    * Query Places for User's interests
    */
-  getLandmarkPlaces: async (params, limit) => {
+  getLandmarkPlaces: async (params, limit, duplicatedPlace) => {
     try {
       /**
        * @param {params}: query params from users
@@ -113,8 +113,12 @@ const PlaceService = {
 
       // model to query in Postgres database
       const model = "Place";
-
-      const sql = generateSqlGetLandmarkResult(model, params, limit);
+      const sql = generateSqlGetLandmarkResult(
+        model,
+        params,
+        limit,
+        duplicatedPlace
+      );
 
       const landmarkPlaces = await db.sequelize.query(sql, {
         type: QueryTypes.SELECT,

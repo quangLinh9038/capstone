@@ -6,9 +6,6 @@ const db = require("../src/models");
 const { Cuisine } = db;
 const { City } = db;
 
-/* Import utils */
-const generateSqlGetLandmarkResult = require("../utils/SqlUtils");
-
 const CuisineService = {
   getAllCuisine: async () => {
     try {
@@ -45,10 +42,6 @@ const CuisineService = {
 
   getMainCuisine: async (params, category, limit) => {
     try {
-      // console.log(
-      // "🚀 ~ file: cuisine.service.js ~ line 48 ~ getMainCuisine: ~ params",
-      // params
-      // );
       let subQuery;
       if (typeof params === "string") {
         subQuery = `"${params}"`;

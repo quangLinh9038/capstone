@@ -7,16 +7,14 @@ const jwt = require("jsonwebtoken");
 const { User } = db;
 
 const UserController = {
-  // create new user account
+  /* 
+    Create new user account
+  */
   register: async (req, res) => {
     try {
       const { lastName, firstName, email, password, role } = req.body;
 
-      const user = await UserService.getOneUser(email);
-      // console.log(
-      // "🚀 ~ file: user.controller.js ~ line 16 ~ register: ~ user",
-      // user
-      // );
+      const user = await UserService.getOneUserByEmail(email);
 
       if (user)
         return res.status(400).json({ msg: "The email already exists." });
@@ -61,7 +59,7 @@ const UserController = {
     try {
       const { email, password } = req.body;
 
-      const user = await UserService.getOneUser(email);
+      const user = await UserService.getOneUserByEmail(email);
       if (!user) return res.status(400).json({ msg: "User does not exist." });
 
       const isMatch = await bcrypt.compare(password, user.password);
@@ -84,7 +82,10 @@ const UserController = {
     }
   },
 
-  // clear token to logout
+  /*  
+    Logout 
+    * Clearing token to logout 
+  */
   logout: async (req, res) => {
     try {
       res.clearCookie("refreshToken", { path: "/users/refresh_token" });
@@ -94,7 +95,9 @@ const UserController = {
     }
   },
 
-  // get new token after access token expired
+  /*
+   * Get new token after access token expired
+   */
   refreshToken: (req, res) => {
     try {
       const rf_token = req.cookies.refreshToken;
@@ -107,7 +110,11 @@ const UserController = {
         }
 
         const accessToken = createAccessToken({ id: user.id });
+<<<<<<< HEAD
         return res.status(200).json({status: "success", accessToken: accessToken });
+=======
+        return res.json({ accessToken: accessToken });
+>>>>>>> release-1.4
       });
 
       return res.json({ rf_token });
@@ -116,8 +123,10 @@ const UserController = {
     }
   },
 
-  // get user information
-  getUser: async (req, res) => {
+  /* 
+    Get User's information
+  */
+  getUserInfo: async (req, res) => {
     try {
       const user = await UserService.getUserInfo(req.user.id);
 
@@ -132,10 +141,6 @@ const UserController = {
   getTripsByUser: async (req, res) => {
     try {
       const trips = await UserService.getTripsByUser(req.user.id);
-      console.log(
-        "🚀 ~ file: user.controller.js ~ line 135 ~ getTripsByUser: ~ trips",
-        trips
-      );
 
       return trips
         ? res.status(200).json({ status: "success", data: trips })
@@ -147,57 +152,51 @@ const UserController = {
       return res.status(500).json({ msg: error.message });
     }
   },
-  // add interest that user choose
+
+  /* 
+    Add interests that user choose 
+  */
   addInterest: async (req, res) => {
     try {
-      const user = await UserService.getUserInfo(req.user.id);
-      // console.log(
-      // "🚀 ~ file: user.controller.js ~ line 131 ~ addInterest: ~ user",
-      // user
-      // );
-      if (!user) {
-        res.status(404).send({ message: `Association not found` });
-        return null;
-      }
-      const interest = await InterestService.getInterestInfo(
-        req.body.interest_id
-      );
-      // console.log(
-      // "🚀 ~ file: user.controller.js ~ line 138 ~ addInterest: ~ interest",
-      // interest
-      // );
-      if (!interest) {
-        return res.status(404).send({ message: `Association not found` });
-      }
+      const interests = req.body.interests;
+      const uId = req.user.id;
+      const user = await UserService.getUserInfo(uId);
 
-      //populate UserInterest join table
-      await user.addInterest(interest);
+      if (user) {
+        /* 
+          Add list of Interests 
+        */
+        for (const interest of interests) {
+          const _interest = await InterestService.getInterestInfo(interest);
+          await user.addInterest(_interest);
+        }
+        const UserInterest = await UserService.getUserInfo(req.user.id);
 
-      let UserInterest = await UserService.getUserInfo(req.user.id);
-      return res.status(201).json(UserInterest);
+        return res.status(200).json({ status: "success", data: UserInterest });
+      }
+      return res.status(404).json({
+        status: "failure",
+        message: `User with ID: 
+      ${uId} not found!`,
+      });
     } catch (err) {
       return res.status(500).send(error);
     }
   },
 
-  // delete interest that user choosed before
-  deleteUserInterest: async (req, res) => {
+  // delete interests that user choose before
+  deleteInterest: async (req, res) => {
     try {
       const user = await UserService.getUserInfo(req.user.id);
+      const interests = req.body.interests;
 
-      const interest = await InterestService.getInterestInfo(
-        req.body.interest_id
-      );
-      if (!interest) {
-        return res.status(404).send({ message: `Association not found` });
+      /* 
+        Remove list of Interests 
+      */
+      for (const interest of interests) {
+        const _interest = await InterestService.getInterestInfo(interest);
+        await user.removeInterest(_interest);
       }
-      await user.removeInterest(interest);
-      await interest.removeUser(user);
-
-      await UserService.removeUserInterest(
-        req.body.user_id,
-        req.body.interest_id
-      );
 
       return res.status(200).send({
         message: `UserInterest has been deleted successfully`,

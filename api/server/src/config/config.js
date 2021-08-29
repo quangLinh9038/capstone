@@ -34,7 +34,7 @@ module.exports = {
     dialect: "postgres",
   },
   /* 
-  Cloud Database when in production
+    Cloud Database when in production
   */
   production: {
     username: PG_CLOUDUSER,

@@ -8,7 +8,6 @@ const PlaceNeo4jService = {
     // MATCH (p:Place) RETURN p;
     return await neode.all("Place");
   },
-
   createPlace: async (properties) => {
     // CREAT (p:Place {properties}) RETURN p;
     return await neode.create("Place", properties);

@@ -5,17 +5,20 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
+const morganMiddleware = require("./server/middleware/morganMiddleware");
 
 const routes = require("./server/routes");
 const db = require("./server/src/models");
 const expressApp = express();
 
 var corsOptions = {
-  origin: 'https://wkgetaway.herokuapp.com',
-  optionsSuccessStatus: 200
-}
+  origin: "https://wkgetaway.herokuapp.com",
+  optionsSuccessStatus: 200,
+};
 
-// database connection authentication
+/* 
+  Postgres database connection authentication 
+*/
 db.sequelize
   .authenticate()
   .then(() => {
@@ -25,22 +28,34 @@ db.sequelize
     console.log(`Error: ${err}`);
   });
 
-// sequelize sync
-// force: drop table first if exist and create new table
-// alter: check current states of changes of tables in database
+/* 
+Sequelize table sync
+* force: drop table first if exist and create new table
+* alter: check current states of changes of tables in database
+*/
 db.sequelize.sync({ force: false, alter: false }).then(() => {
   console.log("Models synced...");
 });
 
-expressApp.use(cors(corsOptions));
-expressApp.use(cookieParser());
-expressApp.use(bodyParser.json({ limit: "50mb" })); // increase POST json upto 50mb
-expressApp.use(bodyParser.urlencoded({ limit: "50mb", extended: false }));
+/* 
+  Using packages
+*/
+app.use(cors()); // * This enables ALL CORS Requests
+app.use(cookieParser());
+app.use(bodyParser.json({ limit: "50mb" })); // * Increase limitation of upload file
+app.use(bodyParser.urlencoded({ limit: "50mb", extended: false }));
+app.use(morganMiddleware); // * Logger middleware
 
-// Routes
-expressApp.use("/", routes);
+/* 
+  Using routes
+*/
+app.use("/", routes);
 
-expressApp.listen(port, function () {
-  console.log("Express server listening on port %d in %s mode", this.address().port, expressApp.settings.env);
+app.listen(port, function () {
+  console.log(
+    "Express server listening on port %d in %s mode",
+    this.address().port,
+    app.settings.env
+  );
 });
-module.exports = expressApp;
+module.exports = app;

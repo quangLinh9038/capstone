@@ -26,6 +26,7 @@ const CityController = {
       if (Array.isArray(existedCitiesList) && !existedCitiesList.length) {
         // create list of cities
         const _newCities = await CityService.createNewCity(newCities);
+
         return res.status(201).json({
           status: "success",
           results: _newCities.length,

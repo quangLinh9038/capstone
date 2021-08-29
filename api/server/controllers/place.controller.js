@@ -6,11 +6,6 @@ const { Op } = require("sequelize");
 const PlaceNeo4jService = require("../../neo4j/service/place.neo4j.service");
 const PlaceService = require("../service/place.service");
 
-/***
- * Import utils
- */
-const parsingStringToObject = require("../utils/parsingStringToObject");
-
 const PlaceController = {
   getAllPlaces: async (req, res) => {
     try {
@@ -185,24 +180,26 @@ const PlaceController = {
         //   _newPlaces
         // );
 
-        /**
-         * Parsing _newPlaces to Object to post to Neo4j
-         */
-        const objNewPlaces = parsingStringToObject(_newPlaces);
+        if (!_newPlaces.length) {
+          return res
+            .status(500)
+            .json({ msg: "Cannot create Places to Postgresql database." });
+        }
 
         /**
-         * Use neode to create nodes from JSON request
          * @param {props} properties of Place nodes containing {name, lat, lng, unique_point}
-         *
-         * forEach() objects in newPlaces list
-         */
-        await objNewPlaces.forEach((props) =>
-          PlaceNeo4jService.createPlace(props)
-        );
+         **/
+        for (const place of _newPlaces) {
+          const props = place.dataValues;
+          await PlaceNeo4jService.createPlace(props);
+        }
 
+        /* 
+          Init relationship between new Place label to Accommodation and Cuisine
+        */
         await PlaceNeo4jService.initRelationshipToAccommodation();
         await PlaceNeo4jService.initRelationshipToCuisine();
-        // return results
+
         return res.status(201).json({
           status: "success",
           results: _newPlaces.length,
