@@ -50,10 +50,6 @@ const ItineraryService = {
     accommodationLimit
   ) => {
     try {
-      // console.log(
-      // "🚀 ~ file: trip.service.js ~ line 40 ~ accommodationLimit",
-      // accommodationLimit
-      // );
       const accommodationUniquePointList = [];
       const duplicatedPlace = null;
       //get main places
@@ -62,20 +58,12 @@ const ItineraryService = {
         placeLimit,
         duplicatedPlace
       );
-      console.log(
-        "🚀 ~ file: itinerary.service.js ~ line 65 ~ mainPlaces",
-        landmarkPlaces.length
-      );
 
       const mainAccommodations =
         await AccommodationService.getMainAccommodation(
           accommodationParams,
           accommodationLimit
         );
-      // console.log(
-      // "🚀 ~ file: itinerary.service.js ~ line 75 ~ mainAccommodations",
-      // mainAccommodations.length
-      // );
 
       if (!landmarkPlaces || !mainAccommodations) {
         return null;
@@ -85,10 +73,6 @@ const ItineraryService = {
        * Get unique_point as parameters
        */
       const firstPlacePoint = landmarkPlaces[0].unique_point;
-      // console.log(
-      // "🚀 ~ file: itinerary.service.js ~ line 88 ~ firstPlacePoint",
-      // firstPlacePoint
-      // );
 
       /*  
         Get main accomms unique_point list
@@ -96,10 +80,6 @@ const ItineraryService = {
       mainAccommodations.forEach((accommodation) => {
         accommodationUniquePointList.push(accommodation.unique_point);
       });
-      // console.log(
-      // "🚀 ~ file: itinerary.service.js ~ line 97 ~ mainAccommodations.forEach ~ accommodationUniquePointList",
-      // accommodationUniquePointList
-      // );
 
       //return shortest accommodation
       const firstPlaceAndShortestAccommodation =
@@ -110,18 +90,8 @@ const ItineraryService = {
 
       // check null response
       if (!firstPlaceAndShortestAccommodation.length) {
-        // console.log(
-        // "🚀 ~ file: itinerary.service.js ~ line 113 ~ firstPlaceAndShortestAccommodation",
-        // firstPlaceAndShortestAccommodation
-        // );
-
         return null;
       }
-
-      // console.log(
-      // "🚀 ~ file: itinerary.service.js ~ line 121 ~ firstPlaceAndShortestAccommodation",
-      // firstPlaceAndShortestAccommodation
-      // );
 
       return firstPlaceAndShortestAccommodation;
     } catch (error) {
@@ -143,10 +113,6 @@ const ItineraryService = {
         typeOfCuisine,
         cuisineLimit
       );
-      // console.log(
-      // "🚀 ~. file: itinerary.service.js ~ line 116 ~ mainCuisines",
-      // mainCuisines.length
-      // );
 
       mainCuisines.forEach((cuisine) => {
         cuisineUniquePointList.push(cuisine.unique_point);
@@ -157,11 +123,6 @@ const ItineraryService = {
           cuisineUniquePointList,
           shortestAccommodationUniquePoint
         );
-
-      // console.log(
-      // "🚀 ~ file: itinerary.service.js ~ line 131 ~ shortestLunchCuisine",
-      // shortestLunchCuisine
-      // );
 
       return shortestLunchCuisine;
     } catch (error) {
@@ -175,17 +136,7 @@ const ItineraryService = {
     shortestCuisineUniquePoint,
     duplicatedPlace
   ) => {
-    console.log(
-      "🚀 ~ file: itinerary.service.js ~ line 178 ~ duplicatedPlace",
-      duplicatedPlace
-    );
     try {
-      // console.log(
-      // "🚀 ~ file: itinerary.service.js ~ line 156 ~ placeParams",
-      // placeParams,
-      // placeLimit
-      // );
-
       const placeUniquePointList = [];
 
       const mainPlaces = await PlaceService.getLandmarkPlaces(
@@ -193,29 +144,16 @@ const ItineraryService = {
         placeLimit,
         duplicatedPlace
       );
-      console.log(
-        "🚀 ~ file: itinerary.service.js ~ line 197 ~ mainPlaces",
-        mainPlaces
-      );
 
       mainPlaces.forEach((places) =>
         placeUniquePointList.push(places.unique_point)
       );
-
-      // console.log(
-      // "🚀 ~ file: itinerary.service.js ~ line 188 ~ placeUniquePointList",
-      // placeUniquePointList
-      // );
 
       const mainPlacesForAnItinerary =
         await ItineraryNeo4jService.getMainPlacesForOneItinerary(
           shortestCuisineUniquePoint,
           placeUniquePointList
         );
-      // console.log(
-      // "🚀 ~ file: itinerary.service.js ~ line 208 ~ mainPlacesForAnItinerary",
-      // mainPlacesForAnItinerary
-      // );
 
       return mainPlacesForAnItinerary;
     } catch (error) {
@@ -237,30 +175,16 @@ const ItineraryService = {
         typeOfCuisine,
         cuisineLimit
       );
-      // console.log(
-      // "🚀 ~ file: itinerary.service.js ~ line 198 ~ mainDinnerCuisine",
-      // mainDinnerCuisine.length
-      // );
 
       mainDinnerCuisine.forEach((cuisine) => {
         dinnerCuisineUniquePointList.push(cuisine.unique_point);
       });
-
-      // console.log(
-      // "🚀 ~ file: itinerary.service.js ~ line 207 ~ dinnerCuisineUniquePointList",
-      // dinnerCuisineUniquePointList.length
-      // );
 
       const shortestDinnerCuisine =
         await ItineraryNeo4jService.getShortestDinnerCuisine(
           dinnerCuisineUniquePointList,
           placeUniquePoint
         );
-
-      // console.log(
-      // "🚀 ~ file: itinerary.service.js ~ line 218 ~ shortestDinnerCuisine ~ ItineraryNeo4j cannot get shortestDinnerCuisine",
-      // shortestDinnerCuisine
-      // );
 
       return shortestDinnerCuisine;
     } catch (error) {
