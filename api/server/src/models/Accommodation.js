@@ -48,7 +48,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.FLOAT,
       },
       address: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
       },
       is3stars: {
         type: DataTypes.INTEGER,
