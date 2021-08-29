@@ -32,12 +32,20 @@ module.exports = (sequelize, DataTypes) => {
       category: {
         type: DataTypes.STRING,
       },
-
       price: {
         type: DataTypes.FLOAT,
       },
       description: {
         type: DataTypes.TEXT,
+      },
+      openingHours: {
+        type: DataTypes.STRING,
+      },
+      address: {
+        type: DataTypes.TEXT,
+      },
+      phone: {
+        type: DataTypes.STRING,
       },
       img: {
         type: DataTypes.TEXT,

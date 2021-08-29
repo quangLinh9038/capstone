@@ -1,10 +1,8 @@
-// generate SQL
+/*
+ *This utils is to generate SQL query for main interested results
+ * @param duplicatedUnit to check duplicated result to avoid when query
+ */
 const generateSqlGetLandmarkResult = (model, params, limit, duplicatedUnit) => {
-  console.log(
-    "🚀 ~ file: SqlUtils.js ~ line 3 ~ generateSqlGetLandmarkResult ~ duplicatedUnit",
-    duplicatedUnit
-  );
-
   let subQuery;
   let sql;
   if (typeof params === "string") {

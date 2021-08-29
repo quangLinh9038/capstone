@@ -113,17 +113,12 @@ const PlaceService = {
 
       // model to query in Postgres database
       const model = "Place";
-      console.log(duplicatedPlace);
       const sql = generateSqlGetLandmarkResult(
         model,
         params,
         limit,
         duplicatedPlace
       );
-      // console.log(
-      //   "🚀 ~ file: place.service.js ~ line 123 ~ getLandmarkPlaces: ~ sql",
-      //   sql
-      // );
 
       const landmarkPlaces = await db.sequelize.query(sql, {
         type: QueryTypes.SELECT,
