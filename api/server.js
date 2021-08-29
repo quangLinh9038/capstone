@@ -14,6 +14,7 @@ const app = express();
 var corsOptions = {
   origin: "https://wkgetaway.herokuapp.com",
   optionsSuccessStatus: 200,
+  credentials: true,
 };
 
 /* 
