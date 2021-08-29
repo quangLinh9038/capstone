@@ -9,7 +9,7 @@ const morganMiddleware = require("./server/middleware/morganMiddleware");
 
 const routes = require("./server/routes");
 const db = require("./server/src/models");
-const expressApp = express();
+const app = express();
 
 var corsOptions = {
   origin: "https://wkgetaway.herokuapp.com",
@@ -40,7 +40,7 @@ db.sequelize.sync({ force: false, alter: false }).then(() => {
 /* 
   Using packages
 */
-app.use(cors()); // * This enables ALL CORS Requests
+app.use(cors(corsOptions)); // * This enables ALL CORS Requests
 app.use(cookieParser());
 app.use(bodyParser.json({ limit: "50mb" })); // * Increase limitation of upload file
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: false }));

@@ -110,11 +110,9 @@ const UserController = {
         }
 
         const accessToken = createAccessToken({ id: user.id });
-<<<<<<< HEAD
-        return res.status(200).json({status: "success", accessToken: accessToken });
-=======
-        return res.json({ accessToken: accessToken });
->>>>>>> release-1.4
+        return res
+          .status(200)
+          .json({ status: "success", accessToken: accessToken });
       });
 
       return res.json({ rf_token });
