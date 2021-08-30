@@ -12,7 +12,7 @@ const db = require("./server/src/models");
 const app = express();
 
 var corsOptions = {
-  origin: "https://wkgetaway.herokuapp.com",
+  origin: ["https://wkgetaway.herokuapp.com", "http://localhost:3000"],
   optionsSuccessStatus: 200,
   credentials: true,
 };
