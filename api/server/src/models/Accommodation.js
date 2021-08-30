@@ -45,7 +45,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.FLOAT,
       },
       phone: {
-        type: DataTypes.FLOAT,
+        type: DataTypes.STRING,
       },
       address: {
         type: DataTypes.TEXT,
