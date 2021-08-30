@@ -178,7 +178,7 @@ const UserController = {
       ${uId} not found!`,
       });
     } catch (err) {
-      return res.status(500).send(error);
+      return res.status(500).json({ msg: err.message });
     }
   },
 
@@ -200,7 +200,7 @@ const UserController = {
         message: `UserInterest has been deleted successfully`,
       });
     } catch (err) {
-      return res.status(500).send(error);
+      return res.status(500).json({ msg: err.message });
     }
   },
 
