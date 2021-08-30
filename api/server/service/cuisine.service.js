@@ -10,6 +10,7 @@ const CuisineService = {
   getAllCuisine: async () => {
     try {
       return await Cuisine.findAll({
+        order: [["id", "ASC"]],
         include: [
           {
             model: City,
