@@ -185,9 +185,11 @@ const UserController = {
   // delete interests that user choose before
   deleteInterest: async (req, res) => {
     try {
-      const user = await UserService.getUserInfo(req.user.id);
       const interests = req.body.interests;
+      const uId = req.user.id;
+      const user = await UserService.getUserInfo(uId);
 
+      if (user) {
       /* 
         Remove list of Interests 
       */
@@ -195,10 +197,14 @@ const UserController = {
         const _interest = await InterestService.getInterestInfo(interest);
         await user.removeInterest(_interest);
       }
-
-      return res.status(200).json({
-        message: `UserInterest has been deleted successfully`,
-      });
+      const UserInterest = await UserService.getUserInfo(req.user.id);
+      return res.status(200).json({ status: "Delete Interest Successfully", data: UserInterest });
+    }
+    return res.status(404).json({
+      status: "failure",
+      message: `User with ID: 
+    ${uId} not found!`,
+    });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
