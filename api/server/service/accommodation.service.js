@@ -8,6 +8,7 @@ const AccommodationService = {
   getAllAccommodations: async () => {
     try {
       return await Accommodation.findAll({
+        order: [["id", "ASC"]],
         include: [
           {
             model: City,

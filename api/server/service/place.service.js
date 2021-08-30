@@ -13,6 +13,7 @@ const PlaceService = {
   getAllPlaces: async () => {
     try {
       return await Place.findAll({
+        order: [["id", "ASC"]],
         include: [
           {
             model: City,
