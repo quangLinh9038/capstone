@@ -13,7 +13,7 @@ userRoutes
   .get("/trips", auth, TripController.getAllTripByUser)
   .post("/register", UserController.register)
   .post("/interests", auth, UserController.addInterest)
-  .delete("/interests", auth, UserController.deleteInterest)
+  .post("/remove_interests", auth, UserController.deleteInterest)
   .delete("/", auth, UserController.deleteAllUsers);
 
 module.exports = userRoutes;
