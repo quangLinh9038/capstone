@@ -9,7 +9,7 @@ userRoutes
   .get("/info", auth, UserController.getUserInfo)
   .get("/logout", UserController.logout)
   .get("/refresh_token", UserController.refreshToken)
-  .post("/login", auth, UserController.login)
+  .post("/login", UserController.login)
   .get("/trips", auth, TripController.getAllTripByUser)
   .post("/register", UserController.register)
   .post("/interests", auth, UserController.addInterest)

@@ -8,9 +8,9 @@ const accommodationRoutes = Router();
 accommodationRoutes
   .get("/", AccommodationController.getAllAccommodations)
   .get("/interests/", AccommodationController.getMainAccommodation)
-  .post("/", AccommodationController.createAccommodations)
-  .delete("/", AccommodationController.deleteAllAccommodations)
-  .delete("/:id/", AccommodationController.deleteAccommodationById)
-  .put("/:id", AccommodationController.updateAccommodation);
+  .post("/",auth, authAdmin, AccommodationController.createAccommodations)
+  .delete("/",auth, authAdmin, AccommodationController.deleteAllAccommodations)
+  .delete("/:id/",auth, authAdmin, AccommodationController.deleteAccommodationById)
+  .put("/:id",auth, authAdmin, AccommodationController.updateAccommodation);
 
 module.exports = accommodationRoutes;
