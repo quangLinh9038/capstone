@@ -196,7 +196,7 @@ const UserController = {
         await user.removeInterest(_interest);
       }
 
-      return res.status(200).send({
+      return res.status(200).json({
         message: `UserInterest has been deleted successfully`,
       });
     } catch (err) {
