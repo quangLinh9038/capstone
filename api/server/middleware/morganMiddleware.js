@@ -38,7 +38,7 @@ const morganMiddleware = morgan(function (tokens, req, res) {
   return [
     chalk.hex(methodColor).bold(method),
     chalk.hex(statusColor).bold(status),
-    chalk.hex("#ff5252").bold(tokens.url(req, res)),
+    chalk.hex("#F3EAEA").bold(tokens.url(req, res)),
     chalk.hex("#2ed573").bold(tokens["response-time"](req, res) + " ms"),
     chalk.hex("#f78fb3").bold("@ " + tokens.date(req, res)),
     chalk.yellow(tokens["remote-addr"](req, res)),

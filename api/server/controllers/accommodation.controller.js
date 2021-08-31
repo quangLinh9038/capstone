@@ -65,7 +65,7 @@ const AccommodationController = {
        */
       if (!conditionList.every(isEveryObjectNull)) {
         const conditionalAccommodation =
-          await AccommodationService.getConditionalAccoms(conditionList);
+          await AccommodationService.getConditionalAccommodation(conditionList);
 
         /**
          * Check found Accommodation
@@ -117,18 +117,19 @@ const AccommodationController = {
         });
       }
 
-      const { param1 } = req.query;
+      const accommodationParams = req.query.interests;
       const limit = req.query.limit;
+      const price = req.query.price;
 
-      if (!param1 || !limit) {
+      if (!accommodationParams.length || !limit || !price) {
         return res
           .status(400)
           .json({ status: "failure", message: "Missing params" });
       }
-      const paramList = [param1];
 
       const mainAccommodation = await AccommodationService.getMainAccommodation(
-        paramList,
+        accommodationParams,
+        price,
         limit
       );
 
