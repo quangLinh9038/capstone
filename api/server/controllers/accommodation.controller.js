@@ -24,7 +24,7 @@ const AccommodationController = {
       /***
        * Define conditions for query
        */
-      var nameOption = name ? { name: { [Op.like]: `%${name}%` } } : null;
+      var nameOption = name ? { name: { [Op.iLike]: `%${name}%` } } : null;
       var is3starsOption = is3stars ? { is3stars: { [Op.eq]: 1 } } : null;
       var is4starsOption = is4stars ? { is4stars: { [Op.eq]: 1 } } : null;
       var is5starsOption = is5stars ? { is5stars: { [Op.eq]: 1 } } : null;

@@ -175,7 +175,7 @@ const CuisineController = {
       }
       return res.status(400).send({
         status: "failure",
-        message: `Places [ ${existedCuisineList} ] are existed`,
+        message: `Cuisines [ ${existedCuisineList} ] are existed`,
       });
     } catch (err) {
       return res.status(500).json({ msg: err.message });

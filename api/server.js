@@ -1,13 +1,21 @@
+require("dotenv").config();
+var port = process.env.PORT;
+
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const morganMiddleware = require("./server/middleware/morganMiddleware");
 
-const port = process.env.PORT;
 const routes = require("./server/routes");
 const db = require("./server/src/models");
 const app = express();
+
+var corsOptions = {
+  origin: ["https://wkgetaway.herokuapp.com", "http://localhost:3000"],
+  optionsSuccessStatus: 200,
+  credentials: true,
+};
 
 /* 
   Postgres database connection authentication 
@@ -33,7 +41,7 @@ db.sequelize.sync({ force: false, alter: false }).then(() => {
 /* 
   Using packages
 */
-app.use(cors()); // * This enables ALL CORS Requests
+app.use(cors(corsOptions)); // * This enables ALL CORS Requests
 app.use(cookieParser());
 app.use(bodyParser.json({ limit: "50mb" })); // * Increase limitation of upload file
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: false }));
