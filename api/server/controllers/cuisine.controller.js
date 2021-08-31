@@ -97,10 +97,12 @@ const CuisineController = {
       const cuisineParams = req.query.interests;
       const limit = req.query.limit;
       const category = req.query.category;
-      const cuisines = await CuisineService.getAllCuisine();
 
+      const cuisines = await CuisineService.getAllCuisine();
       if (!cuisines.length) {
-        return res.status(404).json({ message: "Cuisines are empty" });
+        return res
+          .status(404)
+          .json({ status: "failure", message: "Cuisines are empty" });
       }
 
       const mainCuisines = await CuisineService.getMainCuisine(

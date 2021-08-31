@@ -1,15 +1,11 @@
+const generateSubQuery = require("./generateSubQuery");
 /*
  *This utils is to generate SQL query for main interested results
  * @param duplicatedUnit to check duplicated result to avoid when query
  */
 const generateSqlGetLandmarkResult = (model, params, limit, duplicatedUnit) => {
-  let subQuery;
   let sql;
-  if (typeof params === "string") {
-    subQuery = `"${params}"`;
-  } else {
-    subQuery = params.map((item) => `"${item}"`).join("+");
-  }
+  const subQuery = generateSubQuery(params);
 
   if (duplicatedUnit !== null) {
     sql = `SELECT *, ${subQuery} AS point

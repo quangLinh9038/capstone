@@ -37,6 +37,7 @@ const ItineraryController = {
 
       const accommodationParams = req.query.accommodations;
       const accommodationLimit = req.query.accommodationLimit;
+      const accommodationPrice = req.query.accommodationPrice;
 
       const cuisineParams = req.query.cuisines;
       const cuisineLimit = req.query.cuisineLimit;
@@ -51,6 +52,7 @@ const ItineraryController = {
         !placeParams.length &&
         !placeLimit &&
         !accommodationParams.length &&
+        !accommodationPrice &&
         !accommodationLimit &&
         !cuisineParams.length &&
         !cuisineLimit
@@ -68,9 +70,16 @@ const ItineraryController = {
           placeParams,
           placeLimit,
           accommodationParams,
+          accommodationPrice,
           accommodationLimit
         );
 
+      if (!firstPlaceAndShortestAccommodation.length) {
+        return res.status(404).json({
+          status: "failure",
+          message: "Not found accommodation for queried price",
+        });
+      }
       /*  
         Get shortest Accommodation from queried results above
         Accommodation {unique_point} is placed at 2nd position of records

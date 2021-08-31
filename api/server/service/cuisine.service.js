@@ -1,10 +1,17 @@
 const { QueryTypes } = require("sequelize");
 const { Op } = require("sequelize");
 
-/* Import models */
+/* 
+  Import models 
+*/
 const db = require("../src/models");
 const { Cuisine } = db;
 const { City } = db;
+
+/* 
+  Import utils
+*/
+const generateSubQuery = require("../utils/generateSubQuery");
 
 const CuisineService = {
   getAllCuisine: async () => {
@@ -43,14 +50,9 @@ const CuisineService = {
 
   getMainCuisine: async (params, category, limit) => {
     try {
-      let subQuery;
-      if (typeof params === "string") {
-        subQuery = `"${params}"`;
-      } else {
-        subQuery = params.map((item) => `"${item}"`).join("+");
-      }
-
       const model = "Cuisine";
+      const subQuery = generateSubQuery(params);
+
       const sql = `SELECT *, ${subQuery} AS point
                 FROM "${model}" WHERE category='${category}'
                 ORDER BY point DESC LIMIT ${limit};`;
