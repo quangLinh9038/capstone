@@ -1,3 +1,6 @@
+/*
+ * This utils is to create Cypher to get the shortest distance from one place and the others
+ */
 const generateCypherToFindRoute = (
   uniquePointList,
   singleUniquePoint,

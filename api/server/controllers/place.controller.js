@@ -95,48 +95,43 @@ const PlaceController = {
       return res.status(500).json({ msg: err.message });
     }
   },
+
   // get landmark places matched with user's interests
   getLandmarkPlaces: async (req, res) => {
     try {
-      const places = await PlaceService.getAllPlaces();
+      const placeParams = req.query.interests;
+      const limit = req.query.limit;
+      const duplicatedPlace = null;
 
+      const places = await PlaceService.getAllPlaces();
       if (!places.length) {
         return res
           .status(404)
           .json({ status: "failure", message: "Places are empty" });
-      } else {
-        // get query params
-        const { param1, param2, param3 } = req.query;
-        const limit = req.query.limit;
-
-        if (!param1 || !param2 || !param3 || !limit) {
-          return res
-            .status(400)
-            .json({ status: "failure", message: "Missing params" });
-        }
-        // mapping params as a sub-query string
-        const paramList = [param1, param2, param3];
-
-        /**
-         * Use PlaceService.getLandmarkPlaces
-         * to query interested Places from Postgresql
-         */
-        const landmarkPlaces = await PlaceService.getLandmarkPlaces(
-          paramList,
-          limit
-        );
-
-        return !landmarkPlaces.length
-          ? res.status(404).json({
-              status: "failure",
-              message: "Landmark places not found",
-            })
-          : res.status(200).json({
-              status: "success",
-              results: landmarkPlaces.length,
-              data: landmarkPlaces,
-            });
       }
+
+      if (!placeParams.length || !limit) {
+        return res
+          .status(400)
+          .json({ status: "failure", message: "Missing params" });
+      }
+
+      const landmarkPlaces = await PlaceService.getLandmarkPlaces(
+        placeParams,
+        limit,
+        duplicatedPlace
+      );
+
+      return !landmarkPlaces.length
+        ? res.status(404).json({
+            status: "failure",
+            message: "Landmark places not found",
+          })
+        : res.status(200).json({
+            status: "success",
+            results: landmarkPlaces.length,
+            data: landmarkPlaces,
+          });
     } catch (error) {
       return res.status(500).json({ msg: error.message });
     }

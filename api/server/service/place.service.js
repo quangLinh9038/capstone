@@ -7,7 +7,7 @@ const { Place } = db;
 const { City } = db;
 
 /* Import utils */
-const generateSqlGetLandmarkResult = require("../utils/SqlUtils");
+const generateSqlGetLandmarkResult = require("../utils/generateSqlGetLandmarkResult");
 
 const PlaceService = {
   getAllPlaces: async () => {

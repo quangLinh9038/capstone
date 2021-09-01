@@ -47,11 +47,13 @@ const ItineraryService = {
     placeParams,
     placeLimit,
     accommodationParams,
+    accommodationPrice,
     accommodationLimit
   ) => {
     try {
       const accommodationUniquePointList = [];
       const duplicatedPlace = null;
+
       //get main places
       const landmarkPlaces = await PlaceService.getLandmarkPlaces(
         placeParams,
@@ -62,6 +64,7 @@ const ItineraryService = {
       const mainAccommodations =
         await AccommodationService.getMainAccommodation(
           accommodationParams,
+          accommodationPrice,
           accommodationLimit
         );
 

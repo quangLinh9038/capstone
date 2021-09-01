@@ -1,8 +1,17 @@
 const { QueryTypes } = require("sequelize");
-const db = require("../src/models");
 const { Op } = require("sequelize");
+
+/* 
+  Import models
+*/
+const db = require("../src/models");
 const { Accommodation } = db;
 const { City } = db;
+
+/* 
+  Import utils
+*/
+const generateSubQuery = require("../utils/generateSubQuery");
 
 const AccommodationService = {
   getAllAccommodations: async () => {
@@ -21,7 +30,7 @@ const AccommodationService = {
     }
   },
 
-  getConditionalAccoms: async (conditions) => {
+  getConditionalAccommodation: async (conditions) => {
     try {
       return await Accommodation.findAll({
         where: {
@@ -99,11 +108,17 @@ const AccommodationService = {
       return error;
     }
   },
-  // get main accommodation from user's interests
-  getMainAccommodation: async (paramList, limit) => {
+
+  getMainAccommodation: async (params, price, limit) => {
     try {
-      const sql = `SELECT * FROM "Accommodation" WHERE "${paramList}" = 1
-      LIMIT ${limit};`;
+      const model = "Accommodation";
+
+      const subQuery = generateSubQuery(params);
+
+      const sql = `SELECT *, ${subQuery} AS point
+      FROM "${model}" 
+      WHERE price<=${price}
+      ORDER BY point DESC LIMIT ${limit};`;
 
       const mainAccommodation = await db.sequelize.query(sql, {
         type: QueryTypes.SELECT,
