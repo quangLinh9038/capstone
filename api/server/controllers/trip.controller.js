@@ -142,7 +142,7 @@ const TripController = {
 
   deleteTripById: async (req, res) => {
     try {
-      const uid = req.user.id;
+      const id = req.params.id;
 
       const tripToDelete = await TripService.getOneTripById(id);
 
