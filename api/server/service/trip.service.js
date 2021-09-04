@@ -45,7 +45,7 @@ const TripService = {
 
   getAllTripByUser: async (uId) => {
     try {
-      return await Trips.findAll({
+      return await Trip.findAll({
         where: { user_id: uId },
         include: [
           {
@@ -123,9 +123,9 @@ const TripService = {
     }
   },
 
-  deleteAllTrip: async () => {
+  deleteAllTripByUser: async (uId) => {
     try {
-      return await Trip.destroy({ where: {} });
+      return await Trip.destroy({ where: { user_id: uId } });
     } catch (error) {
       return error;
     }

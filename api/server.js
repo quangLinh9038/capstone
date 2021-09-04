@@ -41,7 +41,7 @@ db.sequelize.sync({ force: false, alter: false }).then(() => {
 /* 
   Using packages
 */
-app.use(cors(corsOptions)); // * This enables ALL CORS Requests
+app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(bodyParser.json({ limit: "50mb" })); // * Increase limitation of upload file
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: false }));

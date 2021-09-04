@@ -7,6 +7,7 @@ module.exports = (sequelize, DataTypes) => {
         as: "user",
       });
       Trip.hasMany(models.Itinerary, {
+        onDelete: "CASCADE",
         foreignKey: "trip_id",
         as: "itineraries",
       });

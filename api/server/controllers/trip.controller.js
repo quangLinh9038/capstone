@@ -9,27 +9,15 @@ const CuisineService = require("../service/cuisine.service");
 const UserService = require("../service/user.service");
 
 const TripController = {
-  getAllTrips: async (req, res) => {
-    try {
-      const trips = await TripService.getAllTrips();
-
-      return trips.length
-        ? res.status(200).json({ status: "success", data: { trips: trips } })
-        : res
-            .status(404)
-            .json({ status: "failure", message: "Trips are empty" });
-    } catch (error) {
-      return res.status(500).json({ msg: error.message });
-    }
-  },
-
   getAllTripByUser: async (req, res) => {
     try {
+      // Get user ID from client side token
       const uId = req.user.id;
-      const user = await UserService.getOneUserByEmail(uId);
+      const user = await UserService.getUserInfo(uId);
 
       if (user) {
-        const trips = TripService.getAllTripByUser(uId);
+        const trips = await TripService.getAllTripByUser(uId);
+
         return res
           .status(200)
           .json({ status: "success", result: trips.length, data: trips });
@@ -46,19 +34,14 @@ const TripController = {
   getOneTripById: async (req, res) => {
     try {
       const id = req.params.id;
-      console.log(
-        "🚀 ~ file: trip.controller.js ~ line 25 ~ getOneTripById: ~ id",
-        id
-      );
 
       if (!id) {
         return res
           .status(400)
-          .json({ status: "failure", message: "Missing id " });
+          .json({ status: "failure", message: "Missing ID" });
       }
 
       const trip = await TripService.getOneTripById(id);
-      // console.log("🚀 ~ file: trip.controller.js ~ line 37 ~ getOneTripById: ~ trip", trip)
 
       return trip
         ? res.status(200).json({ status: "success", data: trip })
@@ -73,7 +56,7 @@ const TripController = {
   createNewTrip: async (req, res) => {
     try {
       /* Get Trip params */
-      const user_id = req.body.user_id;
+      const uId = req.user.id;
       const startDate = req.body.startDate;
       const endDate = req.body.endDate;
       const tripTitle = req.body.title;
@@ -90,7 +73,7 @@ const TripController = {
 
       if (
         !tripTitle.length &&
-        !user_id &&
+        !uId &&
         !places.length &&
         !accommodations.length &&
         !cuisines.length &&
@@ -108,12 +91,8 @@ const TripController = {
         title: tripTitle,
         startDate: startDate,
         endDate: endDate,
-        user_id: user_id,
+        user_id: uId,
       });
-      // console.log(
-      // "🚀 ~ file: trip.controller.js ~ line 151 ~ createNewTrip: ~ newTrip",
-      // newTrip.id
-      // );
 
       /* 
         Create new Itinerary
@@ -132,11 +111,6 @@ const TripController = {
           await AccommodationService.getOneAccommodationByUniquePoint(
             accommodation
           );
-
-        // console.log(
-        //   "🚀 ~ file: trip.controller.js ~ line 155 ~ createNewTrip: ~ _accommodation",
-        //   _accommodation.length
-        // );
         await newItinerary.addAccommodation(_accommodation);
       }
 
@@ -145,11 +119,6 @@ const TripController = {
       */
       for (const place of places) {
         const _place = await PlaceService.getPlaceByUniquePoint(place);
-        // console.log(
-        //   "🚀 ~ file: trip.controller.js ~ line 166 ~ createNewTrip: ~ _place",
-        //   _place.length
-        // );
-
         await newItinerary.addPlace(_place);
       }
 
@@ -160,18 +129,9 @@ const TripController = {
         const _cuisine = await CuisineService.getOneCuisineByUniquePoint(
           cuisine
         );
-        // console.log(
-        //   "🚀 ~ file: trip.controller.js ~ line 182 ~ createNewTrip: ~ _cuisine",
-        //   _cuisine.length
-        // );
-
         await newItinerary.addCuisine(_cuisine);
       }
 
-      // console.log(
-      // "🚀 ~ file: trip.controller.js ~ line 177 ~ createNewTrip: ~ newItinerary",
-      // newItinerary
-      // );
       return newTrip
         ? res.status(201).json({ status: "success", data: newTrip })
         : res.status(400).json({ status: "failure" });
@@ -182,7 +142,7 @@ const TripController = {
 
   deleteTripById: async (req, res) => {
     try {
-      const id = req.query.id;
+      const uid = req.user.id;
 
       const tripToDelete = await TripService.getOneTripById(id);
 
@@ -196,6 +156,28 @@ const TripController = {
       return res
         .status(404)
         .json({ status: "failure", message: `Trip with ${id} not found!` });
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
+  },
+
+  deleteAllTripByUser: async (req, res) => {
+    try {
+      const uId = req.user.id;
+      const user = await UserService.getUserInfo(uId);
+
+      if (user) {
+        const deletedTrips = await TripService.deleteAllTripByUser(uId);
+        return deletedTrips
+          ? res.status(200).json({
+              status: "success",
+              message: `Delete all Trips of User ID: ${uId}`,
+            })
+          : res.status(404).json({
+              status: "failure",
+              message: `Not found any Trips with User ID: ${uId} `,
+            });
+      }
     } catch (error) {
       return res.status(500).json({ message: error.message });
     }
@@ -218,20 +200,6 @@ const TripController = {
 
       return res.status(200).json({ status: "success", data: updatedTrip });
     } catch {
-      return res.status(500).json({ message: error.message });
-    }
-  },
-
-  deleteAllTripByUser: async (req, res) => {
-    try {
-      const user_id = req.params.user_id;
-      const user = UserService.getOneUserByEmail(user_id);
-
-      if (user) {
-        await TripService.deleteAllTripByUserId(user_id);
-        return res.status(200).json({ status: "success", message: "" });
-      }
-    } catch (error) {
       return res.status(500).json({ message: error.message });
     }
   },
