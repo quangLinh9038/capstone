@@ -62,30 +62,11 @@ const UserService = {
           {
             model: Trip,
             as: "trips",
-          },
-        ],
-      });
-    } catch (error) {
-      return error;
-    }
-  },
-
-  getTripsByUser: async (id) => {
-    try {
-      return await User.findByPk(id, {
-        include: [
-          {
-            model: Trip,
-            as: "trips",
             include: [
               {
                 model: Itinerary,
                 as: "itineraries",
-                include: [
-                  { model: Place, as: "places" },
-                  { model: Accommodation, as: "accommodations" },
-                  { model: Cuisine, as: "cuisines" },
-                ],
+                include: [{ model: Accommodation, as: "accommodations" }],
               },
             ],
           },

@@ -5,10 +5,10 @@ const auth = require("../middleware/auth");
 const tripRoutes = Router();
 
 tripRoutes
-  .get("/", TripController.getAllTrips)
+  .get("/", auth, TripController.getAllTripByUser)
   .get("/:id", TripController.getOneTripById)
-  .post("/",auth, TripController.createNewTrip)
-  .put("/:id",auth, TripController.updateTripById)
-  .delete("/:id",auth, TripController.deleteTripById);
-
+  .post("/", auth, TripController.createNewTrip)
+  .put("/:id", TripController.updateTripById)
+  .delete("/:id", TripController.deleteTripById)
+  .delete("/", auth, TripController.deleteAllTripByUser);
 module.exports = tripRoutes;

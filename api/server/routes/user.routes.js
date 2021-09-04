@@ -1,7 +1,8 @@
 const { Router } = require("express");
-const UserController = require("../controllers/user.controller");
-const TripController = require("../controllers/trip.controller");
 const auth = require("../middleware/auth");
+const authAdmin = require("../middleware/authAdmin");
+
+const UserController = require("../controllers/user.controller");
 
 const userRoutes = Router();
 
@@ -10,10 +11,9 @@ userRoutes
   .get("/logout", UserController.logout)
   .get("/refresh_token", UserController.refreshToken)
   .post("/login", UserController.login)
-  .get("/trips", auth, TripController.getAllTripByUser)
   .post("/register", UserController.register)
   .post("/interests", auth, UserController.addInterest)
   .post("/interests/destroyer", auth, UserController.deleteInterest)
-  .delete("/", auth, UserController.deleteAllUsers);
+  .delete("/", auth, authAdmin, UserController.deleteAllUsers);
 
 module.exports = userRoutes;

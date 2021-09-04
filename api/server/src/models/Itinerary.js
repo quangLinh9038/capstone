@@ -18,11 +18,13 @@ module.exports = (sequelize, DataTypes) => {
         as: "cuisines",
       });
       Itinerary.belongsTo(models.Trip, {
+        onDelete: "CASCADE",
         foreignKey: "trip_id",
         as: "trip",
       });
     }
   }
+
   Itinerary.init(
     {
       id: {
