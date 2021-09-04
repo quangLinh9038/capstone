@@ -47,7 +47,9 @@ const ItineraryController = {
       */
       var totalPrice = 0;
 
-      /* Check missing params */
+      /* 
+        Check missing params       
+      */
       if (
         !placeParams.length &&
         !placeLimit &&
@@ -77,9 +79,11 @@ const ItineraryController = {
       if (!firstPlaceAndShortestAccommodation.length) {
         return res.status(404).json({
           status: "failure",
-          message: "Not found accommodation for queried price",
+          message: "Not found accommodation or first Place for queried price",
         });
       }
+
+      const duplicatePlace = firstPlaceAndShortestAccommodation[0];
       /*  
         Get shortest Accommodation from queried results above
         Accommodation {unique_point} is placed at 2nd position of records
@@ -101,16 +105,18 @@ const ItineraryController = {
 
       /* 
         Get list of Places with the first one is the shortest from lunch Cuisine
+        *duplicatePlace is the firstPlace to get rid of duplicated result in one Itinerary 
       */
-      const duplicatePlace = firstPlaceAndShortestAccommodation[0];
-
       const mainPlacesForOneItinerary = await ItineraryService.getMainPlaces(
         placeParams,
         placeLimit,
         shortestLunchCuisine,
         duplicatePlace
       );
-
+      /*
+       * Get the third Place position in reverse
+       * to get the shortest dinner Cuisine from this Place
+       */
       const penultimatePlace = mainPlacesForOneItinerary.slice(-3)[0];
 
       /* 
@@ -165,6 +171,7 @@ const ItineraryController = {
             accommodation
           );
         // accommodation price calculated according to number of traveling days
+        // * Each day has 2 Cuisine
         totalPrice += _accommodation.price * (cuisines.length / 2);
       }
 
@@ -195,6 +202,7 @@ const ItineraryController = {
       return res.status(500).json({ message: error.message });
     }
   },
+
   createNewItinerary: async (req, res) => {
     try {
       const title = req.body.title;
@@ -217,11 +225,6 @@ const ItineraryController = {
         numberOfItems: numberOfItems,
       });
 
-      /* 
-        Add one Accommodation
-        
-        Not working with several Accommodations
-      */
       const _accommodation =
         await AccommodationService.getOneAccommodationByUniquePoint(
           accommodations
