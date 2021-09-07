@@ -20,7 +20,7 @@ const CuisineController = {
         isKorean,
       } = req.query;
 
-      var nameOption = name ? { name: { [Op.like]: `%${name}%` } } : null;
+      var nameOption = name ? { name: { [Op.iLike]: `%${name}%` } } : null;
       var vietnameseOption = isVietnamese
         ? { isVietnamese: { [Op.eq]: 1 } }
         : null;
