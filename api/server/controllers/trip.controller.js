@@ -60,6 +60,7 @@ const TripController = {
       const startDate = req.body.startDate;
       const endDate = req.body.endDate;
       const tripTitle = req.body.title;
+      const tripNote = req.body.notes;
 
       /* 
         Get Itinerary params
@@ -78,7 +79,8 @@ const TripController = {
         !accommodations.length &&
         !cuisines.length &&
         !startDate.length &&
-        !endDate.length
+        !endDate.length &&
+        !tripNote.length
       ) {
         return res
           .status(400)
@@ -92,6 +94,7 @@ const TripController = {
         startDate: startDate,
         endDate: endDate,
         user_id: uId,
+        notes: tripNote,
       });
 
       /* 
@@ -147,8 +150,8 @@ const TripController = {
       const tripToDelete = await TripService.getOneTripById(id);
 
       if (tripToDelete) {
-        await TripService.deleteTripById(tripToDelete);
-        return res.status(204).json({
+        await TripService.deleteTripById(id);
+        return res.status(200).json({
           status: "success",
           message: `Trip with ID: ${id} deleted successfully`,
         });

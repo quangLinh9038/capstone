@@ -115,9 +115,9 @@ const TripService = {
     }
   },
 
-  deleteTripById: async (tripToDelete) => {
+  deleteTripById: async (id) => {
     try {
-      return await tripToDelete.destroy();
+      return await Trip.destroy({ where: { id: id } });
     } catch (error) {
       return error;
     }
