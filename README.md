@@ -11,7 +11,7 @@ _Backend for the Capstone project - [Intelligent Trip Planner](https://wkgetaway
 
   * Connecting to both PostgreSQl and Neo4j databases.
   * CRUD operations for all models of the system. 
-  * Authentication and Authorization middleware.
+  * Authentication and Authorization middleware token based.
   * Querying locations of personalized interests.
   * Querying full Itinerary for a new trip. 
   
