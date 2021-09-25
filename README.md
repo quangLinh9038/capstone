@@ -5,7 +5,7 @@ _Backend for the Capstone project - [Intelligent Trip Planner](https://wkgetaway
   <img src="https://user-images.githubusercontent.com/32144454/133477206-4c5804c1-3428-4f06-8aaa-c9d896c12bba.png" width="450" title="Intelligent Trip Planner">
 </p>
 
-[![Build Status](https://app.travis-ci.com/quangLinh9038/tripplanner.svg?token=n3xBwTA5sHzC8nPx9Tic&branch=master)](https://app.travis-ci.com/quangLinh9038/tripplanner)
+[![Build Status](https://app.travis-ci.com/quangLinh9038/tripplanner.svg?token=n3xBwTA5sHzC8nPx9Tic&branch=master)](https://app.travis-ci.com/quangLinh9038/trip-planner)
 
 ## Features
 
