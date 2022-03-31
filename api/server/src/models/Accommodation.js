@@ -1,15 +1,15 @@
-const { Model, UUIDV4 } = require("sequelize");
+const { Model, UUIDV4 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Accommodation extends Model {
     static associate(models) {
       Accommodation.belongsTo(models.City, {
-        foreignKey: "city_id",
-        as: "city",
+        foreignKey: 'city_id',
+        as: 'city',
       });
       Accommodation.belongsToMany(models.Itinerary, {
-        through: "AccommodationItinerary",
-        foreignKey: "accommodation_id",
-        as: "itineraries",
+        through: 'AccommodationItinerary',
+        foreignKey: 'accommodation_id',
+        as: 'itineraries',
       });
     }
   }
@@ -90,7 +90,7 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
     {
-      modelName: "Accommodation",
+      modelName: 'Accommodation',
       sequelize,
       freezeTableName: true,
     }

@@ -1,16 +1,16 @@
-const { Model } = require("sequelize");
+const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
   class Place extends Model {
     static associate(models) {
       Place.belongsTo(models.City, {
-        foreignKey: "city_id",
-        as: "city",
+        foreignKey: 'city_id',
+        as: 'city',
       });
       Place.belongsToMany(models.Itinerary, {
-        through: "PlaceItinerary",
-        foreignKey: "place_id",
-        as: "itineraries",
+        through: 'PlaceItinerary',
+        foreignKey: 'place_id',
+        as: 'itineraries',
       });
     }
   }
@@ -56,9 +56,7 @@ module.exports = (sequelize, DataTypes) => {
       img2: {
         type: DataTypes.TEXT,
       },
-      description: {
-        type: DataTypes.TEXT,
-      },
+
       isHistorical: {
         type: DataTypes.INTEGER,
       },
@@ -98,7 +96,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: "Place",
+      modelName: 'Place',
       freezeTableName: true,
     }
   );

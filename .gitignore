@@ -104,6 +104,7 @@ dist
 # TernJS port file
 .tern-port
 .env
+.env.*
 
 # data test
 /data
@@ -113,3 +114,5 @@ dist
 
 # local history
 .history/
+.DS_Store
+target/*

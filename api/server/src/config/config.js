@@ -1,47 +1,37 @@
-require("dotenv").config();
+require('custom-env').env('dev');
 
 const {
-  PG_NAME,
-  PG_CLOUDNAME,
-  PG_LOCALHOST,
-  PG_CLOUDHOST,
-  PG_USERNAME,
-  PG_CLOUDUSER,
-  PG_PASSWORD,
-  PG_CLOUDPWD,
-  PG_PORT,
+  POSTGRES_USERNAME,
+  POSTGRES_PASSWORD,
+  POSTGRES_NAME,
+  POSTGRES_PORT,
+  POSTGRES_HOST,
 } = process.env;
 
 module.exports = {
-  /* 
-    Local database when in development 
-  */
   development: {
-    port: PG_PORT,
-    username: PG_USERNAME,
-    password: PG_PASSWORD,
-    database: PG_NAME,
-    host: PG_LOCALHOST,
-    dialect: "postgres",
+    port: POSTGRES_PORT,
+    username: POSTGRES_USERNAME,
+    password: POSTGRES_PASSWORD,
+    database: POSTGRES_NAME,
+    host: POSTGRES_HOST,
+    dialect: 'postgres',
     logging: false,
     ssl: false,
   },
   test: {
-    username: PG_USERNAME,
-    password: PG_PASSWORD,
-    database: "database_test",
-    host: PG_LOCALHOST,
-    dialect: "postgres",
+    username: POSTGRES_USERNAME,
+    password: POSTGRES_PASSWORD,
+    database: 'database_test',
+    host: POSTGRES_HOST,
+    dialect: 'postgres',
   },
-  /* 
-    Cloud Database when in production
-  */
   production: {
-    username: PG_CLOUDUSER,
-    password: PG_CLOUDPWD,
-    database: PG_CLOUDNAME,
-    host: PG_CLOUDHOST,
-    dialect: "postgres",
+    username: POSTGRES_USERNAME,
+    password: POSTGRES_PASSWORD,
+    database: POSTGRES_NAME,
+    host: POSTGRES_HOST,
+    dialect: 'postgres',
     logging: false,
     ssl: true,
     pool: {

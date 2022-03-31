@@ -1,27 +1,27 @@
-const { QueryTypes } = require("sequelize");
-const { Op } = require("sequelize");
+const { QueryTypes } = require('sequelize');
+const { Op } = require('sequelize');
 
 /* 
   Import models 
 */
-const db = require("../src/models");
+const db = require('../src/models');
 const { Cuisine } = db;
 const { City } = db;
 
 /* 
   Import utils
 */
-const generateSubQuery = require("../utils/generateSubQuery");
+const generateSubQuery = require('../utils/generateSubQuery');
 
 const CuisineService = {
   getAllCuisine: async () => {
     try {
       return await Cuisine.findAll({
-        order: [["id", "ASC"]],
+        order: [['id', 'ASC']],
         include: [
           {
             model: City,
-            as: "city",
+            as: 'city',
           },
         ],
       });
@@ -39,7 +39,7 @@ const CuisineService = {
         include: [
           {
             model: City,
-            as: "city",
+            as: 'city',
           },
         ],
       });
@@ -50,7 +50,7 @@ const CuisineService = {
 
   getMainCuisine: async (params, category, limit) => {
     try {
-      const model = "Cuisine";
+      const model = 'Cuisine';
       const subQuery = generateSubQuery(params);
 
       const sql = `SELECT *, ${subQuery} AS point
@@ -59,7 +59,7 @@ const CuisineService = {
 
       const mainCuisine = await db.sequelize.query(sql, {
         type: QueryTypes.SELECT,
-        include: [{ model: City, as: "city" }],
+        include: [{ model: City, as: 'city' }],
       });
 
       return mainCuisine ? mainCuisine : null;
@@ -80,7 +80,7 @@ const CuisineService = {
     try {
       return await Cuisine.findOne({
         where: { name: name },
-        include: [{ model: City, as: "city" }],
+        include: [{ model: City, as: 'city' }],
       });
     } catch (error) {
       return error;
@@ -91,7 +91,7 @@ const CuisineService = {
     try {
       return await Cuisine.findOne({
         where: { unique_point: unique_point },
-        include: [{ model: City, as: "city" }],
+        include: [{ model: City, as: 'city' }],
       });
     } catch (error) {
       return error;

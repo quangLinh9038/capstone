@@ -3,16 +3,16 @@
  */
 
 // include defined Neode instance
-const neode = require("../index");
+const neode = require('../index');
 
 const AccommodationNeo4jService = {
   getAll: async () => {
-    await neode.all("Accommodation");
+    await neode.all('Accommodation');
   },
 
   createAccommodation: async (properties) => {
     // CREATE (a:Accommodation {properties}) RETURN a
-    await neode.create("Accommodation", properties);
+    await neode.create('Accommodation', properties);
   },
 
   deleteOneAccommodationNode: async (unique_point) => {
@@ -22,16 +22,16 @@ const AccommodationNeo4jService = {
 
   deleteAllAccommodations: async () => {
     // DELETE (a:Accommodation) DETACH DELETE a;
-    await neode.deleteAll("Accommodation");
+    await neode.deleteAll('Accommodation');
   },
 
   updateAccommodation: async (unique_point, updateAccommodation) => {
     const accommodationToUpdate = await neode.first(
-      "Accommodation",
-      "unique_point",
+      'Accommodation',
+      'unique_point',
       `${unique_point}`
     );
-    return await accommodationToUpdate.update(updateAccommodation);
+    return accommodationToUpdate.update(updateAccommodation);
   },
 
   // init relationship between Place and Accommodation to create distance properties
@@ -49,7 +49,7 @@ const AccommodationNeo4jService = {
 
     return result
       ? console.log(`Init relationship success Accommodation to Cuisine`)
-      : console.log("Init relationship failure Accommodation to Cuisine");
+      : console.log('Init relationship failure Accommodation to Cuisine');
   },
 };
 

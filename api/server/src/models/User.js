@@ -1,4 +1,4 @@
-const { Model } = require("sequelize");
+const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
@@ -10,13 +10,13 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       User.belongsToMany(models.Interest, {
-        through: "UserInterest",
-        foreignKey: "user_id",
-        as: "interests",
+        through: 'UserInterest',
+        foreignKey: 'user_id',
+        as: 'interests',
       });
       User.hasMany(models.Trip, {
-        foreignKey: "user_id",
-        as: "trips",
+        foreignKey: 'user_id',
+        as: 'trips',
       });
     }
   }
@@ -45,7 +45,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: "User",
+      modelName: 'User',
       freezeTableName: true,
     }
   );

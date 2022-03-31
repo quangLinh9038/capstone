@@ -4,7 +4,7 @@
   "description": "Intelligent Trip Planner Application ",
   "engines": {
     "node": "16.x",
-    "npm": "7.x"
+    "npm": "8.x"
   },
   "main": "server.js",
   "scripts": {
@@ -31,11 +31,12 @@
   },
   "homepage": "https://github.com/quangLinh9038/capstone#readme",
   "dependencies": {
-    "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "chalk": "^4.1.2",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
+    "custom-env": "^2.0.1",
     "dotenv": "^9.0.2",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",

@@ -1,13 +1,11 @@
-const db = require("../src/models");
+const db = require('../src/models');
 
 const { User } = db;
 const { Interest } = db;
 const { UserInterest } = db;
 const { Trip } = db;
 const { Itinerary } = db;
-const { Place } = db;
 const { Accommodation } = db;
-const { Cuisine } = db;
 
 const UserService = {
   getAllUser: async () => {
@@ -26,12 +24,12 @@ const UserService = {
         include: [
           {
             model: Interest,
-            as: "interests",
-            attributes: ["id", "name", "img"],
+            as: 'interests',
+            attributes: ['id', 'name', 'img'],
           },
           {
             model: Trip,
-            as: "trips",
+            as: 'trips',
           },
         ],
       });
@@ -56,17 +54,17 @@ const UserService = {
         include: [
           {
             model: Interest,
-            as: "interests",
-            attributes: ["id", "name", "img"],
+            as: 'interests',
+            attributes: ['id', 'name', 'img'],
           },
           {
             model: Trip,
-            as: "trips",
+            as: 'trips',
             include: [
               {
                 model: Itinerary,
-                as: "itineraries",
-                include: [{ model: Accommodation, as: "accommodations" }],
+                as: 'itineraries',
+                include: [{ model: Accommodation, as: 'accommodations' }],
               },
             ],
           },
@@ -85,10 +83,9 @@ const UserService = {
       });
 
       if (userInterest) {
-        const deletedUserInterest = await UserInterest.destroy({
+        return await UserInterest.destroy({
           where: { user_id: user_id, interest_id: interest_id },
         });
-        return deletedUserInterest;
       }
       return null;
     } catch (error) {

@@ -1,0 +1,43 @@
+version: '3.9'
+services:
+  postgres:
+    image: arm64v8/postgres:14.2
+    ports:
+      - 5432:5432
+    env_file:
+      - ./.env.dev
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  neo4j:
+    image: arm64v8/neo4j:enterprise
+    ports:
+      - 7474:7474
+      - 7687:7687
+    volumes:
+      - neo4j_data:/var/lib/neo4j/data
+    env_file:
+      - ./.env.dev
+
+  trip-planner:
+    build:
+      context: ./
+    # command: npm run start
+    ports:
+      - 3000:3000
+    env_file:
+      - ./.env.dev
+    volumes:
+      - ./:/trip-planner
+    depends_on:
+      - postgres
+      - neo4j
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+volumes:
+  pgdata: {}
+  neo4j_data: {}

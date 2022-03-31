@@ -1,8 +1,8 @@
-const db = require("../src/models");
-const UserService = require("../service/user.service");
-const InterestService = require("../service/interest.service");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+const db = require('../src/models');
+const UserService = require('../service/user.service');
+const InterestService = require('../service/interest.service');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 const { User } = db;
 
@@ -17,12 +17,12 @@ const UserController = {
       const user = await UserService.getOneUserByEmail(email);
 
       if (user)
-        return res.status(400).json({ msg: "The email already exists." });
+        return res.status(400).json({ msg: 'The email already exists.' });
 
       if (password.length < 6)
         return res
           .status(400)
-          .json({ msg: "Password is at least 6 characters." });
+          .json({ msg: 'Password is at least 6 characters.' });
 
       //Password Encryption
       const passwordHash = await bcrypt.hash(password, 10);
@@ -42,9 +42,9 @@ const UserController = {
       const refreshToken = createRefreshToken({ id: newUser.id });
 
       //auto refresh token after the access token expired
-      res.cookie("refreshToken", refreshToken, {
+      res.cookie('refreshToken', refreshToken, {
         httpOnly: true,
-        path: "/users/refresh_token",
+        path: '/users/refresh_token',
         maxAge: 7 * 24 * 60 * 60 * 1000, //7d
       });
 
@@ -60,19 +60,20 @@ const UserController = {
       const { email, password } = req.body;
 
       const user = await UserService.getOneUserByEmail(email);
-      if (!user) return res.status(400).json({ msg: "User does not exist." });
+      if (!user) return res.status(400).json({ msg: 'User does not exist.' });
 
-      const isMatch = await bcrypt.compare(password, user.password);
-      if (!isMatch) return res.status(400).json({ msg: "Wrong password." });
+      const isMatch = await bcrypt.compareSync(password, user.password);
+
+      if (!isMatch) return res.status(400).json({ msg: 'Wrong password.' });
 
       //If login success, create access token and refresh token
       const accessToken = createAccessToken({ id: user.id });
       const refreshToken = createRefreshToken({ id: user.id });
 
       //auto refresh token after the access token expired
-      res.cookie("refreshToken", refreshToken, {
+      res.cookie('refreshToken', refreshToken, {
         httpOnly: true,
-        path: "/users/refresh_token",
+        path: '/users/refresh_token',
         maxAge: 7 * 24 * 60 * 60 * 1000, //7d
       });
 
@@ -88,8 +89,8 @@ const UserController = {
   */
   logout: async (req, res) => {
     try {
-      res.clearCookie("refreshToken", { path: "/users/refresh_token" });
-      return res.json({ msg: "Logged Out" });
+      res.clearCookie('refreshToken', { path: '/users/refresh_token' });
+      return res.json({ msg: 'Logged Out' });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
@@ -102,17 +103,17 @@ const UserController = {
     try {
       const rf_token = req.cookies.refreshToken;
       if (!rf_token)
-        return res.status(400).json({ msg: "Please Login or Register" });
+        return res.status(400).json({ msg: 'Please Login or Register' });
 
       jwt.verify(rf_token, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
         if (err) {
-          return res.status(400).json({ msg: "Please Login or Register" });
+          return res.status(400).json({ msg: 'Please Login or Register' });
         }
 
         const accessToken = createAccessToken({ id: user.id });
         return res
           .status(200)
-          .json({ status: "success", accessToken: accessToken });
+          .json({ status: 'success', accessToken: accessToken });
       });
 
       return res.json({ rf_token });
@@ -130,7 +131,7 @@ const UserController = {
 
       return user
         ? res.status(200).json(user)
-        : res.status(400).json({ msg: "User does not exist." });
+        : res.status(400).json({ msg: 'User does not exist.' });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
@@ -141,9 +142,9 @@ const UserController = {
       const trips = await UserService.getTripsByUser(req.user.id);
 
       return trips
-        ? res.status(200).json({ status: "success", data: trips })
+        ? res.status(200).json({ status: 'success', data: trips })
         : res.status(404).json({
-            status: "failure",
+            status: 'failure',
             msg: `Trips not found with User ${id}`,
           });
     } catch (error) {
@@ -170,10 +171,10 @@ const UserController = {
         }
         const UserInterest = await UserService.getUserInfo(req.user.id);
 
-        return res.status(200).json({ status: "success", data: UserInterest });
+        return res.status(200).json({ status: 'success', data: UserInterest });
       }
       return res.status(404).json({
-        status: "failure",
+        status: 'failure',
         message: `User with ID: 
       ${uId} not found!`,
       });
@@ -190,21 +191,23 @@ const UserController = {
       const user = await UserService.getUserInfo(uId);
 
       if (user) {
-      /* 
+        /* 
         Remove list of Interests 
       */
-      for (const interest of interests) {
-        const _interest = await InterestService.getInterestInfo(interest);
-        await user.removeInterest(_interest);
+        for (const interest of interests) {
+          const _interest = await InterestService.getInterestInfo(interest);
+          await user.removeInterest(_interest);
+        }
+        const UserInterest = await UserService.getUserInfo(req.user.id);
+        return res
+          .status(200)
+          .json({ status: 'Delete Interest Successfully', data: UserInterest });
       }
-      const UserInterest = await UserService.getUserInfo(req.user.id);
-      return res.status(200).json({ status: "Delete Interest Successfully", data: UserInterest });
-    }
-    return res.status(404).json({
-      status: "failure",
-      message: `User with ID: 
+      return res.status(404).json({
+        status: 'failure',
+        message: `User with ID: 
     ${uId} not found!`,
-    });
+      });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
@@ -216,11 +219,11 @@ const UserController = {
 
       if (allUsers.length) {
         await UserService.deleteAllUser();
-        return res.status(200).json({ status: "success" });
+        return res.status(200).json({ status: 'success' });
       }
       return res
         .status(404)
-        .json({ status: "error", message: "Users are empty" });
+        .json({ status: 'error', message: 'Users are empty' });
     } catch (error) {
       return res.status(500).json({ msg: error.message });
     }
@@ -228,11 +231,11 @@ const UserController = {
 };
 
 const createAccessToken = (user) => {
-  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "7h" });
+  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '7h' });
 };
 
 const createRefreshToken = (user) => {
-  return jwt.sign(user, process.env.REFRESH_TOKEN_SECRET, { expiresIn: "7d" });
+  return jwt.sign(user, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '7d' });
 };
 
 module.exports = UserController;
